@@ -13,6 +13,8 @@ public class CoreDataManager {
   public static let shared = CoreDataManager()
 
   let identifier = "me.dutour.mathieu.TimeLineShared"
+  let groupIdentifier = "group.me.dutour.mathieu.TimeLine"
+  let cloudkitIdentifier = "iCloud.me.dutour.mathieu.TimeLine"
   let model = "Model"
 
   lazy var persistentContainer: NSPersistentCloudKitContainer = {
@@ -28,9 +30,13 @@ public class CoreDataManager {
     */
     let container = NSPersistentCloudKitContainer(name: self.model, managedObjectModel: managedObjectModel!)
 
-    let store = storeURL(for: "group.me.dutour.mathieu.TimeLine", databaseName: "TimeLine")
+    let store = storeURL(for: groupIdentifier, databaseName: "TimeLine")
     let storeDescription = NSPersistentStoreDescription(url: store)
+    storeDescription.cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(containerIdentifier: cloudkitIdentifier)
+
     container.persistentStoreDescriptions = [storeDescription]
+
+    container.viewContext.automaticallyMergesChangesFromParent = true
 
     container.loadPersistentStores(completionHandler: { (storeDescription, error) in
       if let error = error as NSError? {

@@ -4,16 +4,16 @@ on:
   push:
     branches:
       - master
-    # paths:
-    #   - "TimeLine/*"
-    #   - "TimeLine/*/*"
-    #   - "TimeLine/*/*/*"
-    #   - "TimeLine Widget/*"
-    #   - "TimeLine Widget/*/*"
-    #   - "TimeLine Widget/*/*/*"
-    #   - "TimeLineShared/*"
-    #   - "TimeLineShared/*/*"
-    #   - "TimeLineShared/*/*/*"
+    paths:
+      - "TimeLine/*"
+      - "TimeLine/*/*"
+      - "TimeLine/*/*/*"
+      - "TimeLine Widget/*"
+      - "TimeLine Widget/*/*"
+      - "TimeLine Widget/*/*/*"
+      - "TimeLineShared/*"
+      - "TimeLineShared/*/*"
+      - "TimeLineShared/*/*/*"
 
 jobs:
   # ios-lint:
