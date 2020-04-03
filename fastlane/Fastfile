@@ -49,7 +49,7 @@ platform :ios do
   lane :beta do
     increment_build_number(build_number: ENV["BUILD_NUMBER"], xcodeproj: "TimeLine.xcodeproj")
     build_app(
-      project: "TimeLine.xcworkspace",
+      project: "TimeLine.xcodeproj",
       scheme: "TimeLine",
       include_bitcode: true,
       xcargs: "\"FASTLANE_BUILD\"=\"YES\""
