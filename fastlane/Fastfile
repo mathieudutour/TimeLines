@@ -61,7 +61,7 @@ platform :ios do
       include_bitcode: true,
       xcargs: "\"FASTLANE_BUILD\"=\"YES\""
     )
-    upload_to_testflight(skip_waiting_for_build_processing: true, apple_id: "1474784231")
+    upload_to_testflight(skip_waiting_for_build_processing: true, apple_id: "1506203873")
   end
 
   after_all do
