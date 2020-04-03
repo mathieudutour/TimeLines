@@ -103,8 +103,6 @@ public class CustomLine: UIView {
       let sunrise = solar.civilSunrise,
       let sunset = solar.civilSunset
     else {
-      print(self.solar)
-
       path.addLine(to: CGPoint(
         x: frame.origin.x + frame.width,
         y: frame.origin.y + frame.height)
