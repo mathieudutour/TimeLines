@@ -12,6 +12,7 @@ public extension TimeZone {
   func diffInSecond() -> Int {
     return self.secondsFromGMT() - TimeZone.autoupdatingCurrent.secondsFromGMT()
   }
+
   func prettyPrint() -> String {
     let diff = self.diffInSecond()
     let formatter = NumberFormatter()
