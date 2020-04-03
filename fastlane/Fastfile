@@ -41,6 +41,13 @@ platform :ios do
         app_identifier: "me.dutour.mathieu.TimeLine",
         readonly: true
       )
+      match(
+        keychain_name: "GithubActionKeychain",
+        keychain_password: ENV["MATCH_PASSWORD"],
+        type: "appstore",
+        app_identifier: "me.dutour.mathieu.TimeLine.TimeLine-Widget",
+        readonly: true
+      )
     else
       match(type: "appstore")
     end
