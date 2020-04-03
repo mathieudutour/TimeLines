@@ -18,8 +18,25 @@ public extension Contact {
   }
 
 //  var timeZone: TimeZone {
-//    CLGeocoder().reverseGeocodeLocation(self.location) { placemarks, error in
-//      
+//    let group = DispatchGroup()
+//    group.enter()
+//
+//    var resolvedTimezone: TimeZone?
+//
+//    CLGeocoder().reverseGeocodeLocation(CLLocation(latitude: self.location.latitude, longitude: self.location.longitude)) { placemarks, error in
+//      print(placemarks)
+//      if let placemarks = placemarks, placemarks.count > 0 {
+//        resolvedTimezone = placemarks[0].timeZone
+//      }
+//      group.leave()
 //    }
+//
+//    group.wait()
+//
+//    if let resolvedTimezone = resolvedTimezone {
+//      return resolvedTimezone
+//    }
+//
+//    return TimeZone(secondsFromGMT: 0)!
 //  }
 }
