@@ -49,7 +49,7 @@ jobs:
           FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
           FASTLANE_PASSWORD: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-          GITHUB_PASSWORD: ${{ secrets.GITHUB_PASSWORD }}
-          GITHUB_USERNAME: ${{ secrets.GITHUB_USERNAME }}
+          GITHUB_PASSWORD: ${{ secrets.GH_PASSWORD }}
+          GITHUB_USERNAME: ${{ secrets.GH_USERNAME }}
           BUILD_NUMBER: ${{ steps.buildnumber.outputs.build_number }}
           DEVELOPER_DIR: "/Applications/Xcode_11.2.1.app"
