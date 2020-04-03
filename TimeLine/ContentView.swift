@@ -7,15 +7,49 @@
 //
 
 import SwiftUI
+import TimeLineShared
+import CoreLocation
 
 struct ContentView: View {
-    var body: some View {
-        Text("Hello, World!")
+  @Environment(\.managedObjectContext) var context
+
+  @FetchRequest(
+      entity: Contact.entity(),
+      sortDescriptors: [NSSortDescriptor(keyPath: \Contact.index, ascending: true)]
+  ) var contacts: FetchedResults<Contact>
+
+  var body: some View {
+    NavigationView {
+      List {
+        ForEach(contacts, id: \.self) { (contact: Contact) in
+          NavigationLink(destination: ContactDetail(contact: contact)) {
+            ContactRow(
+              name: contact.name ?? "",
+              timezone: TimeZone(secondsFromGMT: Int(contact.timezone)),
+              coordinate: contact.location
+            )
+          }
+        }
+        .onDelete(perform: self.deleteContact)
+      }
+      .navigationBarTitle(Text("Contacts"))
+      .navigationBarItems(
+        trailing: NavigationLink(destination: ContactEdition(contact: nil)) {
+        Text("Add Contact")
+      })
     }
+
+  }
+
+  private func deleteContact(at indexSet: IndexSet) {
+    for index in indexSet {
+      CoreDataManager.shared.deleteContact(contacts[index])
+    }
+  }
 }
 
 struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
+  static var previews: some View {
+    ContentView()
+  }
 }

@@ -7,25 +7,106 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03D5A530243738D3004AC5EB /* WidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D5A52F243738D3004AC5EB /* WidgetView.swift */; };
+		03D5A53324373C84004AC5EB /* TimeLineShared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03D633A32436165100F8D2CE /* TimeLineShared.framework */; };
+		03D5A53424373C84004AC5EB /* TimeLineShared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 03D633A32436165100F8D2CE /* TimeLineShared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		03D5A53624373CAD004AC5EB /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03D633B024361C6A00F8D2CE /* CloudKit.framework */; };
+		03D5A53B24374E96004AC5EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03D633652436149C00F8D2CE /* Assets.xcassets */; };
 		03D6335D2436149700F8D2CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D6335C2436149700F8D2CE /* AppDelegate.swift */; };
 		03D6335F2436149700F8D2CE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D6335E2436149700F8D2CE /* SceneDelegate.swift */; };
-		03D633622436149700F8D2CE /* TimeLine.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 03D633602436149700F8D2CE /* TimeLine.xcdatamodeld */; };
 		03D633642436149700F8D2CE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D633632436149700F8D2CE /* ContentView.swift */; };
 		03D633662436149C00F8D2CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03D633652436149C00F8D2CE /* Assets.xcassets */; };
 		03D633692436149C00F8D2CE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03D633682436149C00F8D2CE /* Preview Assets.xcassets */; };
 		03D6336C2436149C00F8D2CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 03D6336A2436149C00F8D2CE /* LaunchScreen.storyboard */; };
+		03D6337A2436151A00F8D2CE /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03D633792436151A00F8D2CE /* NotificationCenter.framework */; };
+		03D6337D2436151A00F8D2CE /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D6337C2436151A00F8D2CE /* TodayViewController.swift */; };
+		03D633802436151A00F8D2CE /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 03D6337E2436151A00F8D2CE /* MainInterface.storyboard */; };
+		03D633842436151A00F8D2CE /* TimeLine Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 03D633772436151A00F8D2CE /* TimeLine Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		03D633AC243619AF00F8D2CE /* TimeLineShared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03D633A32436165100F8D2CE /* TimeLineShared.framework */; };
+		03D633AD243619AF00F8D2CE /* TimeLineShared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 03D633A32436165100F8D2CE /* TimeLineShared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		03D633B124361C6A00F8D2CE /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03D633B024361C6A00F8D2CE /* CloudKit.framework */; };
+		03D633B72436261400F8D2CE /* ContactDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D633B62436261400F8D2CE /* ContactDetail.swift */; };
+		03D633B9243626C700F8D2CE /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D633B8243626C700F8D2CE /* MapView.swift */; };
+		03D633BE24362B8900F8D2CE /* ContactEdition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D633BD24362B8900F8D2CE /* ContactEdition.swift */; };
+		03D633C02436343700F8D2CE /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D633BF2436343700F8D2CE /* SearchBar.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		03D633822436151A00F8D2CE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 03D633512436149700F8D2CE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 03D633762436151A00F8D2CE;
+			remoteInfo = "TimeLine Widget";
+		};
+		03D633A22436165100F8D2CE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 03D6339E2436165100F8D2CE /* TimeLineShared.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 03D633932436165100F8D2CE;
+			remoteInfo = TimeLineShared;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		03D5A53524373C84004AC5EB /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				03D5A53424373C84004AC5EB /* TimeLineShared.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		03D633882436151A00F8D2CE /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				03D633842436151A00F8D2CE /* TimeLine Widget.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		03D633AE243619AF00F8D2CE /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				03D633AD243619AF00F8D2CE /* TimeLineShared.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		03D5A52F243738D3004AC5EB /* WidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetView.swift; sourceTree = "<group>"; };
+		03D5A53224373BBB004AC5EB /* TimeLine Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "TimeLine Widget.entitlements"; sourceTree = "<group>"; };
 		03D633592436149700F8D2CE /* TimeLine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimeLine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03D6335C2436149700F8D2CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		03D6335E2436149700F8D2CE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		03D633612436149700F8D2CE /* TimeLine.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TimeLine.xcdatamodel; sourceTree = "<group>"; };
 		03D633632436149700F8D2CE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		03D633652436149C00F8D2CE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		03D633682436149C00F8D2CE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		03D6336B2436149C00F8D2CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		03D6336D2436149C00F8D2CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		03D633772436151A00F8D2CE /* TimeLine Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "TimeLine Widget.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		03D633792436151A00F8D2CE /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		03D6337C2436151A00F8D2CE /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		03D6337F2436151A00F8D2CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		03D633812436151A00F8D2CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		03D6339E2436165100F8D2CE /* TimeLineShared.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TimeLineShared.xcodeproj; path = TimeLineShared/TimeLineShared.xcodeproj; sourceTree = "<group>"; };
+		03D633AF24361C5D00F8D2CE /* TimeLine.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TimeLine.entitlements; sourceTree = "<group>"; };
+		03D633B024361C6A00F8D2CE /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		03D633B62436261400F8D2CE /* ContactDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetail.swift; sourceTree = "<group>"; };
+		03D633B8243626C700F8D2CE /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		03D633BD24362B8900F8D2CE /* ContactEdition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactEdition.swift; sourceTree = "<group>"; };
+		03D633BF2436343700F8D2CE /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +114,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03D633AC243619AF00F8D2CE /* TimeLineShared.framework in Frameworks */,
+				03D633B124361C6A00F8D2CE /* CloudKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		03D633742436151A00F8D2CE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03D5A53624373CAD004AC5EB /* CloudKit.framework in Frameworks */,
+				03D5A53324373C84004AC5EB /* TimeLineShared.framework in Frameworks */,
+				03D6337A2436151A00F8D2CE /* NotificationCenter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -43,6 +136,8 @@
 			isa = PBXGroup;
 			children = (
 				03D6335B2436149700F8D2CE /* TimeLine */,
+				03D6337B2436151A00F8D2CE /* TimeLine Widget */,
+				03D633782436151A00F8D2CE /* Frameworks */,
 				03D6335A2436149700F8D2CE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -51,6 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				03D633592436149700F8D2CE /* TimeLine.app */,
+				03D633772436151A00F8D2CE /* TimeLine Widget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -58,13 +154,18 @@
 		03D6335B2436149700F8D2CE /* TimeLine */ = {
 			isa = PBXGroup;
 			children = (
+				03D633AF24361C5D00F8D2CE /* TimeLine.entitlements */,
 				03D6335C2436149700F8D2CE /* AppDelegate.swift */,
 				03D6335E2436149700F8D2CE /* SceneDelegate.swift */,
 				03D633632436149700F8D2CE /* ContentView.swift */,
+				03D633BD24362B8900F8D2CE /* ContactEdition.swift */,
+				03D633BF2436343700F8D2CE /* SearchBar.swift */,
+				03D633B62436261400F8D2CE /* ContactDetail.swift */,
+				03D633B8243626C700F8D2CE /* MapView.swift */,
+				03D633BA2436275E00F8D2CE /* Resources */,
 				03D633652436149C00F8D2CE /* Assets.xcassets */,
 				03D6336A2436149C00F8D2CE /* LaunchScreen.storyboard */,
 				03D6336D2436149C00F8D2CE /* Info.plist */,
-				03D633602436149700F8D2CE /* TimeLine.xcdatamodeld */,
 				03D633672436149C00F8D2CE /* Preview Content */,
 			);
 			path = TimeLine;
@@ -78,6 +179,43 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		03D633782436151A00F8D2CE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				03D633B024361C6A00F8D2CE /* CloudKit.framework */,
+				03D6339E2436165100F8D2CE /* TimeLineShared.xcodeproj */,
+				03D633792436151A00F8D2CE /* NotificationCenter.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		03D6337B2436151A00F8D2CE /* TimeLine Widget */ = {
+			isa = PBXGroup;
+			children = (
+				03D5A53224373BBB004AC5EB /* TimeLine Widget.entitlements */,
+				03D6337C2436151A00F8D2CE /* TodayViewController.swift */,
+				03D6337E2436151A00F8D2CE /* MainInterface.storyboard */,
+				03D5A52F243738D3004AC5EB /* WidgetView.swift */,
+				03D633812436151A00F8D2CE /* Info.plist */,
+			);
+			path = "TimeLine Widget";
+			sourceTree = "<group>";
+		};
+		03D6339F2436165100F8D2CE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				03D633A32436165100F8D2CE /* TimeLineShared.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		03D633BA2436275E00F8D2CE /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -88,15 +226,36 @@
 				03D633552436149700F8D2CE /* Sources */,
 				03D633562436149700F8D2CE /* Frameworks */,
 				03D633572436149700F8D2CE /* Resources */,
+				03D633882436151A00F8D2CE /* Embed App Extensions */,
+				03D633AE243619AF00F8D2CE /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				03D633832436151A00F8D2CE /* PBXTargetDependency */,
 			);
 			name = TimeLine;
 			productName = TimeLine;
 			productReference = 03D633592436149700F8D2CE /* TimeLine.app */;
 			productType = "com.apple.product-type.application";
+		};
+		03D633762436151A00F8D2CE /* TimeLine Widget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 03D633852436151A00F8D2CE /* Build configuration list for PBXNativeTarget "TimeLine Widget" */;
+			buildPhases = (
+				03D633732436151A00F8D2CE /* Sources */,
+				03D633742436151A00F8D2CE /* Frameworks */,
+				03D633752436151A00F8D2CE /* Resources */,
+				03D5A53524373C84004AC5EB /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "TimeLine Widget";
+			productName = "TimeLine Widget";
+			productReference = 03D633772436151A00F8D2CE /* TimeLine Widget.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -109,6 +268,9 @@
 				ORGANIZATIONNAME = "Mathieu Dutour";
 				TargetAttributes = {
 					03D633582436149700F8D2CE = {
+						CreatedOnToolsVersion = 11.4;
+					};
+					03D633762436151A00F8D2CE = {
 						CreatedOnToolsVersion = 11.4;
 					};
 				};
@@ -124,12 +286,29 @@
 			mainGroup = 03D633502436149700F8D2CE;
 			productRefGroup = 03D6335A2436149700F8D2CE /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 03D6339F2436165100F8D2CE /* Products */;
+					ProjectRef = 03D6339E2436165100F8D2CE /* TimeLineShared.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				03D633582436149700F8D2CE /* TimeLine */,
+				03D633762436151A00F8D2CE /* TimeLine Widget */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		03D633A32436165100F8D2CE /* TimeLineShared.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = TimeLineShared.framework;
+			remoteRef = 03D633A22436165100F8D2CE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		03D633572436149700F8D2CE /* Resources */ = {
@@ -142,6 +321,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		03D633752436151A00F8D2CE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03D5A53B24374E96004AC5EB /* Assets.xcassets in Resources */,
+				03D633802436151A00F8D2CE /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -149,14 +337,34 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				03D633622436149700F8D2CE /* TimeLine.xcdatamodeld in Sources */,
+				03D633B9243626C700F8D2CE /* MapView.swift in Sources */,
+				03D633B72436261400F8D2CE /* ContactDetail.swift in Sources */,
 				03D6335D2436149700F8D2CE /* AppDelegate.swift in Sources */,
+				03D633C02436343700F8D2CE /* SearchBar.swift in Sources */,
 				03D633642436149700F8D2CE /* ContentView.swift in Sources */,
 				03D6335F2436149700F8D2CE /* SceneDelegate.swift in Sources */,
+				03D633BE24362B8900F8D2CE /* ContactEdition.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		03D633732436151A00F8D2CE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03D5A530243738D3004AC5EB /* WidgetView.swift in Sources */,
+				03D6337D2436151A00F8D2CE /* TodayViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		03D633832436151A00F8D2CE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 03D633762436151A00F8D2CE /* TimeLine Widget */;
+			targetProxy = 03D633822436151A00F8D2CE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		03D6336A2436149C00F8D2CE /* LaunchScreen.storyboard */ = {
@@ -165,6 +373,14 @@
 				03D6336B2436149C00F8D2CE /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		03D6337E2436151A00F8D2CE /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				03D6337F2436151A00F8D2CE /* Base */,
+			);
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -287,11 +503,15 @@
 		03D633712436149C00F8D2CE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = TimeLine/TimeLine.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"TimeLine/Preview Content\"";
+				DEVELOPMENT_TEAM = 8SEPFSC7S3;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = TimeLine/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -306,17 +526,63 @@
 		03D633722436149C00F8D2CE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = TimeLine/TimeLine.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"TimeLine/Preview Content\"";
+				DEVELOPMENT_TEAM = 8SEPFSC7S3;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = TimeLine/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = me.dutour.mathieu.TimeLine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		03D633862436151A00F8D2CE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "TimeLine Widget/TimeLine Widget.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8SEPFSC7S3;
+				INFOPLIST_FILE = "TimeLine Widget/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "me.dutour.mathieu.TimeLine.TimeLine-Widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		03D633872436151A00F8D2CE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "TimeLine Widget/TimeLine Widget.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8SEPFSC7S3;
+				INFOPLIST_FILE = "TimeLine Widget/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "me.dutour.mathieu.TimeLine.TimeLine-Widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -343,20 +609,16 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-/* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		03D633602436149700F8D2CE /* TimeLine.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				03D633612436149700F8D2CE /* TimeLine.xcdatamodel */,
+		03D633852436151A00F8D2CE /* Build configuration list for PBXNativeTarget "TimeLine Widget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				03D633862436151A00F8D2CE /* Debug */,
+				03D633872436151A00F8D2CE /* Release */,
 			);
-			currentVersion = 03D633612436149700F8D2CE /* TimeLine.xcdatamodel */;
-			path = TimeLine.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
-/* End XCVersionGroup section */
+/* End XCConfigurationList section */
 	};
 	rootObject = 03D633512436149700F8D2CE /* Project object */;
 }

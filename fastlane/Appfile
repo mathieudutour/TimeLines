@@ -1,0 +1,9 @@
+app_identifier("me.dutour.mathieu.TimeLine") # The bundle identifier of your app
+
+apple_id("mathieu.dutour@me.com") # Your Apple email address
+
+itc_team_id("117120860") # App Store Connect Team ID
+team_id("8SEPFSC7S3") # Developer Portal Team ID
+
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile

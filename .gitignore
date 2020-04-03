@@ -1,0 +1,14 @@
+# Logs
+logs
+*.log
+
+# secrets
+config.*.yml
+
+# Mac files
+.DS_Store
+
+*.xcodeproj/xcuserdata
+**/*.xcodeproj/xcuserdata
+.env.sh
+screenshots
