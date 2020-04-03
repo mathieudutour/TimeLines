@@ -12,3 +12,5 @@ config.*.yml
 **/*.xcodeproj/xcuserdata
 .env.sh
 screenshots
+TimeLine.app.dSYM.zip
+TimeLine.ipa

@@ -16,8 +16,8 @@
 default_platform(:ios)
 
 lane :certificates do
-  match(type: "development", app_identifier: ["me.dutour.mathieu.TimeLine"], force_for_new_devices: true)
-  match(type: "appstore", app_identifier: ["me.dutour.mathieu.TimeLine"])
+  match(type: "development", app_identifier: ["me.dutour.mathieu.TimeLine", "me.dutour.mathieu.TimeLine.TimeLine-Widget"], force_for_new_devices: true)
+  match(type: "appstore", app_identifier: ["me.dutour.mathieu.TimeLine", "me.dutour.mathieu.TimeLine.TimeLine-Widget"])
 end
 
 platform :ios do
