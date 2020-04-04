@@ -36,7 +36,9 @@ public class CoreDataManager {
 
     container.persistentStoreDescriptions = [storeDescription]
 
+    // set up cloud sync
     container.viewContext.automaticallyMergesChangesFromParent = true
+    container.viewContext.mergePolicy = NSMergePolicy.mergeByPropertyStoreTrump
 
     container.loadPersistentStores(completionHandler: { (storeDescription, error) in
       if let error = error as NSError? {
