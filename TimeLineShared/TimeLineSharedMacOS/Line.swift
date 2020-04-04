@@ -224,7 +224,7 @@ public class CustomLine: NSView {
     if timePoint < sunsetPoint && timePoint > sunrisePoint {
       // find the position on the parabola
       let w = frame.width * (sunsetPoint - sunrisePoint)
-      let x1 = frame.origin.x + frame.width * CGFloat(sunrisePoint)
+      let x1 = frame.width * CGFloat(sunrisePoint)
       let c = y
       let b = 4 * frame.height / w
       let a = -b / w
