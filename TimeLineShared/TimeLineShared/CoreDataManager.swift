@@ -78,6 +78,7 @@ public class CoreDataManager {
   }
 
   public func createContact(name: String, latitude: Double, longitude: Double, locationName: String, timezone: Int16) {
+    let index = self.count()
     let context = persistentContainer.viewContext
     let contact = NSEntityDescription.insertNewObject(forEntityName: "Contact", into: context) as! Contact
 
@@ -86,6 +87,7 @@ public class CoreDataManager {
     contact.latitude = latitude
     contact.locationName = locationName
     contact.timezone = timezone
+    contact.index = Int16(index)
 
     do {
       try context.save()
@@ -107,18 +109,57 @@ public class CoreDataManager {
     }
   }
 
-  public func fetch() {
+  public func moveContact(from source: Int, to destination: Int) {
+    if source == destination {
+      return
+    }
+
+    let context = persistentContainer.viewContext
+
+    context.performAndWait {
+      var contacts = self.fetch()
+      let sourceContact = contacts[source]
+      contacts.remove(at: source)
+
+      // for some reason, we need this
+      var realDestination = destination
+      if source < destination {
+        realDestination -= 1
+      }
+
+      if realDestination > contacts.count {
+        contacts.append(sourceContact)
+      } else {
+        contacts.insert(sourceContact, at: realDestination)
+      }
+
+      var i = 0
+      for contact in contacts {
+        contact.index = Int16(i)
+        i += 1
+      }
+    }
+
+    do {
+      try context.save()
+      print("✅ Contact moved succesfuly")
+    } catch let error {
+      print("❌ Failed to moved Contact: \(error.localizedDescription)")
+    }
+  }
+
+  public func fetch() -> [Contact] {
     let context = persistentContainer.viewContext
     let fetchRequest = NSFetchRequest<Contact>(entityName: "Contact")
+    fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \Contact.index, ascending: true)]
 
     do {
       let contacts = try context.fetch(fetchRequest)
 
-      for (index, contact) in contacts.enumerated() {
-        print("Contact \(index): \(contact.name ?? "N/A") (\(contact.latitude):\(contact.longitude))")
-      }
+      return contacts
     } catch let fetchErr {
-        print("❌ Failed to fetch Contact:",fetchErr)
+      print("❌ Failed to fetch Contact:",fetchErr)
+      return []
     }
   }
 

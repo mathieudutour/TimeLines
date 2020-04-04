@@ -31,13 +31,12 @@ struct ContentView: View {
           }
         }
         .onDelete(perform: self.deleteContact)
+        .onMove(perform: self.moveContact)
       }
       .navigationBarTitle(Text("Contacts"))
-      .navigationBarItems(
-        trailing: NavigationLink(destination: ContactEdition(contact: nil)) {
-        Text("Add Contact")
+      .navigationBarItems(leading: EditButton(), trailing: NavigationLink(destination: ContactEdition(contact: nil)) {
+        Image(systemName: "plus")
       })
-//      .listStyle(SidebarListStyle()) 
     }
 
   }
@@ -45,6 +44,12 @@ struct ContentView: View {
   private func deleteContact(at indexSet: IndexSet) {
     for index in indexSet {
       CoreDataManager.shared.deleteContact(contacts[index])
+    }
+  }
+
+  private func moveContact(from source: IndexSet, to destination: Int) {
+    for index in source {
+      CoreDataManager.shared.moveContact(from: index, to: destination)
     }
   }
 }
