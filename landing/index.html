@@ -1,0 +1,194 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>TimeLine - World Clock</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta
+      name="description"
+      content="Know when all your friends, colleagues and family are"
+    />
+    <meta name="keywords" content="timeline, clock, timezone" />
+    <link rel="shortcut icon" type="image/png" href="favicon.png" />
+    <style>
+      body {
+        width: 100%;
+        min-height: calc(100% + 50px);
+        padding: 0px;
+        margin: 0px;
+        color: black;
+        background: linear-gradient(to bottom right, #fbfbfb, #f3f3f3);
+        font-family: "Helvetica", sans-serif;
+      }
+
+      main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: calc(100% - 50px);
+      }
+
+      .first {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+        padding-right: 64px;
+      }
+
+      .second {
+        flex: 1;
+        padding-left: 64px;
+      }
+
+      .right_container {
+        margin-top: -16px;
+      }
+
+      .app_screen {
+        width: 320px;
+        height: 568px;
+        background: black;
+        border-radius: 16px;
+        background: url("./ios_screen.png");
+        background-repeat: no-repeat;
+        background-size: 100%;
+        box-shadow: 64px 64px 144px rgba(0, 0, 0, 0.2);
+      }
+
+      .title {
+        font-size: 64px;
+        font-weight: 900;
+        line-height: 56px;
+        text-shadow: 32px 32px 96px rgba(0, 0, 0, 0.1);
+      }
+
+      .desc {
+        font-size: 18px;
+        line-height: 26px;
+        opacity: 0.5;
+        width: 280px;
+        margin-top: 44px;
+        margin-bottom: 52px;
+      }
+
+      .download_the_app_btn {
+        width: 243px;
+        height: 72px;
+        background: url("./app_store_btn.svg");
+        background-color: transparent;
+        background-repeat: no-repeat;
+        background-size: 100%;
+        display: block;
+        box-shadow: 32px 32px 96px rgba(0, 0, 0, 0.1);
+      }
+
+      @media (max-width: 1024px) {
+        .first {
+          align-items: center;
+        }
+        .container {
+          align-items: center;
+        }
+      }
+
+      @media (max-width: 900px) {
+        main {
+          display: block;
+        }
+
+        .first {
+          padding-top: 56px;
+        }
+
+        .app_screen {
+          box-shadow: 48px 48px 96px rgba(0, 0, 0, 0.1);
+        }
+      }
+
+      @media (max-width: 414px) {
+        main {
+          display: flex;
+          flex-flow: column-reverse;
+        }
+
+        .title {
+          text-align: center;
+        }
+
+        .first {
+          padding: 0;
+          align-items: flex-start;
+        }
+        .second {
+          padding-left: 0;
+          padding-top: 96px;
+        }
+        .desc {
+          text-align: center;
+        }
+
+        .right_container {
+          margin: 0;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          display: flex;
+          flex-flow: column;
+        }
+        .app_screen {
+          margin-top: 96px;
+          margin-bottom: 60px;
+        }
+
+        .download_the_app_btn {
+          display: block;
+        }
+      }
+
+      footer {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        height: 50px;
+        padding: 0 50px;
+        opacity: 0.6;
+      }
+
+      footer a {
+        color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="first">
+        <div class="app_screen"></div>
+      </div>
+      <div class="second">
+        <div class="right_container">
+          <div class="title">TimeLine</div>
+          <div class="desc">
+            Know <em>when</em> all your friends, colleagues and family are.
+          </div>
+          <a
+            href="https://testflight.apple.com/join/bE2a0E8C"
+            class="download_the_app_btn"
+          ></a>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <div>
+        Made with ♡ by
+        <a href="https://twitter.com/mathieudutour" target="_blank">Mathieu</a>
+      </div>
+      <div>
+        <a href="https://github.com/mathieudutour/TimeLine" target="_blank"
+          >Open source</a
+        >
+      </div>
+    </footer>
+  </body>
+</html>
