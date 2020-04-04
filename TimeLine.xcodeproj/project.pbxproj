@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,6 +11,16 @@
 		03D5A53324373C84004AC5EB /* TimeLineShared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03D633A32436165100F8D2CE /* TimeLineShared.framework */; };
 		03D5A53B24374E96004AC5EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03D633652436149C00F8D2CE /* Assets.xcassets */; };
 		03D5A54724378BFB004AC5EB /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03D633B024361C6A00F8D2CE /* CloudKit.framework */; };
+		03D5A5F22438C4FD004AC5EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D5A5F12438C4FD004AC5EB /* AppDelegate.swift */; };
+		03D5A5F62438C4FF004AC5EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03D5A5F52438C4FF004AC5EB /* Assets.xcassets */; };
+		03D5A5F92438C4FF004AC5EB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03D5A5F82438C4FF004AC5EB /* Preview Assets.xcassets */; };
+		03D5A5FC2438C4FF004AC5EB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 03D5A5FA2438C4FF004AC5EB /* Main.storyboard */; };
+		03D5A6062438C531004AC5EB /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D5A6022438C531004AC5EB /* MenuView.swift */; };
+		03D5A6072438C531004AC5EB /* StatusBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D5A6032438C531004AC5EB /* StatusBarController.swift */; };
+		03D5A6082438C531004AC5EB /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D5A6042438C531004AC5EB /* EventMonitor.swift */; };
+		03D5A60A2438C542004AC5EB /* TimeLineSharedMacOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03D5A5D42438B6D4004AC5EB /* TimeLineSharedMacOS.framework */; };
+		03D5A60B2438C542004AC5EB /* TimeLineSharedMacOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 03D5A5D42438B6D4004AC5EB /* TimeLineSharedMacOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		03D5A60E2438C564004AC5EB /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03D5A60D2438C564004AC5EB /* CloudKit.framework */; };
 		03D6335D2436149700F8D2CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D6335C2436149700F8D2CE /* AppDelegate.swift */; };
 		03D6335F2436149700F8D2CE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D6335E2436149700F8D2CE /* SceneDelegate.swift */; };
 		03D633642436149700F8D2CE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D633632436149700F8D2CE /* ContentView.swift */; };
@@ -20,7 +30,7 @@
 		03D6337A2436151A00F8D2CE /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03D633792436151A00F8D2CE /* NotificationCenter.framework */; };
 		03D6337D2436151A00F8D2CE /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D6337C2436151A00F8D2CE /* TodayViewController.swift */; };
 		03D633802436151A00F8D2CE /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 03D6337E2436151A00F8D2CE /* MainInterface.storyboard */; };
-		03D633842436151A00F8D2CE /* TimeLine Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 03D633772436151A00F8D2CE /* TimeLine Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		03D633842436151A00F8D2CE /* TimeLine Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 03D633772436151A00F8D2CE /* TimeLine Widget.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		03D633AC243619AF00F8D2CE /* TimeLineShared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03D633A32436165100F8D2CE /* TimeLineShared.framework */; };
 		03D633AD243619AF00F8D2CE /* TimeLineShared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 03D633A32436165100F8D2CE /* TimeLineShared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		03D633B124361C6A00F8D2CE /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03D633B024361C6A00F8D2CE /* CloudKit.framework */; };
@@ -31,6 +41,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		03D5A5D32438B6D4004AC5EB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 03D6339E2436165100F8D2CE /* TimeLineShared.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 03D5A5C32438B68D004AC5EB;
+			remoteInfo = TimeLineSharedMacOS;
+		};
 		03D633822436151A00F8D2CE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 03D633512436149700F8D2CE /* Project object */;
@@ -48,6 +65,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		03D5A60C2438C542004AC5EB /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				03D5A60B2438C542004AC5EB /* TimeLineSharedMacOS.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		03D633882436151A00F8D2CE /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -75,6 +103,18 @@
 /* Begin PBXFileReference section */
 		03D5A52F243738D3004AC5EB /* WidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetView.swift; sourceTree = "<group>"; };
 		03D5A53224373BBB004AC5EB /* TimeLine Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "TimeLine Widget.entitlements"; sourceTree = "<group>"; };
+		03D5A5E12438C217004AC5EB /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/SwiftUI.framework; sourceTree = DEVELOPER_DIR; };
+		03D5A5EF2438C4FD004AC5EB /* TimeLineMacOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimeLineMacOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		03D5A5F12438C4FD004AC5EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		03D5A5F52438C4FF004AC5EB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		03D5A5F82438C4FF004AC5EB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		03D5A5FB2438C4FF004AC5EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		03D5A5FD2438C4FF004AC5EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		03D5A5FE2438C4FF004AC5EB /* TimeLineMacOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TimeLineMacOS.entitlements; sourceTree = "<group>"; };
+		03D5A6022438C531004AC5EB /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		03D5A6032438C531004AC5EB /* StatusBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarController.swift; sourceTree = "<group>"; };
+		03D5A6042438C531004AC5EB /* EventMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventMonitor.swift; sourceTree = "<group>"; };
+		03D5A60D2438C564004AC5EB /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
 		03D633592436149700F8D2CE /* TimeLine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimeLine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03D6335C2436149700F8D2CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		03D6335E2436149700F8D2CE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -98,6 +138,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		03D5A5EC2438C4FD004AC5EB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03D5A60A2438C542004AC5EB /* TimeLineSharedMacOS.framework in Frameworks */,
+				03D5A60E2438C564004AC5EB /* CloudKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		03D633562436149700F8D2CE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -120,11 +169,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		03D5A5F02438C4FD004AC5EB /* TimeLineMacOS */ = {
+			isa = PBXGroup;
+			children = (
+				03D5A5F12438C4FD004AC5EB /* AppDelegate.swift */,
+				03D5A6042438C531004AC5EB /* EventMonitor.swift */,
+				03D5A6022438C531004AC5EB /* MenuView.swift */,
+				03D5A6032438C531004AC5EB /* StatusBarController.swift */,
+				03D5A5F52438C4FF004AC5EB /* Assets.xcassets */,
+				03D5A5FA2438C4FF004AC5EB /* Main.storyboard */,
+				03D5A5FD2438C4FF004AC5EB /* Info.plist */,
+				03D5A5FE2438C4FF004AC5EB /* TimeLineMacOS.entitlements */,
+				03D5A5F72438C4FF004AC5EB /* Preview Content */,
+			);
+			path = TimeLineMacOS;
+			sourceTree = "<group>";
+		};
+		03D5A5F72438C4FF004AC5EB /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				03D5A5F82438C4FF004AC5EB /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
 		03D633502436149700F8D2CE = {
 			isa = PBXGroup;
 			children = (
 				03D6335B2436149700F8D2CE /* TimeLine */,
 				03D6337B2436151A00F8D2CE /* TimeLine Widget */,
+				03D5A5F02438C4FD004AC5EB /* TimeLineMacOS */,
 				03D633782436151A00F8D2CE /* Frameworks */,
 				03D6335A2436149700F8D2CE /* Products */,
 			);
@@ -135,6 +209,7 @@
 			children = (
 				03D633592436149700F8D2CE /* TimeLine.app */,
 				03D633772436151A00F8D2CE /* TimeLine Widget.appex */,
+				03D5A5EF2438C4FD004AC5EB /* TimeLineMacOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -170,6 +245,8 @@
 		03D633782436151A00F8D2CE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				03D5A60D2438C564004AC5EB /* CloudKit.framework */,
+				03D5A5E12438C217004AC5EB /* SwiftUI.framework */,
 				03D633B024361C6A00F8D2CE /* CloudKit.framework */,
 				03D6339E2436165100F8D2CE /* TimeLineShared.xcodeproj */,
 				03D633792436151A00F8D2CE /* NotificationCenter.framework */,
@@ -193,6 +270,7 @@
 			isa = PBXGroup;
 			children = (
 				03D633A32436165100F8D2CE /* TimeLineShared.framework */,
+				03D5A5D42438B6D4004AC5EB /* TimeLineSharedMacOS.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -207,6 +285,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		03D5A5EE2438C4FD004AC5EB /* TimeLineMacOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 03D5A5FF2438C4FF004AC5EB /* Build configuration list for PBXNativeTarget "TimeLineMacOS" */;
+			buildPhases = (
+				03D5A5EB2438C4FD004AC5EB /* Sources */,
+				03D5A5EC2438C4FD004AC5EB /* Frameworks */,
+				03D5A5ED2438C4FD004AC5EB /* Resources */,
+				03D5A60C2438C542004AC5EB /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TimeLineMacOS;
+			productName = TimeLineMacOS;
+			productReference = 03D5A5EF2438C4FD004AC5EB /* TimeLineMacOS.app */;
+			productType = "com.apple.product-type.application";
+		};
 		03D633582436149700F8D2CE /* TimeLine */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 03D633702436149C00F8D2CE /* Build configuration list for PBXNativeTarget "TimeLine" */;
@@ -254,6 +350,9 @@
 				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = "Mathieu Dutour";
 				TargetAttributes = {
+					03D5A5EE2438C4FD004AC5EB = {
+						CreatedOnToolsVersion = 11.4;
+					};
 					03D633582436149700F8D2CE = {
 						CreatedOnToolsVersion = 11.4;
 					};
@@ -283,11 +382,19 @@
 			targets = (
 				03D633582436149700F8D2CE /* TimeLine */,
 				03D633762436151A00F8D2CE /* TimeLine Widget */,
+				03D5A5EE2438C4FD004AC5EB /* TimeLineMacOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		03D5A5D42438B6D4004AC5EB /* TimeLineSharedMacOS.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = TimeLineSharedMacOS.framework;
+			remoteRef = 03D5A5D32438B6D4004AC5EB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		03D633A32436165100F8D2CE /* TimeLineShared.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -298,6 +405,16 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		03D5A5ED2438C4FD004AC5EB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03D5A5FC2438C4FF004AC5EB /* Main.storyboard in Resources */,
+				03D5A5F92438C4FF004AC5EB /* Preview Assets.xcassets in Resources */,
+				03D5A5F62438C4FF004AC5EB /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		03D633572436149700F8D2CE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -320,6 +437,17 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		03D5A5EB2438C4FD004AC5EB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03D5A6082438C531004AC5EB /* EventMonitor.swift in Sources */,
+				03D5A6072438C531004AC5EB /* StatusBarController.swift in Sources */,
+				03D5A6062438C531004AC5EB /* MenuView.swift in Sources */,
+				03D5A5F22438C4FD004AC5EB /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		03D633552436149700F8D2CE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -348,12 +476,21 @@
 /* Begin PBXTargetDependency section */
 		03D633832436151A00F8D2CE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
+			platformFilter = ios;
 			target = 03D633762436151A00F8D2CE /* TimeLine Widget */;
 			targetProxy = 03D633822436151A00F8D2CE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		03D5A5FA2438C4FF004AC5EB /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				03D5A5FB2438C4FF004AC5EB /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
 		03D6336A2436149C00F8D2CE /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -373,6 +510,54 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		03D5A6002438C4FF004AC5EB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = TimeLineMacOS/TimeLineMacOS.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"TimeLineMacOS/Preview Content\"";
+				DEVELOPMENT_TEAM = 8SEPFSC7S3;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = TimeLineMacOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = me.dutour.mathieu.TimeLineMacOS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		03D5A6012438C4FF004AC5EB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = TimeLineMacOS/TimeLineMacOS.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"TimeLineMacOS/Preview Content\"";
+				DEVELOPMENT_TEAM = 8SEPFSC7S3;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = TimeLineMacOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = me.dutour.mathieu.TimeLineMacOS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		03D6336E2436149C00F8D2CE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -493,11 +678,13 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = TimeLine/TimeLine.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_ASSET_PATHS = "\"TimeLine/Preview Content\"";
 				DEVELOPMENT_TEAM = 8SEPFSC7S3;
+				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = TimeLine/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -507,7 +694,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = me.dutour.mathieu.TimeLine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "match Development me.dutour.mathieu.TimeLine";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -525,6 +714,7 @@
 				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_ASSET_PATHS = "\"TimeLine/Preview Content\"";
 				DEVELOPMENT_TEAM = 8SEPFSC7S3;
+				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = TimeLine/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -535,6 +725,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = me.dutour.mathieu.TimeLine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore me.dutour.mathieu.TimeLine";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -560,6 +751,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development me.dutour.mathieu.TimeLine.TimeLine-Widget";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -584,6 +776,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore me.dutour.mathieu.TimeLine.TimeLine-Widget";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -592,6 +785,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		03D5A5FF2438C4FF004AC5EB /* Build configuration list for PBXNativeTarget "TimeLineMacOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				03D5A6002438C4FF004AC5EB /* Debug */,
+				03D5A6012438C4FF004AC5EB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		03D633542436149700F8D2CE /* Build configuration list for PBXProject "TimeLine" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

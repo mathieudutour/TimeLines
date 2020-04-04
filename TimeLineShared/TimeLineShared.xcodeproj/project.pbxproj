@@ -9,6 +9,14 @@
 /* Begin PBXBuildFile section */
 		03D5A53824373FB3004AC5EB /* ContactRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D5A53724373FB3004AC5EB /* ContactRow.swift */; };
 		03D5A53A24373FC6004AC5EB /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D5A53924373FC6004AC5EB /* Line.swift */; };
+		03D5A5C72438B68D004AC5EB /* TimeLineSharedMacOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 03D5A5C52438B68D004AC5EB /* TimeLineSharedMacOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		03D5A5CB2438B6C3004AC5EB /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D633A72436182000F8D2CE /* CoreDataManager.swift */; };
+		03D5A5CC2438B6C3004AC5EB /* Solar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D633C5243653AB00F8D2CE /* Solar.swift */; };
+		03D5A5CF2438B6C3004AC5EB /* Contact+location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D633B42436259B00F8D2CE /* Contact+location.swift */; };
+		03D5A5D02438B6C3004AC5EB /* TimeZone+print.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D633C324364BF000F8D2CE /* TimeZone+print.swift */; };
+		03D5A5D12438B6CB004AC5EB /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 03D633A4243616C200F8D2CE /* Model.xcdatamodeld */; };
+		03D5A5E52438C2A2004AC5EB /* ContactRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D5A5E42438C2A2004AC5EB /* ContactRow.swift */; };
+		03D5A5E72438C2B8004AC5EB /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D5A5E62438C2B8004AC5EB /* Line.swift */; };
 		03D633982436165100F8D2CE /* TimeLineShared.h in Headers */ = {isa = PBXBuildFile; fileRef = 03D633962436165100F8D2CE /* TimeLineShared.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		03D633A6243616C200F8D2CE /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 03D633A4243616C200F8D2CE /* Model.xcdatamodeld */; };
 		03D633A82436182000F8D2CE /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D633A72436182000F8D2CE /* CoreDataManager.swift */; };
@@ -18,10 +26,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		03D5A53724373FB3004AC5EB /* ContactRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactRow.swift; sourceTree = "<group>"; };
-		03D5A53924373FC6004AC5EB /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
+		03D5A53724373FB3004AC5EB /* ContactRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContactRow.swift; path = TimeLineShareIOS/ContactRow.swift; sourceTree = "<group>"; };
+		03D5A53924373FC6004AC5EB /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Line.swift; path = TimeLineShareIOS/Line.swift; sourceTree = "<group>"; };
+		03D5A5C32438B68D004AC5EB /* TimeLineSharedMacOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TimeLineSharedMacOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		03D5A5C52438B68D004AC5EB /* TimeLineSharedMacOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeLineSharedMacOS.h; sourceTree = "<group>"; };
+		03D5A5C62438B68D004AC5EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		03D5A5E42438C2A2004AC5EB /* ContactRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactRow.swift; sourceTree = "<group>"; };
+		03D5A5E62438C2B8004AC5EB /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
+		03D5A5E92438C453004AC5EB /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/SwiftUI.framework; sourceTree = DEVELOPER_DIR; };
 		03D633932436165100F8D2CE /* TimeLineShared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TimeLineShared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		03D633962436165100F8D2CE /* TimeLineShared.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeLineShared.h; sourceTree = "<group>"; };
+		03D633962436165100F8D2CE /* TimeLineShared.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TimeLineShared.h; path = TimeLineShareIOS/TimeLineShared.h; sourceTree = "<group>"; };
 		03D633972436165100F8D2CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		03D633A5243616C200F8D2CE /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		03D633A72436182000F8D2CE /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
@@ -31,6 +45,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		03D5A5C02438B68D004AC5EB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		03D633902436165100F8D2CE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -41,12 +62,43 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		03D5A5C42438B68D004AC5EB /* TimeLineSharedMacOS */ = {
+			isa = PBXGroup;
+			children = (
+				03D5A5C52438B68D004AC5EB /* TimeLineSharedMacOS.h */,
+				03D5A5C62438B68D004AC5EB /* Info.plist */,
+				03D5A5E42438C2A2004AC5EB /* ContactRow.swift */,
+				03D5A5E62438C2B8004AC5EB /* Line.swift */,
+			);
+			path = TimeLineSharedMacOS;
+			sourceTree = "<group>";
+		};
+		03D5A5E32438C25F004AC5EB /* TimeLineSharedIOS */ = {
+			isa = PBXGroup;
+			children = (
+				03D633962436165100F8D2CE /* TimeLineShared.h */,
+				03D5A53724373FB3004AC5EB /* ContactRow.swift */,
+				03D5A53924373FC6004AC5EB /* Line.swift */,
+			);
+			name = TimeLineSharedIOS;
+			sourceTree = "<group>";
+		};
+		03D5A5E82438C453004AC5EB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				03D5A5E92438C453004AC5EB /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		03D633892436165100F8D2CE = {
 			isa = PBXGroup;
 			children = (
-				03D633A4243616C200F8D2CE /* Model.xcdatamodeld */,
 				03D633952436165100F8D2CE /* TimeLineShared */,
+				03D5A5E32438C25F004AC5EB /* TimeLineSharedIOS */,
+				03D5A5C42438B68D004AC5EB /* TimeLineSharedMacOS */,
 				03D633942436165100F8D2CE /* Products */,
+				03D5A5E82438C453004AC5EB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				03D633932436165100F8D2CE /* TimeLineShared.framework */,
+				03D5A5C32438B68D004AC5EB /* TimeLineSharedMacOS.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -61,12 +114,10 @@
 		03D633952436165100F8D2CE /* TimeLineShared */ = {
 			isa = PBXGroup;
 			children = (
-				03D633962436165100F8D2CE /* TimeLineShared.h */,
+				03D633972436165100F8D2CE /* Info.plist */,
+				03D633A4243616C200F8D2CE /* Model.xcdatamodeld */,
 				03D633A72436182000F8D2CE /* CoreDataManager.swift */,
 				03D633C5243653AB00F8D2CE /* Solar.swift */,
-				03D5A53724373FB3004AC5EB /* ContactRow.swift */,
-				03D5A53924373FC6004AC5EB /* Line.swift */,
-				03D633972436165100F8D2CE /* Info.plist */,
 				03D633B42436259B00F8D2CE /* Contact+location.swift */,
 				03D633C324364BF000F8D2CE /* TimeZone+print.swift */,
 			);
@@ -76,6 +127,14 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		03D5A5BE2438B68D004AC5EB /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03D5A5C72438B68D004AC5EB /* TimeLineSharedMacOS.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		03D6338E2436165100F8D2CE /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -87,6 +146,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		03D5A5C22438B68D004AC5EB /* TimeLineSharedMacOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 03D5A5CA2438B68D004AC5EB /* Build configuration list for PBXNativeTarget "TimeLineSharedMacOS" */;
+			buildPhases = (
+				03D5A5BE2438B68D004AC5EB /* Headers */,
+				03D5A5BF2438B68D004AC5EB /* Sources */,
+				03D5A5C02438B68D004AC5EB /* Frameworks */,
+				03D5A5C12438B68D004AC5EB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TimeLineSharedMacOS;
+			productName = TimeLineSharedMacOS;
+			productReference = 03D5A5C32438B68D004AC5EB /* TimeLineSharedMacOS.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		03D633922436165100F8D2CE /* TimeLineShared */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 03D6339B2436165100F8D2CE /* Build configuration list for PBXNativeTarget "TimeLineShared" */;
@@ -114,6 +191,9 @@
 				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = "Mathieu Dutour";
 				TargetAttributes = {
+					03D5A5C22438B68D004AC5EB = {
+						CreatedOnToolsVersion = 11.4;
+					};
 					03D633922436165100F8D2CE = {
 						CreatedOnToolsVersion = 11.4;
 						LastSwiftMigration = 1140;
@@ -134,11 +214,19 @@
 			projectRoot = "";
 			targets = (
 				03D633922436165100F8D2CE /* TimeLineShared */,
+				03D5A5C22438B68D004AC5EB /* TimeLineSharedMacOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		03D5A5C12438B68D004AC5EB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		03D633912436165100F8D2CE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -149,6 +237,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		03D5A5BF2438B68D004AC5EB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03D5A5D12438B6CB004AC5EB /* Model.xcdatamodeld in Sources */,
+				03D5A5CB2438B6C3004AC5EB /* CoreDataManager.swift in Sources */,
+				03D5A5CC2438B6C3004AC5EB /* Solar.swift in Sources */,
+				03D5A5CF2438B6C3004AC5EB /* Contact+location.swift in Sources */,
+				03D5A5D02438B6C3004AC5EB /* TimeZone+print.swift in Sources */,
+				03D5A5E72438C2B8004AC5EB /* Line.swift in Sources */,
+				03D5A5E52438C2A2004AC5EB /* ContactRow.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		03D6338F2436165100F8D2CE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -166,6 +268,58 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		03D5A5C82438B68D004AC5EB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = TimeLineSharedMacOS/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = me.dutour.mathieu.TimeLineSharedMacOS;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		03D5A5C92438B68D004AC5EB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = TimeLineSharedMacOS/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = me.dutour.mathieu.TimeLineSharedMacOS;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		03D633992436165100F8D2CE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -342,6 +496,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		03D5A5CA2438B68D004AC5EB /* Build configuration list for PBXNativeTarget "TimeLineSharedMacOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				03D5A5C82438B68D004AC5EB /* Debug */,
+				03D5A5C92438B68D004AC5EB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		03D6338D2436165100F8D2CE /* Build configuration list for PBXProject "TimeLineShared" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

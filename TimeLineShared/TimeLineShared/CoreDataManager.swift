@@ -12,14 +12,14 @@ public class CoreDataManager {
 
   public static let shared = CoreDataManager()
 
-  let identifier = "me.dutour.mathieu.TimeLineShared"
+//  let identifier = "me.dutour.mathieu.TimeLineShared"
   let groupIdentifier = "group.me.dutour.mathieu.TimeLine"
   let cloudkitIdentifier = "iCloud.me.dutour.mathieu.TimeLine"
   let model = "Model"
 
   lazy var persistentContainer: NSPersistentCloudKitContainer = {
-    let messageKitBundle = Bundle(identifier: self.identifier)
-    let modelURL = messageKitBundle!.url(forResource: self.model, withExtension: "momd")!
+    let messageKitBundle = Bundle(for: CoreDataManager.self)
+    let modelURL = messageKitBundle.url(forResource: self.model, withExtension: "momd")!
     let managedObjectModel =  NSManagedObjectModel(contentsOf: modelURL)
 
     /*

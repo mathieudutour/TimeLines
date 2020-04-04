@@ -37,6 +37,7 @@ struct ContentView: View {
         trailing: NavigationLink(destination: ContactEdition(contact: nil)) {
         Text("Add Contact")
       })
+//      .listStyle(SidebarListStyle()) 
     }
 
   }

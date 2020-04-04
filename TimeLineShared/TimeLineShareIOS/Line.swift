@@ -227,8 +227,8 @@ public class CustomLine: UIView {
     return CGRect(
       x: max(min(x, frame.width - size.width), 0),
       y: pos.y - 25,
-      width: size.width,
-      height: size.height
+      width: size.width + 5,
+      height: size.height + 5
     )
   }
 }
