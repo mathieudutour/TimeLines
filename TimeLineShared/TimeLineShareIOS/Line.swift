@@ -187,7 +187,7 @@ public class CustomLine: UIView {
     if timePoint < sunsetPoint && timePoint > sunrisePoint {
       // find the position on the parabola
       let w = frame.width * (sunsetPoint - sunrisePoint)
-      let x1 = frame.origin.x + frame.width * CGFloat(sunrisePoint)
+      let x1 = frame.width * CGFloat(sunrisePoint)
       let c = y
       let b = -4 * frame.height / w
       let a = -b / w
@@ -252,11 +252,10 @@ public struct Line_Previews: PreviewProvider {
   public static var previews: some View {
     Group {
       Line(coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0), timezone: TimeZone(secondsFromGMT: 0)!)
-      Line(coordinate: CLLocationCoordinate2D(latitude: 10, longitude: 10), timezone: TimeZone(secondsFromGMT: 3600)!)
-      Line(coordinate: CLLocationCoordinate2D(latitude: 45, longitude: 45), timezone: TimeZone(secondsFromGMT: 9200)!)
-      Line(coordinate: CLLocationCoordinate2D(latitude: 45, longitude: -70), timezone: TimeZone(secondsFromGMT: -14000)!)
+      Line(coordinate: CLLocationCoordinate2D(latitude: 40, longitude: -74), timezone: TimeZone(secondsFromGMT: -4 * 3600)!)
+      Line(coordinate: CLLocationCoordinate2D(latitude: 35, longitude: 140), timezone: TimeZone(secondsFromGMT: 9 * 3600)!)
       Line(coordinate: CLLocationCoordinate2D(latitude: 80, longitude: 80), timezone: TimeZone(secondsFromGMT: -8000)!)
     }
-    .previewLayout(.fixed(width: 300, height: 80))
+    .previewLayout(.fixed(width: 220, height: 80))
   }
 }
