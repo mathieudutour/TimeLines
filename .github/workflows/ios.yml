@@ -42,7 +42,7 @@ jobs:
         with:
           token: ${{secrets.github_token}}
       - name: build	and beta release
-        run: bundle exec fastlane beta
+        run: bundle exec fastlane ios beta
         env:
           CI: "true"
           FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
