@@ -15,7 +15,9 @@
     <style>
       body {
         width: 100%;
-        min-height: calc(100% + 50px);
+        display: flex;
+        flex-direction: column;
+        min-height: calc(100vh + 50px);
         padding: 0px;
         margin: 0px;
         color: black;
@@ -24,20 +26,21 @@
       }
 
       main {
+        flex-grow: 1;
         display: flex;
         justify-content: center;
         align-items: center;
-        min-height: calc(100% - 50px);
+        flex-flow: row-reverse;
       }
 
-      .first {
+      .illustration {
         flex: 1;
         display: flex;
         justify-content: flex-end;
         padding-right: 64px;
       }
 
-      .second {
+      .description {
         flex: 1;
         padding-left: 64px;
       }
@@ -82,7 +85,7 @@
       }
 
       @media (max-width: 1024px) {
-        .first {
+        .illustration {
           align-items: center;
         }
         .container {
@@ -91,7 +94,7 @@
       }
 
       @media (max-width: 900px) {
-        .first {
+        .illustration {
           padding: 0;
         }
 
@@ -102,19 +105,18 @@
 
       @media (max-width: 750px) {
         main {
-          display: flex;
-          flex-flow: column-reverse;
+          display: block;
         }
 
         .title {
           text-align: center;
         }
 
-        .first {
-          padding: 0;
-          align-items: flex-start;
+        .illustration {
+          padding: 30px 0;
+          justify-content: center;
         }
-        .second {
+        .description {
           padding-left: 0;
           padding-top: 96px;
         }
@@ -131,7 +133,7 @@
           flex-flow: column;
         }
         .app_screen {
-          margin-top: 96px;
+          margin-top: 30px;
           margin-bottom: 60px;
         }
 
@@ -144,6 +146,7 @@
         display: flex;
         justify-content: space-evenly;
         align-items: center;
+        flex: 0 0 50px;
         height: 50px;
         padding: 0 50px;
         opacity: 0.6;
@@ -156,7 +159,19 @@
   </head>
   <body>
     <main>
-      <div class="first">
+      <div class="description">
+        <div class="right_container">
+          <div class="title">TimeLine</div>
+          <div class="desc">
+            Know <em>when</em> all your friends, colleagues and family are.
+          </div>
+          <a
+            href="https://testflight.apple.com/join/bE2a0E8C"
+            class="download_the_app_btn"
+          ></a>
+        </div>
+      </div>
+      <div class="illustration">
         <svg
           class="app_screen"
           width="300px"
@@ -202,18 +217,6 @@
             <text id="text3" font-size="12" x="5" y="-10">7:50 PM</text>
           </g>
         </svg>
-      </div>
-      <div class="second">
-        <div class="right_container">
-          <div class="title">TimeLine</div>
-          <div class="desc">
-            Know <em>when</em> all your friends, colleagues and family are.
-          </div>
-          <a
-            href="https://testflight.apple.com/join/bE2a0E8C"
-            class="download_the_app_btn"
-          ></a>
-        </div>
       </div>
     </main>
     <footer>
