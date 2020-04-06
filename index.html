@@ -27,7 +27,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: calc(100% - 50px);
+        min-height: calc(100% - 50px);
       }
 
       .first {
@@ -91,12 +91,8 @@
       }
 
       @media (max-width: 900px) {
-        main {
-          display: block;
-        }
-
         .first {
-          padding-top: 56px;
+          padding: 0;
         }
 
         .app_screen {
@@ -104,7 +100,7 @@
         }
       }
 
-      @media (max-width: 414px) {
+      @media (max-width: 750px) {
         main {
           display: flex;
           flex-flow: column-reverse;
