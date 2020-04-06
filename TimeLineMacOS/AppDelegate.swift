@@ -35,7 +35,29 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // Create the Status Bar Item with the Popover
     statusBar = StatusBarController(popover, item: statusItem)
 
-    NSApplication.shared.activate(ignoringOtherApps: true)
+    showWelcomeScreenIfNeeded()
+  }
+
+  func showWelcomeScreenIfNeeded() {
+    guard App.isFirstLaunch else {
+      return
+    }
+
+    LaunchAtLogin.isEnabled = true
+
+    NSApp.activate(ignoringOtherApps: true)
+    NSAlert.showModal(
+      message: "Welcome to TimeLine!",
+      informativeText:
+        """
+        TimeLine lives in the menu bar. Left-click it to see your contacts, right-click to see the options.
+
+        See the project page for what else is planned: https://github.com/mathieudutour/TimeLine/issues
+        If you have any feedback, bug reports, or feature requests, kindly use the “Send Feedback” button in the TimeLine menu. We respond to all submissions and reported issues will be dealt with swiftly. It's preferable that you report bugs this way rather than as an App Store review, since the App Store will not allow us to contact you for more information.
+        """
+    )
+
+    statusBar?.playRainbowAnimation()
   }
 
   func applicationWillTerminate(_ aNotification: Notification) {

@@ -9,17 +9,22 @@
 import AppKit
 import TimeLineSharedMacOS
 
-class StatusBarController {
+class StatusBarController: NSObject {
   private var statusItem: NSStatusItem
   private var popover: NSPopover
   private var statusBarButton: NSStatusBarButton
   private var eventMonitor: EventMonitor?
+  private let menu = SSMenu()
+
+  private var showingMenu = false
 
   init(_ popover: NSPopover, item: NSStatusItem) {
     statusItem = item
     statusBarButton = statusItem.button!
     self.popover = popover
+    super.init()
 
+    statusItem.behavior = [.removalAllowed, .terminationOnRemoval]
     statusBarButton.image = #imageLiteral(resourceName: "menu-bar")
     statusBarButton.image?.size = NSSize(width: 18.0, height: 18.0)
     statusBarButton.image?.isTemplate = true
@@ -30,13 +35,50 @@ class StatusBarController {
     statusBarButton.target = self
 
     eventMonitor = EventMonitor(mask: [.leftMouseDown, .rightMouseDown], handler: mouseEventHandler)
+
+    menu.onUpdate = { _ in
+      self.updateMenu()
+    }
+    menu.delegate = self
   }
 
+  /**
+  Quickly cycles through random colors to make a rainbow animation so the user will notice it.
+  - Note: It will do nothing if the user has enabled the “Reduce motion” accessibility preference.
+  */
+  func playRainbowAnimation(duration: TimeInterval = 5) {
+    guard !NSWorkspace.shared.accessibilityDisplayShouldReduceMotion else {
+      return
+    }
+
+    let originalTintColor = statusBarButton.contentTintColor
+
+    Timer.scheduledRepeatingTimer(
+      withTimeInterval: 0.1,
+      duration: duration,
+      onRepeat: { _ in
+        self.statusBarButton.contentTintColor = NSColor.uniqueRandomSystemColor()
+      },
+      onFinish: {
+        self.statusBarButton.contentTintColor = originalTintColor
+      }
+    )
+  }
+}
+
+// MARK: Popover
+extension StatusBarController {
   @objc func togglePopover(sender: AnyObject) {
     if let event = NSApplication.shared.currentEvent, event.modifierFlags.contains(.control) || event.type == .rightMouseUp {
       // Handle right mouse click
       if popover.isShown {
         hidePopover(sender)
+      }
+
+      if showingMenu {
+        hideRightClickMenu(sender)
+      } else {
+        showRightClickMenu(sender)
       }
 
       return
@@ -70,9 +112,52 @@ class StatusBarController {
     if popover.isShown {
       hidePopover(event ?? self)
     }
+    if showingMenu {
+      hideRightClickMenu(event ?? self)
+    }
+  }
+}
+
+// MARK: right click menu
+extension StatusBarController: NSMenuDelegate {
+  func showRightClickMenu(_ sender: AnyObject) {
+    showingMenu = true
+    statusItem.menu = menu // add menu to button...
+    statusItem.button?.performClick(nil) // ...and click
+    eventMonitor?.start()
+    statusBarButton.cell?.isHighlighted = true
   }
 
-  func quitMe() {
-    NSApplication.shared.terminate(self)
+  func hideRightClickMenu(_ sender: AnyObject) {
+    statusItem.menu?.cancelTracking()
+  }
+
+  func updateMenu() {
+    menu.removeAllItems()
+
+    menu.addCallbackItem("Manage Contacts…", key: ",") { _ in
+
+    }
+
+    let item = menu.addCallbackItem("Start at Login") { menuItem in
+      LaunchAtLogin.isEnabled = !LaunchAtLogin.isEnabled
+      menuItem.isChecked = LaunchAtLogin.isEnabled
+    }
+    item.isChecked = LaunchAtLogin.isEnabled
+
+    menu.addSeparator()
+
+    menu.addCallbackItem("Send Feedback…") { _ in
+      NSWorkspace.shared.open(App.feedbackPage)
+    }
+
+    menu.addQuitItem()
+  }
+
+  @objc func menuDidClose(_ menu: NSMenu) {
+    showingMenu = false
+    statusItem.menu = nil // remove menu so button works as before
+    eventMonitor?.stop()
+    statusBarButton.cell?.isHighlighted = false
   }
 }

@@ -237,6 +237,11 @@ public struct Line: UIViewRepresentable {
   public var coordinate: CLLocationCoordinate2D?
   public var timezone: TimeZone?
 
+  public init(coordinate: CLLocationCoordinate2D?, timezone: TimeZone?) {
+    self.coordinate = coordinate
+    self.timezone = timezone
+  }
+
   public func makeUIView(context: Context) -> CustomLine {
     CustomLine(frame: .zero, timezone: timezone, coordinate: coordinate)
   }

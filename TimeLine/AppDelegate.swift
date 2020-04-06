@@ -8,12 +8,24 @@
 
 import UIKit
 import CoreData
+import TimeLineShared
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    IAPManager.shared.startObserving()
+//    IAPManager.shared.getProducts { result in
+//      switch result {
+//      case .success(let products): print(products);
+//      case .failure(let error): print(error)
+//      }
+//    }
     return true
+  }
+
+  func applicationWillTerminate(_ application: UIApplication) {
+    IAPManager.shared.stopObserving()
   }
 
   // MARK: UISceneSession Lifecycle

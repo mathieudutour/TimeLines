@@ -14,3 +14,4 @@ config.*.yml
 screenshots
 TimeLine.app.dSYM.zip
 TimeLine.ipa
+Carthage

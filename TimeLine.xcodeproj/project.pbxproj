@@ -21,6 +21,15 @@
 		03D5A60A2438C542004AC5EB /* TimeLineSharedMacOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03D5A5D42438B6D4004AC5EB /* TimeLineSharedMacOS.framework */; };
 		03D5A60B2438C542004AC5EB /* TimeLineSharedMacOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 03D5A5D42438B6D4004AC5EB /* TimeLineSharedMacOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		03D5A60E2438C564004AC5EB /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03D5A60D2438C564004AC5EB /* CloudKit.framework */; };
+		03D5A63E2439C466004AC5EB /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D5A63D2439C466004AC5EB /* Utils.swift */; };
+		03D5A64A2439CAD7004AC5EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03D5A6492439CAD7004AC5EB /* Assets.xcassets */; };
+		03D5A64D2439CAD7004AC5EB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03D5A64C2439CAD7004AC5EB /* Preview Assets.xcassets */; };
+		03D5A6572439CB20004AC5EB /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D5A6562439CB20004AC5EB /* main.swift */; };
+		03D5A6592439CBE8004AC5EB /* TimeLineMacOS-launchagent.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 03D5A6432439CAD6004AC5EB /* TimeLineMacOS-launchagent.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		03D5A65A2439CBF5004AC5EB /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03D5A6282439BD01004AC5EB /* ServiceManagement.framework */; };
+		03D5A65C2439CC15004AC5EB /* LaunchAtLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D5A65B2439CC15004AC5EB /* LaunchAtLogin.swift */; };
+		03D5A65E2439D968004AC5EB /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D5A65D2439D968004AC5EB /* Defaults.swift */; };
+		03D5A6612439DA27004AC5EB /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = 03D5A6602439DA27004AC5EB /* Defaults */; };
 		03D6335D2436149700F8D2CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D6335C2436149700F8D2CE /* AppDelegate.swift */; };
 		03D6335F2436149700F8D2CE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D6335E2436149700F8D2CE /* SceneDelegate.swift */; };
 		03D633642436149700F8D2CE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D633632436149700F8D2CE /* ContentView.swift */; };
@@ -76,6 +85,16 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		03D5A6582439CBD4004AC5EB /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Library/LoginItems;
+			dstSubfolderSpec = 1;
+			files = (
+				03D5A6592439CBE8004AC5EB /* TimeLineMacOS-launchagent.app in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		03D633882436151A00F8D2CE /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -115,6 +134,17 @@
 		03D5A6032438C531004AC5EB /* StatusBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarController.swift; sourceTree = "<group>"; };
 		03D5A6042438C531004AC5EB /* EventMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventMonitor.swift; sourceTree = "<group>"; };
 		03D5A60D2438C564004AC5EB /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
+		03D5A6282439BD01004AC5EB /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/ServiceManagement.framework; sourceTree = DEVELOPER_DIR; };
+		03D5A62A2439BF82004AC5EB /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
+		03D5A63D2439C466004AC5EB /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		03D5A6432439CAD6004AC5EB /* TimeLineMacOS-launchagent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TimeLineMacOS-launchagent.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		03D5A6492439CAD7004AC5EB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		03D5A64C2439CAD7004AC5EB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		03D5A6512439CAD7004AC5EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		03D5A6522439CAD7004AC5EB /* TimeLineMacOS_launchagent.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TimeLineMacOS_launchagent.entitlements; sourceTree = "<group>"; };
+		03D5A6562439CB20004AC5EB /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		03D5A65B2439CC15004AC5EB /* LaunchAtLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAtLogin.swift; sourceTree = "<group>"; };
+		03D5A65D2439D968004AC5EB /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		03D633592436149700F8D2CE /* TimeLine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimeLine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03D6335C2436149700F8D2CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		03D6335E2436149700F8D2CE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -142,8 +172,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03D5A6612439DA27004AC5EB /* Defaults in Frameworks */,
+				03D5A65A2439CBF5004AC5EB /* ServiceManagement.framework in Frameworks */,
 				03D5A60A2438C542004AC5EB /* TimeLineSharedMacOS.framework in Frameworks */,
 				03D5A60E2438C564004AC5EB /* CloudKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		03D5A6402439CAD6004AC5EB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,6 +212,9 @@
 			isa = PBXGroup;
 			children = (
 				03D5A5F12438C4FD004AC5EB /* AppDelegate.swift */,
+				03D5A63D2439C466004AC5EB /* Utils.swift */,
+				03D5A65D2439D968004AC5EB /* Defaults.swift */,
+				03D5A65B2439CC15004AC5EB /* LaunchAtLogin.swift */,
 				03D5A6042438C531004AC5EB /* EventMonitor.swift */,
 				03D5A6022438C531004AC5EB /* MenuView.swift */,
 				03D5A6032438C531004AC5EB /* StatusBarController.swift */,
@@ -193,12 +235,34 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		03D5A6442439CAD6004AC5EB /* TimeLineMacOS-launchagent */ = {
+			isa = PBXGroup;
+			children = (
+				03D5A6562439CB20004AC5EB /* main.swift */,
+				03D5A6492439CAD7004AC5EB /* Assets.xcassets */,
+				03D5A6512439CAD7004AC5EB /* Info.plist */,
+				03D5A6522439CAD7004AC5EB /* TimeLineMacOS_launchagent.entitlements */,
+				03D5A64B2439CAD7004AC5EB /* Preview Content */,
+			);
+			path = "TimeLineMacOS-launchagent";
+			sourceTree = "<group>";
+		};
+		03D5A64B2439CAD7004AC5EB /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				03D5A64C2439CAD7004AC5EB /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
 		03D633502436149700F8D2CE = {
 			isa = PBXGroup;
 			children = (
+				03D5A62A2439BF82004AC5EB /* Cartfile */,
 				03D6335B2436149700F8D2CE /* TimeLine */,
 				03D6337B2436151A00F8D2CE /* TimeLine Widget */,
 				03D5A5F02438C4FD004AC5EB /* TimeLineMacOS */,
+				03D5A6442439CAD6004AC5EB /* TimeLineMacOS-launchagent */,
 				03D633782436151A00F8D2CE /* Frameworks */,
 				03D6335A2436149700F8D2CE /* Products */,
 			);
@@ -210,6 +274,7 @@
 				03D633592436149700F8D2CE /* TimeLine.app */,
 				03D633772436151A00F8D2CE /* TimeLine Widget.appex */,
 				03D5A5EF2438C4FD004AC5EB /* TimeLineMacOS.app */,
+				03D5A6432439CAD6004AC5EB /* TimeLineMacOS-launchagent.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -222,8 +287,8 @@
 				03D6335E2436149700F8D2CE /* SceneDelegate.swift */,
 				03D633632436149700F8D2CE /* ContentView.swift */,
 				03D633BD24362B8900F8D2CE /* ContactEdition.swift */,
-				03D633BF2436343700F8D2CE /* SearchBar.swift */,
 				03D633B62436261400F8D2CE /* ContactDetail.swift */,
+				03D633BF2436343700F8D2CE /* SearchBar.swift */,
 				03D633B8243626C700F8D2CE /* MapView.swift */,
 				03D633BA2436275E00F8D2CE /* Resources */,
 				03D633652436149C00F8D2CE /* Assets.xcassets */,
@@ -245,6 +310,7 @@
 		03D633782436151A00F8D2CE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				03D5A6282439BD01004AC5EB /* ServiceManagement.framework */,
 				03D5A60D2438C564004AC5EB /* CloudKit.framework */,
 				03D5A5E12438C217004AC5EB /* SwiftUI.framework */,
 				03D633B024361C6A00F8D2CE /* CloudKit.framework */,
@@ -293,14 +359,35 @@
 				03D5A5EC2438C4FD004AC5EB /* Frameworks */,
 				03D5A5ED2438C4FD004AC5EB /* Resources */,
 				03D5A60C2438C542004AC5EB /* Embed Frameworks */,
+				03D5A6582439CBD4004AC5EB /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = TimeLineMacOS;
+			packageProductDependencies = (
+				03D5A6602439DA27004AC5EB /* Defaults */,
+			);
 			productName = TimeLineMacOS;
 			productReference = 03D5A5EF2438C4FD004AC5EB /* TimeLineMacOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		03D5A6422439CAD6004AC5EB /* TimeLineMacOS-launchagent */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 03D5A6532439CAD7004AC5EB /* Build configuration list for PBXNativeTarget "TimeLineMacOS-launchagent" */;
+			buildPhases = (
+				03D5A63F2439CAD6004AC5EB /* Sources */,
+				03D5A6402439CAD6004AC5EB /* Frameworks */,
+				03D5A6412439CAD6004AC5EB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "TimeLineMacOS-launchagent";
+			productName = "TimeLineMacOS-launchagent";
+			productReference = 03D5A6432439CAD6004AC5EB /* TimeLineMacOS-launchagent.app */;
 			productType = "com.apple.product-type.application";
 		};
 		03D633582436149700F8D2CE /* TimeLine */ = {
@@ -319,6 +406,8 @@
 				03D633832436151A00F8D2CE /* PBXTargetDependency */,
 			);
 			name = TimeLine;
+			packageProductDependencies = (
+			);
 			productName = TimeLine;
 			productReference = 03D633592436149700F8D2CE /* TimeLine.app */;
 			productType = "com.apple.product-type.application";
@@ -353,6 +442,9 @@
 					03D5A5EE2438C4FD004AC5EB = {
 						CreatedOnToolsVersion = 11.4;
 					};
+					03D5A6422439CAD6004AC5EB = {
+						CreatedOnToolsVersion = 11.4;
+					};
 					03D633582436149700F8D2CE = {
 						CreatedOnToolsVersion = 11.4;
 					};
@@ -370,6 +462,9 @@
 				Base,
 			);
 			mainGroup = 03D633502436149700F8D2CE;
+			packageReferences = (
+				03D5A65F2439DA27004AC5EB /* XCRemoteSwiftPackageReference "Defaults" */,
+			);
 			productRefGroup = 03D6335A2436149700F8D2CE /* Products */;
 			projectDirPath = "";
 			projectReferences = (
@@ -383,6 +478,7 @@
 				03D633582436149700F8D2CE /* TimeLine */,
 				03D633762436151A00F8D2CE /* TimeLine Widget */,
 				03D5A5EE2438C4FD004AC5EB /* TimeLineMacOS */,
+				03D5A6422439CAD6004AC5EB /* TimeLineMacOS-launchagent */,
 			);
 		};
 /* End PBXProject section */
@@ -415,6 +511,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		03D5A6412439CAD6004AC5EB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03D5A64D2439CAD7004AC5EB /* Preview Assets.xcassets in Resources */,
+				03D5A64A2439CAD7004AC5EB /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		03D633572436149700F8D2CE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -441,10 +546,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03D5A63E2439C466004AC5EB /* Utils.swift in Sources */,
+				03D5A65E2439D968004AC5EB /* Defaults.swift in Sources */,
 				03D5A6082438C531004AC5EB /* EventMonitor.swift in Sources */,
 				03D5A6072438C531004AC5EB /* StatusBarController.swift in Sources */,
+				03D5A65C2439CC15004AC5EB /* LaunchAtLogin.swift in Sources */,
 				03D5A6062438C531004AC5EB /* MenuView.swift in Sources */,
 				03D5A5F22438C4FD004AC5EB /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		03D5A63F2439CAD6004AC5EB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03D5A6572439CB20004AC5EB /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -515,20 +631,26 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = TimeLineMacOS/TimeLineMacOS.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_ASSET_PATHS = "\"TimeLineMacOS/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 8SEPFSC7S3;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = TimeLineMacOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				PRODUCT_BUNDLE_IDENTIFIER = me.dutour.mathieu.TimeLineMacOS;
+				PRODUCT_BUNDLE_IDENTIFIER = me.dutour.mathieu.TimeLine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
 			};
@@ -539,21 +661,75 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = TimeLineMacOS/TimeLineMacOS.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_ASSET_PATHS = "\"TimeLineMacOS/Preview Content\"";
-				DEVELOPMENT_TEAM = 8SEPFSC7S3;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = TimeLineMacOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				PRODUCT_BUNDLE_IDENTIFIER = me.dutour.mathieu.TimeLineMacOS;
+				PRODUCT_BUNDLE_IDENTIFIER = me.dutour.mathieu.TimeLine;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		03D5A6542439CAD7004AC5EB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "TimeLineMacOS-launchagent/TimeLineMacOS_launchagent.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"TimeLineMacOS-launchagent/Preview Content\"";
+				DEVELOPMENT_TEAM = 8SEPFSC7S3;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "TimeLineMacOS-launchagent/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = "me.dutour.mathieu.TimeLineMacOS-launchagent";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		03D5A6552439CAD7004AC5EB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "TimeLineMacOS-launchagent/TimeLineMacOS_launchagent.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"TimeLineMacOS-launchagent/Preview Content\"";
+				DEVELOPMENT_TEAM = 8SEPFSC7S3;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "TimeLineMacOS-launchagent/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = "me.dutour.mathieu.TimeLineMacOS-launchagent";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -678,10 +854,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = TimeLine/TimeLine.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "\"TimeLine/Preview Content\"";
 				DEVELOPMENT_TEAM = 8SEPFSC7S3;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
@@ -694,7 +870,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = me.dutour.mathieu.TimeLine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development me.dutour.mathieu.TimeLine";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
@@ -711,7 +887,7 @@
 				CODE_SIGN_ENTITLEMENTS = TimeLine/TimeLine.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "\"TimeLine/Preview Content\"";
 				DEVELOPMENT_TEAM = 8SEPFSC7S3;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
@@ -738,7 +914,7 @@
 				CODE_SIGN_ENTITLEMENTS = "TimeLine Widget/TimeLine Widget.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = 8SEPFSC7S3;
 				INFOPLIST_FILE = "TimeLine Widget/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -763,7 +939,7 @@
 				CODE_SIGN_ENTITLEMENTS = "TimeLine Widget/TimeLine Widget.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = 8SEPFSC7S3;
 				INFOPLIST_FILE = "TimeLine Widget/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -790,6 +966,15 @@
 			buildConfigurations = (
 				03D5A6002438C4FF004AC5EB /* Debug */,
 				03D5A6012438C4FF004AC5EB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		03D5A6532439CAD7004AC5EB /* Build configuration list for PBXNativeTarget "TimeLineMacOS-launchagent" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				03D5A6542439CAD7004AC5EB /* Debug */,
+				03D5A6552439CAD7004AC5EB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -822,6 +1007,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		03D5A65F2439DA27004AC5EB /* XCRemoteSwiftPackageReference "Defaults" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/Defaults";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		03D5A6602439DA27004AC5EB /* Defaults */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 03D5A65F2439DA27004AC5EB /* XCRemoteSwiftPackageReference "Defaults" */;
+			productName = Defaults;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 03D633512436149700F8D2CE /* Project object */;
 }

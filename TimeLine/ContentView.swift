@@ -10,6 +10,17 @@ import SwiftUI
 import TimeLineShared
 import CoreLocation
 
+struct AddNewContact: View {
+  var body: some View {
+    NavigationLink(destination: ContactEdition(contact: nil)) {
+      HStack {
+        Image(systemName: "plus").padding()
+        Text("Add a new contact")
+      }
+    }
+  }
+}
+
 struct ContentView: View {
   @Environment(\.managedObjectContext) var context
 
@@ -17,6 +28,8 @@ struct ContentView: View {
       entity: Contact.entity(),
       sortDescriptors: [NSSortDescriptor(keyPath: \Contact.index, ascending: true)]
   ) var contacts: FetchedResults<Contact>
+
+  @State private var showingSheet = false
 
   var body: some View {
     NavigationView {
@@ -32,11 +45,34 @@ struct ContentView: View {
         }
         .onDelete(perform: self.deleteContact)
         .onMove(perform: self.moveContact)
+
+        AddNewContact().foregroundColor(Color(UIColor.secondaryLabel))
       }
       .navigationBarTitle(Text("Contacts"))
-      .navigationBarItems(leading: EditButton(), trailing: NavigationLink(destination: ContactEdition(contact: nil)) {
-        Image(systemName: "plus")
+      .navigationBarItems(leading: EditButton(), trailing: Button(action: {
+        self.showingSheet = true
+      }) {
+        Image(systemName: "person")
+      }
+      .actionSheet(isPresented: $showingSheet) {
+        ActionSheet(title: Text("Settings"), buttons: [
+          .default(Text("Send Feedback"), action: {
+            UIApplication.shared.open(App.feedbackPage)
+          }),
+          .default(Text("Restore Purchases"), action: {
+            print("restore purchase")
+          }),
+          .cancel()
+        ])
       })
+      if contacts.count > 0 {
+        ContactDetail(contact: contacts[0])
+      } else {
+        VStack {
+          Text("Get started by adding a new contact")
+          AddNewContact().padding(.trailing, 20).foregroundColor(Color.accentColor).border(Color.accentColor)
+        }
+      }
     }
 
   }

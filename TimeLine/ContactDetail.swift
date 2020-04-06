@@ -41,6 +41,7 @@ struct ContactDetail: View {
           Text(TimeZone(secondsFromGMT: Int(contact.timezone))?.prettyPrint() ?? "")
             .font(.subheadline)
         }
+        Line(coordinate: contact.location, timezone: TimeZone(secondsFromGMT: Int(contact.timezone))).padding()
       }
       .padding()
 

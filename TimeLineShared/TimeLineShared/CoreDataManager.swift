@@ -12,7 +12,6 @@ public class CoreDataManager {
 
   public static let shared = CoreDataManager()
 
-//  let identifier = "me.dutour.mathieu.TimeLineShared"
   let groupIdentifier = "group.me.dutour.mathieu.TimeLine"
   let cloudkitIdentifier = "iCloud.me.dutour.mathieu.TimeLine"
   let model = "Model"
