@@ -47,13 +47,10 @@
       }
 
       .app_screen {
-        width: 320px;
+        width: 300px;
         height: 568px;
         background: black;
         border-radius: 16px;
-        background: url("./ios_screen.png");
-        background-repeat: no-repeat;
-        background-size: 100%;
         box-shadow: 64px 64px 144px rgba(0, 0, 0, 0.2);
       }
 
@@ -164,7 +161,51 @@
   <body>
     <main>
       <div class="first">
-        <div class="app_screen"></div>
+        <svg
+          class="app_screen"
+          width="300px"
+          height="568px"
+          viewBox="0 0 300 568"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <image href="./ios_screen.png" width="300" height="568" />
+          <text id="mainTime" font-size="12" x="27" y="20" fill="white">
+            7:50 PM
+          </text>
+          <path
+            id="curve1"
+            d="M122 138 l43 0 c0 0 20 -18 45 -18 c25 0 45 18 45 18 l21 0"
+            fill="transparent"
+            stroke="black"
+            stroke-width="1.5"
+          />
+          <g id="circle1">
+            <circle cx="0" cy="0" r="3" fill="black" />
+            <text id="text1" font-size="12" x="5" y="-10">7:50 PM</text>
+          </g>
+          <path
+            id="curve2"
+            d="M122 204 l43 0 c0 0 15 -18 35 -18 c20 0 35 18 35 18 l41 0"
+            fill="transparent"
+            stroke="black"
+            stroke-width="1.5"
+          />
+          <g id="circle2">
+            <circle cx="0" cy="0" r="3" fill="black" />
+            <text id="text2" font-size="12" x="5" y="-10">7:50 PM</text>
+          </g>
+          <path
+            id="curve3"
+            d="M122 271 l30 0 c0 0 20 -18 45 -18 c25 0 45 18 45 18 l34 0"
+            fill="transparent"
+            stroke="black"
+            stroke-width="1.5"
+          />
+          <g id="circle3">
+            <circle cx="0" cy="0" r="3" fill="black" />
+            <text id="text3" font-size="12" x="5" y="-10">7:50 PM</text>
+          </g>
+        </svg>
       </div>
       <div class="second">
         <div class="right_container">
@@ -191,4 +232,93 @@
       </div>
     </footer>
   </body>
+  <script>
+    var counter = 0;
+
+    var text0 = document.getElementById("mainTime");
+    var curve1 = document.getElementById("curve1");
+    var circle1 = document.getElementById("circle1");
+    var text1 = document.getElementById("text1");
+    var curve2 = document.getElementById("curve2");
+    var circle2 = document.getElementById("circle2");
+    var text2 = document.getElementById("text2");
+    var curve3 = document.getElementById("curve3");
+    var circle3 = document.getElementById("circle3");
+    var text3 = document.getElementById("text3");
+
+    var curve1Length = curve1.getTotalLength();
+    var curve2Length = curve2.getTotalLength();
+    var curve3Length = curve3.getTotalLength();
+
+    function getTime(fraction, withoutPrefix) {
+      var seconds = 24 * 3600 * fraction;
+      var hours = Math.floor(seconds / 3600);
+      var minutes = Math.floor((seconds - hours * 3600) / 60);
+      var suffix = "AM";
+      if (hours > 12) {
+        suffix = "PM";
+        hours -= 12;
+      }
+      return (
+        hours +
+        ":" +
+        (minutes < 10 ? "0" + minutes : minutes) +
+        (withoutPrefix ? "" : " " + suffix)
+      );
+    }
+
+    function updateElement(text, circle, curve, time) {
+      text.textContent = getTime(time);
+
+      var curveLength = curve.getTotalLength();
+
+      var x = curve.getPointAtLength(time * curveLength).x;
+
+      circle.setAttribute(
+        "transform",
+        "translate(" +
+          x +
+          "," +
+          curve.getPointAtLength(time * curveLength).y +
+          ")"
+      );
+
+      if (time < 0.5) {
+        if (x - text.clientWidth < 122) {
+          text.setAttribute("transform", "translate(" + (118 - x) + ", 0)");
+        } else {
+          text.setAttribute(
+            "transform",
+            "translate(-" + text.clientWidth + ", 0)"
+          );
+        }
+      } else {
+        if (x + text.clientWidth > 278) {
+          text.setAttribute(
+            "transform",
+            "translate(" + (283 - x - text.clientWidth) + ", 0)"
+          );
+        } else {
+          text.setAttribute("transform", "translate(0, 0)");
+        }
+      }
+    }
+
+    function moveTime() {
+      counter += 0.0015;
+
+      var time1 = (0.45 + counter) % 1;
+      var time2 = (0.08 + counter) % 1;
+      var time3 = (0.74 + counter) % 1;
+
+      text0.textContent = getTime(time1, true);
+
+      updateElement(text1, circle1, curve1, time1);
+      updateElement(text2, circle2, curve2, time2);
+      updateElement(text3, circle3, curve3, time3);
+
+      requestAnimationFrame(moveTime);
+    }
+    requestAnimationFrame(moveTime);
+  </script>
 </html>
