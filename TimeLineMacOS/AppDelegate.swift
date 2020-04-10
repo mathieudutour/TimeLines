@@ -12,28 +12,45 @@ import SwiftUI
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
+  var iapManager: IAPManager?
 
   var popover = NSPopover()
+  var windowController = NSWindowController(window: NSWindow(
+    contentRect: NSRect(x: 0, y: 0, width: 600, height: 400),
+    styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
+    backing: .buffered,
+    defer: false
+  ))
   var statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
   var statusBar: StatusBarController?
 
   func applicationDidFinishLaunching(_ aNotification: Notification) {
+    iapManager = IAPManager.shared
+    IAPManager.shared.startObserving()
 
-    // Get the managed object context from the shared persistent container.
     let context = CoreDataManager.shared.viewContext
 
-    //  Create the SwiftUI view and set the context as the value for the managedObjectContext environment keyPath.
-    //  Add `@Environment(\.managedObjectContext)` in the views that will need the context.
     let contentView = MenuView()
       .background(Color.clear)
       .environment(\.managedObjectContext, context)
 
     let vc = NSHostingController(rootView: contentView)
-
     popover.contentViewController = vc
 
+    let manageView = ManageContacts()
+      .background(Color.clear)
+      .environment(\.managedObjectContext, context)
+
+    if let window = windowController.window {
+      window.contentView = NSHostingView(rootView: manageView)
+      window.setFrameAutosaveName("me.dutour.mathieu.timelinemacos.managecontacts")
+      window.title = ""
+      window.titlebarAppearsTransparent = true
+      window.backgroundColor = NSColor.clear
+    }
+
     // Create the Status Bar Item with the Popover
-    statusBar = StatusBarController(popover, item: statusItem)
+    statusBar = StatusBarController(popover, item: statusItem, windowController: windowController)
 
     showWelcomeScreenIfNeeded()
   }

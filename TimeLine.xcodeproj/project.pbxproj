@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03B8BF22243E2E410009E084 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B8BF21243E2E410009E084 /* SearchController.swift */; };
 		03D5A530243738D3004AC5EB /* WidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D5A52F243738D3004AC5EB /* WidgetView.swift */; };
 		03D5A53324373C84004AC5EB /* TimeLineShared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03D633A32436165100F8D2CE /* TimeLineShared.framework */; };
 		03D5A53B24374E96004AC5EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03D633652436149C00F8D2CE /* Assets.xcassets */; };
@@ -30,6 +31,8 @@
 		03D5A65C2439CC15004AC5EB /* LaunchAtLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D5A65B2439CC15004AC5EB /* LaunchAtLogin.swift */; };
 		03D5A65E2439D968004AC5EB /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D5A65D2439D968004AC5EB /* Defaults.swift */; };
 		03D5A6612439DA27004AC5EB /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = 03D5A6602439DA27004AC5EB /* Defaults */; };
+		03D5A675243C7D43004AC5EB /* ManageContacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D5A674243C7D42004AC5EB /* ManageContacts.swift */; };
+		03D5A689243DB959004AC5EB /* ContactEdition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D5A688243DB959004AC5EB /* ContactEdition.swift */; };
 		03D6335D2436149700F8D2CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D6335C2436149700F8D2CE /* AppDelegate.swift */; };
 		03D6335F2436149700F8D2CE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D6335E2436149700F8D2CE /* SceneDelegate.swift */; };
 		03D633642436149700F8D2CE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D633632436149700F8D2CE /* ContentView.swift */; };
@@ -43,8 +46,6 @@
 		03D633AC243619AF00F8D2CE /* TimeLineShared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03D633A32436165100F8D2CE /* TimeLineShared.framework */; };
 		03D633AD243619AF00F8D2CE /* TimeLineShared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 03D633A32436165100F8D2CE /* TimeLineShared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		03D633B124361C6A00F8D2CE /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03D633B024361C6A00F8D2CE /* CloudKit.framework */; };
-		03D633B72436261400F8D2CE /* ContactDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D633B62436261400F8D2CE /* ContactDetail.swift */; };
-		03D633B9243626C700F8D2CE /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D633B8243626C700F8D2CE /* MapView.swift */; };
 		03D633BE24362B8900F8D2CE /* ContactEdition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D633BD24362B8900F8D2CE /* ContactEdition.swift */; };
 		03D633C02436343700F8D2CE /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D633BF2436343700F8D2CE /* SearchBar.swift */; };
 /* End PBXBuildFile section */
@@ -120,6 +121,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		03B8BF21243E2E410009E084 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		03D5A52F243738D3004AC5EB /* WidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetView.swift; sourceTree = "<group>"; };
 		03D5A53224373BBB004AC5EB /* TimeLine Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "TimeLine Widget.entitlements"; sourceTree = "<group>"; };
 		03D5A5E12438C217004AC5EB /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/SwiftUI.framework; sourceTree = DEVELOPER_DIR; };
@@ -145,6 +147,8 @@
 		03D5A6562439CB20004AC5EB /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		03D5A65B2439CC15004AC5EB /* LaunchAtLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAtLogin.swift; sourceTree = "<group>"; };
 		03D5A65D2439D968004AC5EB /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
+		03D5A674243C7D42004AC5EB /* ManageContacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageContacts.swift; sourceTree = "<group>"; };
+		03D5A688243DB959004AC5EB /* ContactEdition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactEdition.swift; sourceTree = "<group>"; };
 		03D633592436149700F8D2CE /* TimeLine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimeLine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03D6335C2436149700F8D2CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		03D6335E2436149700F8D2CE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -161,8 +165,6 @@
 		03D6339E2436165100F8D2CE /* TimeLineShared.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TimeLineShared.xcodeproj; path = TimeLineShared/TimeLineShared.xcodeproj; sourceTree = "<group>"; };
 		03D633AF24361C5D00F8D2CE /* TimeLine.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TimeLine.entitlements; sourceTree = "<group>"; };
 		03D633B024361C6A00F8D2CE /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
-		03D633B62436261400F8D2CE /* ContactDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetail.swift; sourceTree = "<group>"; };
-		03D633B8243626C700F8D2CE /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		03D633BD24362B8900F8D2CE /* ContactEdition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactEdition.swift; sourceTree = "<group>"; };
 		03D633BF2436343700F8D2CE /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -218,6 +220,9 @@
 				03D5A6042438C531004AC5EB /* EventMonitor.swift */,
 				03D5A6022438C531004AC5EB /* MenuView.swift */,
 				03D5A6032438C531004AC5EB /* StatusBarController.swift */,
+				03D5A674243C7D42004AC5EB /* ManageContacts.swift */,
+				03D5A688243DB959004AC5EB /* ContactEdition.swift */,
+				03B8BF21243E2E410009E084 /* SearchController.swift */,
 				03D5A5F52438C4FF004AC5EB /* Assets.xcassets */,
 				03D5A5FA2438C4FF004AC5EB /* Main.storyboard */,
 				03D5A5FD2438C4FF004AC5EB /* Info.plist */,
@@ -287,9 +292,7 @@
 				03D6335E2436149700F8D2CE /* SceneDelegate.swift */,
 				03D633632436149700F8D2CE /* ContentView.swift */,
 				03D633BD24362B8900F8D2CE /* ContactEdition.swift */,
-				03D633B62436261400F8D2CE /* ContactDetail.swift */,
 				03D633BF2436343700F8D2CE /* SearchBar.swift */,
-				03D633B8243626C700F8D2CE /* MapView.swift */,
 				03D633BA2436275E00F8D2CE /* Resources */,
 				03D633652436149C00F8D2CE /* Assets.xcassets */,
 				03D6336A2436149C00F8D2CE /* LaunchScreen.storyboard */,
@@ -547,12 +550,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				03D5A63E2439C466004AC5EB /* Utils.swift in Sources */,
+				03B8BF22243E2E410009E084 /* SearchController.swift in Sources */,
 				03D5A65E2439D968004AC5EB /* Defaults.swift in Sources */,
 				03D5A6082438C531004AC5EB /* EventMonitor.swift in Sources */,
 				03D5A6072438C531004AC5EB /* StatusBarController.swift in Sources */,
 				03D5A65C2439CC15004AC5EB /* LaunchAtLogin.swift in Sources */,
 				03D5A6062438C531004AC5EB /* MenuView.swift in Sources */,
+				03D5A689243DB959004AC5EB /* ContactEdition.swift in Sources */,
 				03D5A5F22438C4FD004AC5EB /* AppDelegate.swift in Sources */,
+				03D5A675243C7D43004AC5EB /* ManageContacts.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -568,8 +574,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				03D633B9243626C700F8D2CE /* MapView.swift in Sources */,
-				03D633B72436261400F8D2CE /* ContactDetail.swift in Sources */,
 				03D6335D2436149700F8D2CE /* AppDelegate.swift in Sources */,
 				03D633C02436343700F8D2CE /* SearchBar.swift in Sources */,
 				03D633642436149700F8D2CE /* ContentView.swift in Sources */,

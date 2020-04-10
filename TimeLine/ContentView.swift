@@ -10,19 +10,17 @@ import SwiftUI
 import TimeLineShared
 import CoreLocation
 
-struct AddNewContact: View {
-  var body: some View {
-    NavigationLink(destination: ContactEdition(contact: nil)) {
-      HStack {
-        Image(systemName: "plus").padding()
-        Text("Add a new contact")
-      }
-    }
-  }
+enum AlertType {
+  case noProducts
+  case cantBuy
+  case cantRestore
+  case didRestore
+  case upsell
 }
 
 struct ContentView: View {
   @Environment(\.managedObjectContext) var context
+  @Environment(\.inAppPurchaseContext) var iapManager
 
   @FetchRequest(
       entity: Contact.entity(),
@@ -30,26 +28,56 @@ struct ContentView: View {
   ) var contacts: FetchedResults<Contact>
 
   @State private var showingSheet = false
+  @State private var showingRestoreAlert = false
+  @State private var showingAlert: AlertType?
+  @State private var showEmptyEdit = false
+  @State private var errorMessage: String?
+
+  var addNewContact: some View {
+    Button(action: {
+      if (!self.iapManager.hasAlreadyPurchasedUnlimitedContacts && self.contacts.count > self.iapManager.contactsLimit) {
+        self.showingAlert = .upsell
+      } else {
+        self.showEmptyEdit = true
+      }
+    }) {
+      HStack {
+        Image(systemName: "plus").padding()
+        Text("Add a new contact")
+      }
+    }.disabled(!iapManager.hasAlreadyPurchasedUnlimitedContacts && !iapManager.canBuy())
+  }
 
   var body: some View {
     NavigationView {
       List {
+        addNewContact.foregroundColor(Color(UIColor.secondaryLabel))
         ForEach(contacts, id: \.self) { (contact: Contact) in
-          NavigationLink(destination: ContactDetail(contact: contact)) {
+          NavigationLink(destination: ContactDetails(contact: contact, editView: {
+            NavigationLink(destination: ContactEdition(contact: contact)) {
+              Text("Edit")
+            }
+            .padding(.init(top: 5, leading: 10, bottom: 5, trailing: 10))
+            .background(Color(UIColor.systemBackground))
+            .cornerRadius(5)
+          })) {
             ContactRow(
               name: contact.name ?? "",
-              timezone: TimeZone(secondsFromGMT: Int(contact.timezone)),
+              timezone: contact.timeZone,
               coordinate: contact.location
             )
-          }
+          }.onAppear(perform: {
+            contact.refreshTimeZone()
+          })
         }
         .onDelete(perform: self.deleteContact)
         .onMove(perform: self.moveContact)
-
-        AddNewContact().foregroundColor(Color(UIColor.secondaryLabel))
+        NavigationLink(destination: ContactEdition(contact: nil), isActive: $showEmptyEdit) {
+          EmptyView()
+        }
       }
       .navigationBarTitle(Text("Contacts"))
-      .navigationBarItems(leading: EditButton(), trailing: Button(action: {
+      .navigationBarItems(leading: contacts.count > 0 ? EditButton() : nil, trailing: Button(action: {
         self.showingSheet = true
       }) {
         Image(systemName: "person")
@@ -59,18 +87,60 @@ struct ContentView: View {
           .default(Text("Send Feedback"), action: {
             UIApplication.shared.open(App.feedbackPage)
           }),
-          .default(Text("Restore Purchases"), action: {
-            print("restore purchase")
-          }),
+          .default(Text("Restore Purchases"), action: tryAgainRestore),
           .cancel()
         ])
       })
+      .alert(isPresented: Binding(get: { self.showingAlert != nil }, set: { show in
+        if !show { self.showingAlert = nil }
+      })) {
+        switch self.showingAlert {
+        case .noProducts:
+          return Alert(
+            title: Text("Error while trying to get the In App Purchases"),
+            message: Text(self.errorMessage ?? "Seems like there was an issue with the Apple's servers."),
+            primaryButton: .cancel(Text("Cancel"), action: self.dismissAlert),
+            secondaryButton: .default(Text("Try Again"), action: self.tryAgainBuyWithNoProduct)
+          )
+        case .cantBuy:
+          return Alert(
+            title: Text("Error while trying to purchase the product"),
+            message: Text(self.errorMessage ?? "Seems like there was an issue with the Apple's servers."),
+            primaryButton: .cancel(Text("Cancel"), action: self.dismissAlert),
+            secondaryButton: .default(Text("Try Again"), action: self.tryAgainBuy)
+          )
+        case .cantRestore:
+          return Alert(
+            title: Text(self.errorMessage ?? "Error while trying to restore the purchases"),
+            primaryButton: .cancel(Text("Cancel"), action: self.dismissAlert),
+            secondaryButton: .default(Text("Try Again"), action: self.tryAgainRestore)
+          )
+        case .didRestore:
+          return Alert(title: Text("Purchases restored successfully!"), dismissButton: .default(Text("OK")))
+        case .upsell:
+          return Alert(
+            title: Text("You've reached the limit of the free TimeLine version"),
+            message: Text("Unlock the full version to add an unlimited number of contacts."),
+            primaryButton: .default(Text("Unlock Full Version"), action: self.tryAgainBuy),
+            secondaryButton: .cancel(Text("Cancel"), action: self.dismissAlert)
+          )
+        case nil:
+          return Alert(title: Text("Unknown Error"), dismissButton: .default(Text("OK")))
+        }
+      }
       if contacts.count > 0 {
-        ContactDetail(contact: contacts[0])
+        ContactDetails(contact: contacts[0]) {
+          NavigationLink(destination: ContactEdition(contact: self.contacts[0])) {
+            Text("Edit")
+          }
+          .padding(.init(top: 5, leading: 10, bottom: 5, trailing: 10))
+          .background(Color(UIColor.systemBackground))
+          .cornerRadius(5)
+        }
       } else {
         VStack {
           Text("Get started by adding a new contact")
-          AddNewContact().padding(.trailing, 20).foregroundColor(Color.accentColor).border(Color.accentColor)
+          addNewContact.padding(.trailing, 20).foregroundColor(Color.accentColor).border(Color.accentColor)
         }
       }
     }
@@ -86,6 +156,60 @@ struct ContentView: View {
   private func moveContact(from source: IndexSet, to destination: Int) {
     for index in source {
       CoreDataManager.shared.moveContact(from: index, to: destination)
+    }
+  }
+
+  private func dismissAlert() {
+    self.showingAlert = nil
+    self.errorMessage = nil
+  }
+
+  private func tryAgainBuyWithNoProduct() {
+    dismissAlert()
+    self.iapManager.getProducts(withHandler: { result in
+      switch result {
+      case .success(_):
+        self.tryAgainBuy()
+        break
+      case .failure(let error):
+        self.errorMessage = error.localizedDescription
+        self.showingAlert = .noProducts
+        break
+      }
+    })
+  }
+
+  private func tryAgainBuy() {
+    dismissAlert()
+    if let unlimitedContactsProduct = self.iapManager.unlimitedContactsProduct {
+      self.iapManager.buy(product: unlimitedContactsProduct) { result in
+        switch result {
+        case .success(_):
+          self.showEmptyEdit = true
+          break
+        case .failure(let error):
+          print(error)
+          self.errorMessage = error.localizedDescription
+          self.showingAlert = .cantBuy
+        }
+      }
+    } else {
+      self.showingAlert = .noProducts
+    }
+  }
+
+  private func tryAgainRestore() {
+    dismissAlert()
+    iapManager.restorePurchases() { res in
+      switch res {
+      case .success(_):
+        self.showingAlert = .didRestore
+        break
+      case .failure(let error):
+        print(error)
+        self.errorMessage = error.localizedDescription
+        self.showingAlert = .cantRestore
+      }
     }
   }
 }

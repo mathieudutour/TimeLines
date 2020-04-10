@@ -8,16 +8,33 @@
 
 import Foundation
 import StoreKit
+import SwiftUI
 
 public let sharedIAPPassword = "4d5125cebaa347a18def405beee4cb0f"
-public let unlimitedContactsProductId = "unlimitedcontacts"
+let unlimitedContactsProductId = "unlimitedcontacts"
 
-public class IAPManager: NSObject {
+struct IAPEnvironmentKey: EnvironmentKey {
+  public static let defaultValue = IAPManager.shared
+}
+
+extension EnvironmentValues {
+  public var inAppPurchaseContext : IAPManager {
+    set { self[IAPEnvironmentKey.self] = newValue }
+    get { self[IAPEnvironmentKey.self] }
+  }
+}
+
+public class IAPManager: NSObject, ObservableObject {
   public static let shared = IAPManager()
 
   var onReceiveProductsHandler: ((Result<[SKProduct], IAPManagerError>) -> Void)?
   var onBuyProductHandler: ((Result<Bool, Error>) -> Void)?
   var totalRestoredPurchases = 0
+
+  @Published public var unlimitedContactsProduct: SKProduct?
+  @Published public var hasAlreadyPurchasedUnlimitedContacts = UserDefaults.standard.bool(forKey: "\(unlimitedContactsProductId)_purchased")
+
+  @Published public var contactsLimit = 3
 
   public enum IAPManagerError: Error {
     case noProductIDsFound
@@ -27,16 +44,26 @@ public class IAPManager: NSObject {
   }
 
   private override init() {
-     super.init()
+    super.init()
+
+    getProducts { result in
+      switch result {
+      case .success(_): break
+      case .failure(let error): print(error.errorDescription ?? error)
+      }
+    }
   }
 
   public func startObserving() {
     SKPaymentQueue.default().add(self)
   }
 
-
   public func stopObserving() {
     SKPaymentQueue.default().remove(self)
+  }
+
+  public func canBuy() -> Bool {
+    return SKPaymentQueue.canMakePayments()
   }
 
   public func getProducts(withHandler productsReceiveHandler: @escaping (_ result: Result<[SKProduct], IAPManagerError>) -> Void) {
@@ -84,6 +111,7 @@ extension IAPManager: SKProductsRequestDelegate {
   public func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
     let products = response.products
     if products.count > 0 {
+      self.unlimitedContactsProduct = products.first(where: { p in p.productIdentifier == unlimitedContactsProductId})
       onReceiveProductsHandler?(.success(products))
     } else {
       onReceiveProductsHandler?(.failure(.noProductsFound))
@@ -101,12 +129,22 @@ extension IAPManager: SKProductsRequestDelegate {
 
 extension IAPManager: SKPaymentTransactionObserver {
   public func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+    let defaults = UserDefaults.standard
+
     transactions.forEach { (transaction) in
       switch transaction.transactionState {
       case .purchased:
+        defaults.set(true, forKey: "\(transaction.payment.productIdentifier)_purchased")
+        if transaction.payment.productIdentifier == unlimitedContactsProductId {
+          self.hasAlreadyPurchasedUnlimitedContacts = true
+        }
         onBuyProductHandler?(.success(true))
         SKPaymentQueue.default().finishTransaction(transaction)
       case .restored:
+        defaults.set(true, forKey: "\(transaction.payment.productIdentifier)_purchased")
+        if transaction.payment.productIdentifier == unlimitedContactsProductId {
+          self.hasAlreadyPurchasedUnlimitedContacts = true
+        }
         totalRestoredPurchases += 1
         SKPaymentQueue.default().finishTransaction(transaction)
       case .failed:

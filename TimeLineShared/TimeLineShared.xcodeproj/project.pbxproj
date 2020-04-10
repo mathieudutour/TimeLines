@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03B8BF20243DF23D0009E084 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D5A53924373FC6004AC5EB /* Line.swift */; };
 		03D5A53824373FB3004AC5EB /* ContactRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D5A53724373FB3004AC5EB /* ContactRow.swift */; };
 		03D5A53A24373FC6004AC5EB /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D5A53924373FC6004AC5EB /* Line.swift */; };
 		03D5A5C72438B68D004AC5EB /* TimeLineSharedMacOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 03D5A5C52438B68D004AC5EB /* TimeLineSharedMacOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -16,11 +17,15 @@
 		03D5A5D02438B6C3004AC5EB /* TimeZone+print.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D633C324364BF000F8D2CE /* TimeZone+print.swift */; };
 		03D5A5D12438B6CB004AC5EB /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 03D633A4243616C200F8D2CE /* Model.xcdatamodeld */; };
 		03D5A5E52438C2A2004AC5EB /* ContactRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D5A5E42438C2A2004AC5EB /* ContactRow.swift */; };
-		03D5A5E72438C2B8004AC5EB /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D5A5E62438C2B8004AC5EB /* Line.swift */; };
 		03D5A669243A3CAA004AC5EB /* InAppPurchases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D5A668243A3CAA004AC5EB /* InAppPurchases.swift */; };
 		03D5A66D243A41F9004AC5EB /* InAppPurchases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D5A668243A3CAA004AC5EB /* InAppPurchases.swift */; };
 		03D5A672243B6A0D004AC5EB /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D5A671243B6A0D004AC5EB /* Utils.swift */; };
 		03D5A673243B6A32004AC5EB /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D5A671243B6A0D004AC5EB /* Utils.swift */; };
+		03D5A677243C7DD5004AC5EB /* ContactDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D5A676243C7DD5004AC5EB /* ContactDetails.swift */; };
+		03D5A678243C7DF3004AC5EB /* ContactDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D5A676243C7DD5004AC5EB /* ContactDetails.swift */; };
+		03D5A67A243C7E9B004AC5EB /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D5A679243C7E9B004AC5EB /* MapView.swift */; };
+		03D5A67B243C7EEA004AC5EB /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D5A679243C7E9B004AC5EB /* MapView.swift */; };
+		03D5A680243CA078004AC5EB /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D5A67F243CA078004AC5EB /* VisualEffectView.swift */; };
 		03D633982436165100F8D2CE /* TimeLineShared.h in Headers */ = {isa = PBXBuildFile; fileRef = 03D633962436165100F8D2CE /* TimeLineShared.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		03D633A6243616C200F8D2CE /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 03D633A4243616C200F8D2CE /* Model.xcdatamodeld */; };
 		03D633A82436182000F8D2CE /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D633A72436182000F8D2CE /* CoreDataManager.swift */; };
@@ -31,16 +36,18 @@
 
 /* Begin PBXFileReference section */
 		03D5A53724373FB3004AC5EB /* ContactRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContactRow.swift; path = TimeLineShareIOS/ContactRow.swift; sourceTree = "<group>"; };
-		03D5A53924373FC6004AC5EB /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Line.swift; path = TimeLineShareIOS/Line.swift; sourceTree = "<group>"; };
+		03D5A53924373FC6004AC5EB /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		03D5A5C32438B68D004AC5EB /* TimeLineSharedMacOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TimeLineSharedMacOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		03D5A5C52438B68D004AC5EB /* TimeLineSharedMacOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeLineSharedMacOS.h; sourceTree = "<group>"; };
 		03D5A5C62438B68D004AC5EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		03D5A5E42438C2A2004AC5EB /* ContactRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactRow.swift; sourceTree = "<group>"; };
-		03D5A5E62438C2B8004AC5EB /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		03D5A5E92438C453004AC5EB /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/SwiftUI.framework; sourceTree = DEVELOPER_DIR; };
 		03D5A668243A3CAA004AC5EB /* InAppPurchases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppPurchases.swift; sourceTree = "<group>"; };
 		03D5A66A243A3FE0004AC5EB /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
 		03D5A671243B6A0D004AC5EB /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		03D5A676243C7DD5004AC5EB /* ContactDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetails.swift; sourceTree = "<group>"; };
+		03D5A679243C7E9B004AC5EB /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		03D5A67F243CA078004AC5EB /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
 		03D633932436165100F8D2CE /* TimeLineShared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TimeLineShared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		03D633962436165100F8D2CE /* TimeLineShared.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TimeLineShared.h; path = TimeLineShareIOS/TimeLineShared.h; sourceTree = "<group>"; };
 		03D633972436165100F8D2CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -75,7 +82,7 @@
 				03D5A5C52438B68D004AC5EB /* TimeLineSharedMacOS.h */,
 				03D5A5C62438B68D004AC5EB /* Info.plist */,
 				03D5A5E42438C2A2004AC5EB /* ContactRow.swift */,
-				03D5A5E62438C2B8004AC5EB /* Line.swift */,
+				03D5A67F243CA078004AC5EB /* VisualEffectView.swift */,
 			);
 			path = TimeLineSharedMacOS;
 			sourceTree = "<group>";
@@ -85,7 +92,6 @@
 			children = (
 				03D633962436165100F8D2CE /* TimeLineShared.h */,
 				03D5A53724373FB3004AC5EB /* ContactRow.swift */,
-				03D5A53924373FC6004AC5EB /* Line.swift */,
 			);
 			name = TimeLineSharedIOS;
 			sourceTree = "<group>";
@@ -129,6 +135,9 @@
 				03D5A671243B6A0D004AC5EB /* Utils.swift */,
 				03D633C5243653AB00F8D2CE /* Solar.swift */,
 				03D633B42436259B00F8D2CE /* Contact+location.swift */,
+				03D5A679243C7E9B004AC5EB /* MapView.swift */,
+				03D5A53924373FC6004AC5EB /* Line.swift */,
+				03D5A676243C7DD5004AC5EB /* ContactDetails.swift */,
 				03D633C324364BF000F8D2CE /* TimeZone+print.swift */,
 			);
 			path = TimeLineShared;
@@ -251,14 +260,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03D5A67B243C7EEA004AC5EB /* MapView.swift in Sources */,
+				03D5A678243C7DF3004AC5EB /* ContactDetails.swift in Sources */,
 				03D5A673243B6A32004AC5EB /* Utils.swift in Sources */,
 				03D5A66D243A41F9004AC5EB /* InAppPurchases.swift in Sources */,
 				03D5A5D12438B6CB004AC5EB /* Model.xcdatamodeld in Sources */,
+				03D5A680243CA078004AC5EB /* VisualEffectView.swift in Sources */,
 				03D5A5CB2438B6C3004AC5EB /* CoreDataManager.swift in Sources */,
+				03B8BF20243DF23D0009E084 /* Line.swift in Sources */,
 				03D5A5CC2438B6C3004AC5EB /* Solar.swift in Sources */,
 				03D5A5CF2438B6C3004AC5EB /* Contact+location.swift in Sources */,
 				03D5A5D02438B6C3004AC5EB /* TimeZone+print.swift in Sources */,
-				03D5A5E72438C2B8004AC5EB /* Line.swift in Sources */,
 				03D5A5E52438C2A2004AC5EB /* ContactRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -268,7 +280,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				03D633C6243653AB00F8D2CE /* Solar.swift in Sources */,
+				03D5A677243C7DD5004AC5EB /* ContactDetails.swift in Sources */,
 				03D633A82436182000F8D2CE /* CoreDataManager.swift in Sources */,
+				03D5A67A243C7E9B004AC5EB /* MapView.swift in Sources */,
 				03D5A672243B6A0D004AC5EB /* Utils.swift in Sources */,
 				03D633B52436259B00F8D2CE /* Contact+location.swift in Sources */,
 				03D633C424364BF000F8D2CE /* TimeZone+print.swift in Sources */,
@@ -475,6 +489,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = me.dutour.mathieu.TimeLineShared;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -502,6 +517,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = me.dutour.mathieu.TimeLineShared;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

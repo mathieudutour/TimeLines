@@ -17,26 +17,20 @@ public extension Contact {
     )
   }
 
-//  var timeZone: TimeZone {
-//    let group = DispatchGroup()
-//    group.enter()
-//
-//    var resolvedTimezone: TimeZone?
-//
-//    CLGeocoder().reverseGeocodeLocation(CLLocation(latitude: self.location.latitude, longitude: self.location.longitude)) { placemarks, error in
-//      print(placemarks)
-//      if let placemarks = placemarks, placemarks.count > 0 {
-//        resolvedTimezone = placemarks[0].timeZone
-//      }
-//      group.leave()
-//    }
-//
-//    group.wait()
-//
-//    if let resolvedTimezone = resolvedTimezone {
-//      return resolvedTimezone
-//    }
-//
-//    return TimeZone(secondsFromGMT: 0)!
-//  }
+  var timeZone: TimeZone? {
+    TimeZone(secondsFromGMT: Int(self.timezone))
+  }
+
+  func refreshTimeZone() {
+    CLGeocoder().reverseGeocodeLocation(CLLocation(latitude: latitude, longitude: longitude)) { placemarks, error in
+      if
+        let placemarks = placemarks,
+        placemarks.count > 0,
+        let timezone = placemarks[0].timeZone,
+        timezone.secondsFromGMT() != Int(self.timezone)
+      {
+        self.timezone = Int16(timezone.secondsFromGMT())
+      }
+    }
+  }
 }

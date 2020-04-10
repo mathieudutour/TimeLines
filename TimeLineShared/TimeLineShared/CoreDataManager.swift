@@ -76,7 +76,8 @@ public class CoreDataManager {
     }
   }
 
-  public func createContact(name: String, latitude: Double, longitude: Double, locationName: String, timezone: Int16) {
+  @discardableResult
+  public func createContact(name: String, latitude: Double, longitude: Double, locationName: String, timezone: Int16) -> Contact? {
     let index = self.count()
     let context = persistentContainer.viewContext
     let contact = NSEntityDescription.insertNewObject(forEntityName: "Contact", into: context) as! Contact
@@ -91,8 +92,10 @@ public class CoreDataManager {
     do {
       try context.save()
       print("✅ Contact saved succesfuly")
+      return contact
     } catch let error {
       print("❌ Failed to create Contact: \(error.localizedDescription)")
+      return nil
     }
   }
 

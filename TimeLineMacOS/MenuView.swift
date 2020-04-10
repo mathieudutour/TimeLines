@@ -9,6 +9,7 @@
 import SwiftUI
 import AppKit
 import TimeLineSharedMacOS
+import CoreLocation
 
 struct MenuView: View {
   @Environment(\.managedObjectContext) var context
@@ -24,12 +25,13 @@ struct MenuView: View {
         VStack {
           ContactRow(
             name: contact.name ?? "",
-            timezone: TimeZone(secondsFromGMT: Int(contact.timezone)),
+            timezone: contact.timeZone,
             coordinate: contact.location
           )
           Divider()
-        }
-
+        }.onAppear(perform: {
+          contact.refreshTimeZone()
+        })
       }
     }
     .listStyle(SidebarListStyle())

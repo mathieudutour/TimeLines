@@ -7,6 +7,7 @@
 //
 
 import AppKit
+import SwiftUI
 import TimeLineSharedMacOS
 
 class StatusBarController: NSObject {
@@ -15,11 +16,13 @@ class StatusBarController: NSObject {
   private var statusBarButton: NSStatusBarButton
   private var eventMonitor: EventMonitor?
   private let menu = SSMenu()
+  private var contentView: NSWindowController
 
   private var showingMenu = false
 
-  init(_ popover: NSPopover, item: NSStatusItem) {
+  init(_ popover: NSPopover, item: NSStatusItem, windowController: NSWindowController) {
     statusItem = item
+    contentView = windowController
     statusBarButton = statusItem.button!
     self.popover = popover
     super.init()
@@ -136,7 +139,11 @@ extension StatusBarController: NSMenuDelegate {
     menu.removeAllItems()
 
     menu.addCallbackItem("Manage Contacts…", key: ",") { _ in
+      self.contentView.showWindow(self)
+    }
 
+    menu.addCallbackItem("Restore Purchases") { _ in
+      IAPManager.shared.restorePurchases() { _ in }
     }
 
     let item = menu.addCallbackItem("Start at Login") { menuItem in

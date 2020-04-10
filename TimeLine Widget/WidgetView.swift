@@ -23,9 +23,11 @@ struct WidgetView : View {
       ForEach(contacts, id: \.self) { (contact: Contact) in
         ContactRow(
           name: contact.name ?? "",
-          timezone: TimeZone(secondsFromGMT: Int(contact.timezone)),
+          timezone: contact.timeZone,
           coordinate: contact.location
-        )
+        ).onAppear(perform: {
+          contact.refreshTimeZone()
+        })
       }
     }
   }

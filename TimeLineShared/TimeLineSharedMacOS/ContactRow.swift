@@ -23,7 +23,7 @@ public struct ContactRow: View {
   public var body: some View {
     HStack {
       VStack(alignment: .leading) {
-        Text(timezone?.prettyPrint() ?? "")
+        Text(timezone?.prettyPrintTimeDiff() ?? "")
           .font(.caption)
           .foregroundColor(Color(NSColor.secondaryLabelColor))
         Text(name)

@@ -23,7 +23,7 @@ public struct ContactRow: View {
   public var body: some View {
     HStack {
       VStack(alignment: .leading) {
-        Text(timezone?.prettyPrint() ?? "")
+        Text(timezone?.prettyPrintTimeDiff() ?? "")
           .font(.caption)
           .foregroundColor(Color(UIColor.secondaryLabel))
         Text(name)
@@ -33,7 +33,7 @@ public struct ContactRow: View {
 
       Spacer()
 
-      Line(coordinate: coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0), timezone: timezone ?? TimeZone(secondsFromGMT: 0)!)
+      Line(coordinate: coordinate, timezone: timezone)
         .frame(width: 220, height: 80, alignment: .trailing)
     }
   }

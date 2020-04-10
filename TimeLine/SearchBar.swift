@@ -8,20 +8,16 @@
 import SwiftUI
 import MapKit
 
-struct SearchController<Result: View>: UIViewControllerRepresentable {
-  var searchText: String
-  var isFirstResponder: Bool = false
-  @State var matchingItems: [MKMapItem] = []
+struct SearchController: UIViewControllerRepresentable {
+  @State var matchingItems: [MKLocalSearchCompletion] = []
 
-  private var resultView: (_ mapItem: MKMapItem) -> Result
+  private var resultView: (_ mapItem: MKLocalSearchCompletion) -> Button<Text>
 
   private var searchBarPlaceholder: String
 
-  init(_ searchBarPlaceholder: String = "", searchedText: Binding<String>, isFirstResponder: Bool = false, resultView: @escaping (_ mapItem: MKMapItem) -> Result) {
+  init(_ searchBarPlaceholder: String = "", resultView: @escaping (_ mapItem: MKLocalSearchCompletion) -> Button<Text>) {
     self.resultView = resultView
-    self.searchText = searchedText.wrappedValue
     self.searchBarPlaceholder = searchBarPlaceholder
-    self.isFirstResponder = isFirstResponder
   }
 
   func makeUIViewController(context: Context) -> UINavigationController {
@@ -44,74 +40,84 @@ struct SearchController<Result: View>: UIViewControllerRepresentable {
   }
 
   func updateUIViewController(_ uiViewController: UINavigationController, context: UIViewControllerRepresentableContext<SearchController>) {
-    if isFirstResponder && !context.coordinator.didBecomeFirstResponder, uiViewController.view.window != nil  {
-      DispatchQueue.main.async {
-        uiViewController.visibleViewController?.navigationItem.searchController?.searchBar.becomeFirstResponder()
-      }
+    if !context.coordinator.didBecomeFirstResponder, uiViewController.view.window != nil  {
+      uiViewController.visibleViewController?.navigationItem.searchController?.searchBar.becomeFirstResponder()
       context.coordinator.didBecomeFirstResponder = true
     }
+    uiViewController.visibleViewController?.navigationItem.searchController?.searchBar.placeholder = searchBarPlaceholder
+  }
+}
+
+class SearchControllerCoordinator: NSObject, UISearchResultsUpdating, UISearchBarDelegate, MKLocalSearchCompleterDelegate {
+  var parent: SearchController
+  var didBecomeFirstResponder = false
+  var searchCompleter = MKLocalSearchCompleter()
+
+  init(_ parent: SearchController) {
+    self.parent = parent
+    super.init()
+    searchCompleter.delegate = self
+    searchCompleter.resultTypes = .address
+  }
+
+  // MARK: - UISearchResultsUpdating
+  func updateSearchResults(for searchController: UISearchController) {
+    searchCompleter.queryFragment = searchController.searchBar.text ?? ""
+  }
+
+  // MARK: - UISearchBarDelegate
+  func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+    searchCompleter.queryFragment = ""
+  }
+
+  func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+    searchCompleter.queryFragment = ""
+    return true
+  }
+
+  // MARK: - MKLocalSearchCompleterDelegate
+  func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
+    self.parent.matchingItems = completer.results
   }
 }
 
 extension SearchController {
-  func makeCoordinator() -> SearchController<Result>.Coordinator {
-    Coordinator(self)
-  }
-  class Coordinator: NSObject, UISearchResultsUpdating, UISearchBarDelegate {
-    var parent: SearchController
-    var didBecomeFirstResponder = false
-
-    init(_ parent: SearchController) {
-      self.parent = parent
-
-    }
-
-    // MARK: - UISearchResultsUpdating
-    func updateSearchResults(for searchController: UISearchController) {
-      guard let searchBarText = searchController.searchBar.text else { return }
-      self.parent.searchText = searchBarText
-
-      let request = MKLocalSearch.Request()
-      request.naturalLanguageQuery = searchBarText
-      request.resultTypes = .address
-      let search = MKLocalSearch(request: request)
-      search.start { response, _ in
-        guard let response = response else {
-          return
-        }
-        DispatchQueue.main.async {
-          self.parent.matchingItems = response.mapItems
-        }
-      }
-    }
-
-    // MARK: - UISearchBarDelegate
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-      self.parent.searchText = ""
-    }
-
-    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-      self.parent.searchText = ""
-      return true
-    }
+  func makeCoordinator() -> SearchControllerCoordinator {
+    SearchControllerCoordinator(self)
   }
 }
 
 // "nofity" the result content about the searchText
 struct SearchResultView<Content: View>: View {
-  @Binding var matchingItems: [MKMapItem]
-  private var content: (_ mapItem: MKMapItem) -> Content
+  @Binding var matchingItems: [MKLocalSearchCompletion]
+  private var content: (_ mapItem: MKLocalSearchCompletion) -> Content
 
-  init(result matchingItems: Binding<[MKMapItem]>, @ViewBuilder content: @escaping (_ mapItem: MKMapItem) -> Content) {
+  init(result matchingItems: Binding<[MKLocalSearchCompletion]>, @ViewBuilder content: @escaping (_ mapItem: MKLocalSearchCompletion) -> Content) {
     self._matchingItems = matchingItems
     self.content = content
   }
-  
+
   var body: some View {
     List {
-      ForEach(matchingItems, id: \.self) { (item: MKMapItem) in
+      ForEach(matchingItems, id: \.self) { (item: MKLocalSearchCompletion) in
         self.content(item)
       }
     }
   }
+}
+
+struct TestSearchController: View {
+    var body: some View {
+      SearchController() { res in
+        Button(action: {}) {
+          Text(res.title)
+        }
+      }
+    }
+}
+
+struct TestSearchController_Previews: PreviewProvider {
+    static var previews: some View {
+        TestSearchController()
+    }
 }

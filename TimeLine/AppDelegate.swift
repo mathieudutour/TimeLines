@@ -12,15 +12,11 @@ import TimeLineShared
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+  var iapManager: IAPManager?
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    iapManager = IAPManager.shared
     IAPManager.shared.startObserving()
-//    IAPManager.shared.getProducts { result in
-//      switch result {
-//      case .success(let products): print(products);
-//      case .failure(let error): print(error)
-//      }
-//    }
     return true
   }
 

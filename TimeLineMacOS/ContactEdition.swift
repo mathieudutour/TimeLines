@@ -1,20 +1,33 @@
 //
 //  ContactEdition.swift
-//  TimeLine
+//  TimeLineMacOS
 //
-//  Created by Mathieu Dutour on 02/04/2020.
+//  Created by Mathieu Dutour on 08/04/2020.
 //  Copyright © 2020 Mathieu Dutour. All rights reserved.
 //
 
 import SwiftUI
-import TimeLineShared
+import TimeLineSharedMacOS
 import MapKit
 import CoreLocation
+
+struct ButtonThatLookLikeTextFieldStyle: ButtonStyle {
+  var locationText: String
+
+  func makeBody(configuration: Self.Configuration) -> some View {
+    configuration.label
+      .font(.headline)
+      .padding(10)
+      .foregroundColor(Color(self.locationText == "" ? NSColor.placeholderTextColor : NSColor.labelColor))
+      .background(Color(NSColor.controlBackgroundColor))
+      .border(Color(NSColor.controlShadowColor), width: 0.5)
+  }
+}
 
 struct ContactEdition: View {
   @Environment(\.presentationMode) var presentationMode
 
-  var contact: Contact?
+  @Binding var contact: Contact?
 
   @State private var contactName: String
   @State private var locationText = ""
@@ -25,16 +38,17 @@ struct ContactEdition: View {
 
   @State private var locationCompletion: MKLocalSearchCompletion?
 
-  init(contact: Contact?) {
-    self.contact = contact
-    _contactName = State(initialValue: contact?.name ?? "")
-    _locationText = State(initialValue: contact?.locationName ?? "")
-    _location = State(initialValue: contact?.location ?? CLLocationCoordinate2D(latitude: 0, longitude: 0))
-    _timezone = State(initialValue: contact?.timeZone)
+  init(contact: Binding<Contact?>) {
+    self._contact = contact
+    _contactName = State(initialValue: contact.wrappedValue?.name ?? "")
+    _locationText = State(initialValue: contact.wrappedValue?.locationName ?? "")
+    _location = State(initialValue: contact.wrappedValue?.location ?? CLLocationCoordinate2D(latitude: 0, longitude: 0))
+    _timezone = State(initialValue: contact.wrappedValue?.timeZone)
   }
 
   var body: some View {
     VStack {
+      Spacer()
       VStack(alignment: .leading) {
         HStack {
           Text("Name")
@@ -48,40 +62,53 @@ struct ContactEdition: View {
         HStack {
           Text("Location")
             .font(.title)
+
+          GeometryReader { p in
+            Button(action: {
+              self.showModal = true
+            }) {
+              Text(self.locationText == "" ? "San Francisco" : self.locationText)
+                .multilineTextAlignment(.trailing)
+                .font(.title)
+                .frame(width: p.size.width - 20, height: 22, alignment: .trailing)
+                .foregroundColor(Color(self.locationText == "" ? NSColor.placeholderTextColor : NSColor.labelColor))
+            }
+            .frame(height: 22, alignment: .trailing)
+            .buttonStyle(ButtonThatLookLikeTextFieldStyle(locationText: self.locationText))
+            .sheet(isPresented: self.$showModal) {
+              SearchController(resultView: { mapItem in
+                Button(action: {
+                  self.locationCompletion = mapItem
+                  self.locationText = mapItem.title
+                  self.showModal = false
+                }) {
+                  Text(mapItem.title)
+                }
+                .buttonStyle(ButtonThatLookLikeRowStyle())
+              })
+            }
+          }.frame(height: 30)
+
+        }
+        HStack {
           Spacer()
           Button(action: {
-              self.showModal = true
+            self.save()
           }) {
-            Text(locationText == "" ? "San Francisco" : locationText)
-              .font(.title)
-              .foregroundColor(Color(locationText == "" ? UIColor.placeholderText : UIColor.label))
-              .frame(alignment: .trailing)
-          }.sheet(isPresented: self.$showModal) {
-            SearchController("Search for a place") { mapItem in
-              Button(action: {
-                self.locationCompletion = mapItem
-                self.locationText = mapItem.title
-                self.showModal = false
-              }) {
-                Text(mapItem.title)
-              }
-            }
+            Text("Save")
           }
+          .padding(.top)
+          .disabled(contactName == "" || locationText == "")
         }
+        Spacer()
       }
       .padding()
 
       Spacer()
-    }.navigationBarItems(trailing: Button(action: {
-      self.save()
-    }) {
-      Text("Save")
     }
-    .disabled(contactName == "" || locationText == ""))
   }
 
   func save() {
-    self.presentationMode.wrappedValue.dismiss()
     if let locationCompletion = locationCompletion, locationCompletion.title != contact?.locationName {
       // need to fetch the new location
       let request = MKLocalSearch.Request(completion: locationCompletion)
@@ -109,7 +136,7 @@ struct ContactEdition: View {
       contact.timezone = Int16(timezone?.secondsFromGMT() ?? 0)
       CoreDataManager.shared.saveContext()
     } else {
-      CoreDataManager.shared.createContact(
+      contact = CoreDataManager.shared.createContact(
         name: contactName,
         latitude: location.latitude,
         longitude: location.longitude,
@@ -121,7 +148,10 @@ struct ContactEdition: View {
 }
 
 struct ContactEdition_Previews: PreviewProvider {
+
   static var previews: some View {
-    return ContactEdition(contact: nil)
+    var contact: Contact? = nil
+    return ContactEdition(contact: Binding(get: { contact }, set: { new in contact = new }))
   }
 }
+

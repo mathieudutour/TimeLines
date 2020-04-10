@@ -13,27 +13,51 @@ A view that hosts an `MKMapView`.
 
 import SwiftUI
 import MapKit
-import TimeLineShared
 
-struct MapView: UIViewRepresentable {
-    var coordinate: CLLocationCoordinate2D
+class MapViewDelegate: NSObject, MKMapViewDelegate {}
 
+struct MapView {
+  var coordinate: CLLocationCoordinate2D
+
+  private let delegate = MapViewDelegate()
+
+  func makeMapView() -> MKMapView {
+    let view = MKMapView(frame: .zero)
+    view.delegate = delegate
+    return view
+  }
+
+  func updateMapView(_ uiView: MKMapView) {
+      let span = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
+      let region = MKCoordinateRegion(center: coordinate, span: span)
+      uiView.setRegion(region, animated: true)
+  }
+}
+
+#if os(iOS) || os(tvOS) || os(watchOS)
+  extension MapView: UIViewRepresentable {
     func makeUIView(context: Context) -> MKMapView {
-        MKMapView(frame: .zero)
+      makeMapView()
     }
 
     func updateUIView(_ uiView: MKMapView, context: Context) {
-        let span = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
-        let region = MKCoordinateRegion(center: coordinate, span: span)
-        uiView.setRegion(region, animated: true)
+        updateMapView(uiView)
     }
-}
+  }
+#elseif os(macOS)
+  extension MapView: NSViewRepresentable {
+    func makeNSView(context: Context) -> MKMapView {
+      makeMapView()
+    }
+
+    func updateNSView(_ uiView: MKMapView, context: Context) {
+        updateMapView(uiView)
+    }
+  }
+#endif
 
 struct MapView_Previews: PreviewProvider {
-    static var previews: some View {
-      let dummyContact = Contact()
-      dummyContact.latitude = 34.011286
-      dummyContact.longitude = -116.166868
-      return MapView(coordinate: dummyContact.location)
-    }
+  static var previews: some View {
+    return MapView(coordinate: CLLocationCoordinate2D(latitude: 34.011286, longitude: -116.166868))
+  }
 }
