@@ -143,7 +143,7 @@ struct ManageContacts: View {
         self.tryAgainBuy()
         break
       case .failure(let error):
-        self.errorMessage = error.errorDescription
+        self.errorMessage = error.localizedDescription
         self.showingAlert = .noProducts
         break
       }
@@ -161,7 +161,7 @@ struct ManageContacts: View {
           break
         case .failure(let error):
           print(error)
-          self.errorMessage = error.errorDescription
+          self.errorMessage = error.localizedDescription
           self.showingAlert = .cantBuy
         }
       }
