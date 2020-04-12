@@ -49,6 +49,52 @@
         margin-top: -16px;
       }
 
+      #macos-app {
+        position: absolute;
+        height: 100%;
+        max-width: 100%;
+        top: 0;
+        right: 0;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity ease-in-out 0.3s;
+      }
+
+      .menubar {
+        position: sticky;
+        height: 12px;
+        background: #fafafa;
+        top: 0;
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      #menubar-time {
+        font-size: 7px;
+        line-height: 12px;
+        padding-left: 5px;
+      }
+
+      .menubar-border {
+        position: sticky;
+        height: 0.5px;
+        top: 11px;
+        width: 150%;
+        background-image: linear-gradient(
+          to left,
+          #7d7d7d,
+          rgba(255, 255, 255, 0)
+        );
+      }
+
+      .menubar-app {
+        position: sticky;
+        top: 0;
+        right: 0;
+        margin-top: -12px;
+      }
+
       .app_screen {
         width: 300px;
         height: 568px;
@@ -74,14 +120,28 @@
       }
 
       .download_the_app_btn {
-        width: 243px;
-        height: 72px;
+        width: 213px;
+        height: 63px;
         background: url("./app_store_btn.svg");
         background-color: transparent;
         background-repeat: no-repeat;
         background-size: 100%;
         display: block;
         box-shadow: 32px 32px 96px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+      }
+
+      .download_the_mac_app_btn {
+        width: 243px;
+        height: 63px;
+        background: url("./mac_app_store_btn.svg");
+        background-color: transparent;
+        background-repeat: no-repeat;
+        background-size: 100%;
+        display: block;
+        box-shadow: 32px 32px 96px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        margin-top: 20px;
       }
 
       @media (max-width: 1024px) {
@@ -158,6 +218,111 @@
     </style>
   </head>
   <body>
+    <div id="macos-app">
+      <div class="menubar">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="11"
+          viewBox="0 0 32 22"
+        >
+          <g fill="none" fill-rule="evenodd" transform="translate(4.5 5)">
+            <rect width="10" height="8" x="2" y="2" fill="#373C41" />
+            <rect
+              width="19"
+              height="11"
+              x=".5"
+              y=".5"
+              stroke="#383E43"
+              rx="2"
+            />
+            <path fill="#373C41" d="M21 8.5s2-.524 2-2.5-2-2.5-2-2.5v5z" />
+          </g>
+        </svg>
+        <span id="menubar-time">7:50 PM</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="11"
+          viewBox="0 0 32 22"
+        >
+          <g
+            fill="none"
+            fill-rule="evenodd"
+            stroke="#393F44"
+            stroke-width="1.5"
+            transform="translate(9.5 4.5)"
+          >
+            <circle cx="4.75" cy="4.75" r="4.75" />
+            <line
+              x1="8.5"
+              x2="12.639"
+              y1="8.5"
+              y2="12.863"
+              stroke-linecap="round"
+            />
+          </g>
+        </svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="11"
+          viewBox="0 0 32 22"
+        >
+          <g fill="#393F44" fill-rule="evenodd" transform="translate(7 6)">
+            <rect width="2" height="2" />
+            <rect width="14" height="2" x="4" />
+            <rect width="11" height="2" x="4" y="4" />
+            <rect width="14" height="2" x="4" y="8" />
+            <rect width="2" height="2" y="4" />
+            <rect width="2" height="2" y="8" />
+          </g>
+        </svg>
+      </div>
+      <div class="menubar-border"></div>
+      <svg
+        class="menubar-app"
+        width="236px"
+        height="186.5px"
+        viewBox="0 0 236 186.5"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <image href="./menubar.png" width="236" height="186.5" />
+        <path
+          id="curveMac1"
+          d="M94 44 l30.5 0 c0 0 14.2 -13 32 -13 c17.75 0 32 13 32 13 l15 0"
+          fill="transparent"
+          stroke="black"
+          stroke-width="1"
+        />
+        <g id="circleMac1">
+          <circle cx="0" cy="0" r="2" fill="black" />
+          <text id="textMac1" font-size="7" x="3.5" y="-7">7:50 PM</text>
+        </g>
+        <path
+          id="curveMac2"
+          d="M94 94 l30.5 0 c0 0 10.65 -13 24.85 -13 c14.2 0 24.85 13 24.85 13 l29 0"
+          fill="transparent"
+          stroke="black"
+          stroke-width="1"
+        />
+        <g id="circleMac2">
+          <circle cx="0" cy="0" r="2" fill="black" />
+          <text id="textMac2" font-size="7" x="3.5" y="-7">7:50 PM</text>
+        </g>
+        <path
+          id="curveMac3"
+          d="M94 144 l21.3 0 c0 0 14.2 -13 32 -13 c17.75 0 32 13 32 13 l24 0"
+          fill="transparent"
+          stroke="black"
+          stroke-width="1"
+        />
+        <g id="circleMac3">
+          <circle cx="0" cy="0" r="2" fill="black" />
+          <text id="textMac3" font-size="7" x="3.5" y="-7">7:50 PM</text>
+        </g>
+      </svg>
+    </div>
     <main>
       <div class="description">
         <div class="right_container">
@@ -169,6 +334,12 @@
           <a
             href="https://testflight.apple.com/join/bE2a0E8C"
             class="download_the_app_btn"
+          ></a>
+          <a
+            href="https://testflight.apple.com/join/bE2a0E8C"
+            class="download_the_mac_app_btn"
+            onmouseover="document.getElementById('macos-app').style.opacity = 1"
+            onmouseout="document.getElementById('macos-app').style.opacity = 0"
           ></a>
         </div>
       </div>
@@ -193,7 +364,7 @@
           />
           <g id="circle1">
             <circle cx="0" cy="0" r="3" fill="black" />
-            <text id="text1" font-size="12" x="5" y="-10">7:50 PM</text>
+            <text id="text1" font-size="10" x="5" y="-10">7:50 PM</text>
           </g>
           <path
             id="curve2"
@@ -204,7 +375,7 @@
           />
           <g id="circle2">
             <circle cx="0" cy="0" r="3" fill="black" />
-            <text id="text2" font-size="12" x="5" y="-10">7:50 PM</text>
+            <text id="text2" font-size="10" x="5" y="-10">7:50 PM</text>
           </g>
           <path
             id="curve3"
@@ -215,7 +386,7 @@
           />
           <g id="circle3">
             <circle cx="0" cy="0" r="3" fill="black" />
-            <text id="text3" font-size="12" x="5" y="-10">7:50 PM</text>
+            <text id="text3" font-size="10" x="5" y="-10">7:50 PM</text>
           </g>
         </svg>
       </div>
@@ -245,10 +416,23 @@
     var curve3 = document.getElementById("curve3");
     var circle3 = document.getElementById("circle3");
     var text3 = document.getElementById("text3");
+    var textMac0 = document.getElementById("menubar-time");
+    var curveMac1 = document.getElementById("curveMac1");
+    var circleMac1 = document.getElementById("circleMac1");
+    var textMac1 = document.getElementById("textMac1");
+    var curveMac2 = document.getElementById("curveMac2");
+    var circleMac2 = document.getElementById("circleMac2");
+    var textMac2 = document.getElementById("textMac2");
+    var curveMac3 = document.getElementById("curveMac3");
+    var circleMac3 = document.getElementById("circleMac3");
+    var textMac3 = document.getElementById("textMac3");
 
     var curve1Length = curve1.getTotalLength();
     var curve2Length = curve2.getTotalLength();
     var curve3Length = curve3.getTotalLength();
+    var curveMac1Length = curveMac1.getTotalLength();
+    var curveMac2Length = curveMac2.getTotalLength();
+    var curveMac3Length = curveMac3.getTotalLength();
 
     function getTime(fraction, withoutPrefix) {
       var seconds = 24 * 3600 * fraction;
@@ -267,7 +451,7 @@
       );
     }
 
-    function updateElement(text, circle, curve, time) {
+    function updateElement(text, circle, curve, time, limitLeft, limitRight) {
       text.textContent = getTime(time);
 
       var curveLength = curve.getTotalLength();
@@ -284,8 +468,11 @@
       );
 
       if (time < 0.5) {
-        if (x - text.clientWidth < 122) {
-          text.setAttribute("transform", "translate(" + (118 - x) + ", 0)");
+        if (x - text.clientWidth < limitLeft) {
+          text.setAttribute(
+            "transform",
+            "translate(" + (limitLeft - 4 - x) + ", 0)"
+          );
         } else {
           text.setAttribute(
             "transform",
@@ -293,10 +480,10 @@
           );
         }
       } else {
-        if (x + text.clientWidth > 278) {
+        if (x + text.clientWidth > limitRight) {
           text.setAttribute(
             "transform",
-            "translate(" + (283 - x - text.clientWidth) + ", 0)"
+            "translate(" + (limitRight + 5 - x - text.clientWidth) + ", 0)"
           );
         } else {
           text.setAttribute("transform", "translate(0, 0)");
@@ -312,10 +499,14 @@
       var time3 = (0.74 + counter) % 1;
 
       text0.textContent = getTime(time1, true);
+      textMac0.textContent = getTime(time1);
 
-      updateElement(text1, circle1, curve1, time1);
-      updateElement(text2, circle2, curve2, time2);
-      updateElement(text3, circle3, curve3, time3);
+      updateElement(text1, circle1, curve1, time1, 122, 278);
+      updateElement(text2, circle2, curve2, time2, 122, 278);
+      updateElement(text3, circle3, curve3, time3, 122, 278);
+      updateElement(textMac1, circleMac1, curveMac1, time1, 94, 205);
+      updateElement(textMac2, circleMac2, curveMac2, time2, 94, 205);
+      updateElement(textMac3, circleMac3, curveMac3, time3, 94, 205);
 
       requestAnimationFrame(moveTime);
     }

@@ -12,6 +12,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+
+      # minify landing page
+      - name: Minify the landing page
+        run: npx html-minifier landing/index.html --collapse-whitespace --remove-comments --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --remove-tag-whitespace --use-short-doctype --minify-css true --minify-js true -o landing/index.html
+
       - name: Deploy to the gh-pages branch
         uses: peaceiris/actions-gh-pages@v3
         with:
