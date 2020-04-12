@@ -96,9 +96,12 @@ extension StatusBarController {
   }
 
   func showPopover(_ sender: AnyObject) {
+    let contacts = CoreDataManager.shared.count()
+    let rowSize = 80
+    let dividerSize = 29
     popover.contentSize = NSSize(
       width: 400,
-      height: min(CGFloat(CoreDataManager.shared.count() * (80 + 21)), CGFloat((80 + 21) * 5))
+      height: min(CGFloat(contacts * rowSize + (contacts - 1) * dividerSize), CGFloat(rowSize * 5 + dividerSize * 4))
     )
     popover.show(relativeTo: statusBarButton.bounds, of: statusBarButton, preferredEdge: NSRectEdge.maxY)
     eventMonitor?.start()

@@ -21,6 +21,17 @@ struct ButtonThatLookLikeRowStyle: ButtonStyle {
   }
 }
 
+struct ButtonThatLookLikeNothingStyle: ButtonStyle {
+  func makeBody(configuration: Self.Configuration) -> some View {
+    configuration.label
+      .font(.body)
+      .padding(.trailing, 3)
+      .foregroundColor(Color(NSColor.secondaryLabelColor))
+      .background(Color(NSColor.clear))
+      .border(Color(NSColor.controlShadowColor), width: 0)
+  }
+}
+
 class ObservableArray<T>: ObservableObject {
 
   @Published var array:[T] = []
@@ -77,6 +88,7 @@ struct SearchController<Result>: View where Result: View {
               self.showCancelButton = true
           })
           .foregroundColor(.primary)
+          .padding(.leading, 18)
 
           Image(nsImage: NSImage(named: NSImage.revealFreestandingTemplateName)!)
 
@@ -87,7 +99,8 @@ struct SearchController<Result>: View where Result: View {
                   self.searchText = ""
               }) {
                 Image(nsImage: NSImage(named: NSImage.stopProgressFreestandingTemplateName)!).opacity(searchText == "" ? 0 : 1)
-              }
+              }.buttonStyle(ButtonThatLookLikeNothingStyle())
+
             }
 
           }

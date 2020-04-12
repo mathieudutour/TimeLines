@@ -28,6 +28,7 @@ struct ContactEdition: View {
   @Environment(\.presentationMode) var presentationMode
 
   @Binding var contact: Contact?
+  @Binding var showingEdit: Bool
 
   @State private var contactName: String
   @State private var locationText = ""
@@ -38,8 +39,9 @@ struct ContactEdition: View {
 
   @State private var locationCompletion: MKLocalSearchCompletion?
 
-  init(contact: Binding<Contact?>) {
+  init(contact: Binding<Contact?>, showingEdit: Binding<Bool>) {
     self._contact = contact
+    self._showingEdit = showingEdit
     _contactName = State(initialValue: contact.wrappedValue?.name ?? "")
     _locationText = State(initialValue: contact.wrappedValue?.locationName ?? "")
     _location = State(initialValue: contact.wrappedValue?.location ?? CLLocationCoordinate2D(latitude: 0, longitude: 0))
@@ -144,6 +146,7 @@ struct ContactEdition: View {
         timezone: Int16(timezone?.secondsFromGMT() ?? 0)
       )
     }
+    showingEdit = false
   }
 }
 
@@ -151,7 +154,8 @@ struct ContactEdition_Previews: PreviewProvider {
 
   static var previews: some View {
     var contact: Contact? = nil
-    return ContactEdition(contact: Binding(get: { contact }, set: { new in contact = new }))
+    var showingEdit = true
+    return ContactEdition(contact: Binding(get: { contact }, set: { new in contact = new }), showingEdit: Binding(get: { showingEdit }, set: { new in showingEdit = new }))
   }
 }
 

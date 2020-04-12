@@ -28,7 +28,9 @@ struct MenuView: View {
             timezone: contact.timeZone,
             coordinate: contact.location
           )
-          Divider()
+          if self.contacts.last != contact {
+            Divider()
+          }
         }.onAppear(perform: {
           contact.refreshTimeZone()
         })

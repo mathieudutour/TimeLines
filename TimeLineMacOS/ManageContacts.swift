@@ -64,6 +64,21 @@ struct ManageContacts: View {
           .onAppear(perform: {
             contact.refreshTimeZone()
           })
+          .contextMenu(menuItems: {
+            Button(action: {
+              self.selectedContact = contact
+              self.showingEdit = true
+            }) {
+              Text("Edit Contact")
+            }
+            Button(action: {
+              self.selectedContact = nil
+              self.showingEdit = false
+              CoreDataManager.shared.deleteContact(contact)
+            }) {
+              Text("Delete Contact")
+            }
+          })
         }
         .onDelete(perform: self.deleteContact)
         .onMove(perform: self.moveContact)
@@ -73,7 +88,7 @@ struct ManageContacts: View {
       .listStyle(SidebarListStyle())
 
       if showingEdit {
-        ContactEdition(contact: $selectedContact)
+        ContactEdition(contact: $selectedContact, showingEdit: $showingEdit)
       } else if selectedContact != nil {
         ContactDetails(contact: selectedContact!) {
           Button(action: {
