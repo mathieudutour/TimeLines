@@ -29,7 +29,7 @@ public extension TimeZone {
     return "\(diff >= 0 ? "+" : "")\(formatter.string(from: NSNumber(value: Double(diff) / 3600)) ?? "")HRS"
   }
 
-  func prettyPrintCurrentTime() -> String {
-    return dateFormatter.string(from: Date().addingTimeInterval(TimeInterval(self.diffInSecond())))
+  func prettyPrintTime(_ time: Date) -> String {
+    return dateFormatter.string(from: time.addingTimeInterval(TimeInterval(self.diffInSecond())))
   }
 }

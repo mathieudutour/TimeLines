@@ -10,6 +10,7 @@ import SwiftUI
 
 struct Main: View {
   @ObservedObject var contact: Contact
+  @ObservedObject var currentTime = CurrentTime.shared
 
   var body: some View {
     VStack(alignment: .leading) {
@@ -25,7 +26,7 @@ struct Main: View {
         Text(contact.locationName ?? "No location")
           .font(.subheadline)
         Spacer()
-        Text(contact.timeZone?.prettyPrintCurrentTime() ?? "")
+        Text(contact.timeZone?.prettyPrintTime(currentTime.now) ?? "")
           .font(.subheadline)
       }
       Line(coordinate: contact.location, timezone: contact.timeZone)

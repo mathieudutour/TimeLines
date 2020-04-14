@@ -30,8 +30,7 @@ fileprivate func point(_ date: Date, _ timezone: TimeZone?) -> CGFloat {
 fileprivate let defaultLineWidth: CGFloat = 2
 fileprivate let defaultMaxHeight: CGFloat = 25
 
-fileprivate func circlePosition(frame: CGRect, timezone: TimeZone?, sunrise: Date?, sunset: Date?) -> CGPoint {
-  let time = Date()
+fileprivate func circlePosition(frame: CGRect, time: Date, timezone: TimeZone?, sunrise: Date?, sunset: Date?) -> CGPoint {
 
   let timePoint = point(time, timezone)
 
@@ -140,6 +139,7 @@ struct ParabolaLine: Shape {
 }
 
 struct CurrentTimeCircle: Shape {
+  var now: Date
   var timezone: TimeZone?
   var sunrise: Date?
   var sunset: Date?
@@ -149,7 +149,7 @@ struct CurrentTimeCircle: Shape {
   func path(in frame: CGRect) -> Path {
     var path = Path()
 
-    let pos = circlePosition(frame: frame, timezone: timezone, sunrise: sunrise, sunset: sunset)
+    let pos = circlePosition(frame: frame, time: now, timezone: timezone, sunrise: sunrise, sunset: sunset)
 
     path.addArc(center: pos, radius: (lineWidth ?? defaultLineWidth) * 1.5, startAngle: Angle.zero, endAngle: Angle.degrees(360), clockwise: true)
 
@@ -158,6 +158,7 @@ struct CurrentTimeCircle: Shape {
 }
 
 struct CurrentTimeText: View {
+  var now: Date
   var timezone: TimeZone?
   var sunrise: Date?
   var sunset: Date?
@@ -166,7 +167,7 @@ struct CurrentTimeText: View {
     guard let string = text else {
       return .zero
     }
-    let pos = circlePosition(frame: frame, timezone: timezone, sunrise: sunrise, sunset: sunset)
+    let pos = circlePosition(frame: frame, time: now, timezone: timezone, sunrise: sunrise, sunset: sunset)
     let size = NSString(string: string).size(withAttributes: [NSAttributedString.Key.font: CPFont.systemFont(ofSize: 15)])
 
     var x = pos.x
@@ -184,7 +185,7 @@ struct CurrentTimeText: View {
   }
 
   var body: some View {
-    let string = self.timezone?.prettyPrintCurrentTime() ?? ""
+    let string = self.timezone?.prettyPrintTime(now) ?? ""
     return LineGeometryReader { p in
       VStack {
         HStack {
@@ -219,6 +220,8 @@ struct LineGeometryReader<Content: View>: View {
 }
 
 public struct Line: View {
+  @ObservedObject var currentTime = CurrentTime.shared
+
   var coordinate: CLLocationCoordinate2D?
   var timezone: TimeZone?
   var lineWidth: CGFloat?
@@ -235,8 +238,8 @@ public struct Line: View {
     return LineGeometryReader { p in
       ZStack(alignment: .topLeading) {
         ParabolaLine(timezone: self.timezone, sunrise: solar?.civilSunrise, sunset: solar?.civilSunset).stroke(style: StrokeStyle(lineWidth: defaultLineWidth, lineCap: .round, lineJoin: .round))
-        CurrentTimeCircle(timezone: self.timezone, sunrise: solar?.civilSunrise, sunset: solar?.civilSunset)
-        CurrentTimeText(timezone: self.timezone, sunrise: solar?.civilSunrise, sunset: solar?.civilSunset)
+        CurrentTimeCircle(now: self.currentTime.now, timezone: self.timezone, sunrise: solar?.civilSunrise, sunset: solar?.civilSunset)
+        CurrentTimeText(now: self.currentTime.now, timezone: self.timezone, sunrise: solar?.civilSunrise, sunset: solar?.civilSunset)
       }
       .frame(width: p.width, height: p.height)
     }
