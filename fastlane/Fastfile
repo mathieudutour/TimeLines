@@ -16,8 +16,8 @@
 default_platform(:ios)
 
 lane :certificates do
-  match(type: "development", app_identifier: ["me.dutour.mathieu.TimeLine", "me.dutour.mathieu.TimeLine.TimeLine-Widget"], force_for_new_devices: true)
-  match(type: "appstore", app_identifier: ["me.dutour.mathieu.TimeLine", "me.dutour.mathieu.TimeLine.TimeLine-Widget"])
+  match(type: "development", app_identifier: ["me.dutour.mathieu.TimeLine", "me.dutour.mathieu.TimeLine.TimeLine-Widget", "me.dutour.mathieu.TimeLine.watchkitapp", "me.dutour.mathieu.TimeLine.watchkitapp.watchkitextension"], force_for_new_devices: true)
+  match(type: "appstore", app_identifier: ["me.dutour.mathieu.TimeLine", "me.dutour.mathieu.TimeLine.TimeLine-Widget", "me.dutour.mathieu.TimeLine.watchkitapp", "me.dutour.mathieu.TimeLine.watchkitapp.watchkitextension"])
 end
 
 platform :ios do
@@ -46,6 +46,20 @@ platform :ios do
         keychain_password: ENV["MATCH_PASSWORD"],
         type: "appstore",
         app_identifier: "me.dutour.mathieu.TimeLine.TimeLine-Widget",
+        readonly: true
+      )
+      match(
+        keychain_name: "GithubActionKeychain",
+        keychain_password: ENV["MATCH_PASSWORD"],
+        type: "appstore",
+        app_identifier: "me.dutour.mathieu.TimeLine.watchkitapp",
+        readonly: true
+      )
+      match(
+        keychain_name: "GithubActionKeychain",
+        keychain_password: ENV["MATCH_PASSWORD"],
+        type: "appstore",
+        app_identifier: "me.dutour.mathieu.TimeLine.watchkitapp.watchkitextension",
         readonly: true
       )
     else

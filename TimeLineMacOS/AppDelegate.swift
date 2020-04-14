@@ -9,10 +9,12 @@
 import Cocoa
 import TimeLineSharedMacOS
 import SwiftUI
+import CoreData
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
   var iapManager: IAPManager?
+  var context: NSManagedObjectContext?
 
   var popover = NSPopover()
   var windowController = NSWindowController(window: NSWindow(
@@ -28,18 +30,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     iapManager = IAPManager.shared
     IAPManager.shared.startObserving()
 
-    let context = CoreDataManager.shared.viewContext
+    context = CoreDataManager.shared.viewContext
 
     let contentView = MenuView()
       .background(Color.clear)
-      .environment(\.managedObjectContext, context)
+      .environment(\.managedObjectContext, context!)
+      .environment(\.inAppPurchaseContext, iapManager!)
 
     let vc = NSHostingController(rootView: contentView)
     popover.contentViewController = vc
 
     let manageView = ManageContacts()
       .background(Color.clear)
-      .environment(\.managedObjectContext, context)
+      .environment(\.managedObjectContext, context!)
+      .environment(\.inAppPurchaseContext, iapManager!)
 
     if let window = windowController.window {
       window.contentView = NSHostingView(rootView: manageView)

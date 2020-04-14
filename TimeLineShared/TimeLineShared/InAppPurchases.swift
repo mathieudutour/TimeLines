@@ -148,13 +148,9 @@ extension IAPManager: SKPaymentTransactionObserver {
         totalRestoredPurchases += 1
         SKPaymentQueue.default().finishTransaction(transaction)
       case .failed:
-        if let error = transaction.error as? SKError {
-            if error.code != .paymentCancelled {
-                onBuyProductHandler?(.failure(error))
-            } else {
-                onBuyProductHandler?(.failure(IAPManagerError.paymentWasCancelled))
-            }
-            print("IAP Error:", error.localizedDescription)
+        if let error = transaction.error {
+          onBuyProductHandler?(.failure(error))
+          print("IAP Error:", error.localizedDescription)
         }
         SKPaymentQueue.default().finishTransaction(transaction)
       case .deferred, .purchasing: break
@@ -173,14 +169,8 @@ extension IAPManager: SKPaymentTransactionObserver {
   }
 
   public func paymentQueue(_ queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: Error) {
-    if let error = error as? SKError {
-      if error.code != .paymentCancelled {
-        print("IAP Restore Error:", error.localizedDescription)
-        onBuyProductHandler?(.failure(error))
-      } else {
-        onBuyProductHandler?(.failure(IAPManagerError.paymentWasCancelled))
-      }
-    }
+    print("IAP Restore Error:", error.localizedDescription)
+    onBuyProductHandler?(.failure(error))
   }
 }
 
