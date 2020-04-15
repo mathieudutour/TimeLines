@@ -32,7 +32,7 @@ struct ContentView: View {
       Group {
         Text("To add a new contact or edit existing ones, use the iOS or macOS app.").padding()
       }
-    }.listStyle(CarouselListStyle())
+    }
   }
 }
 

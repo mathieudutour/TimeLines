@@ -36,6 +36,7 @@
         display: flex;
         justify-content: flex-end;
         padding-right: 64px;
+        position: relative;
       }
 
       .description {
@@ -100,6 +101,17 @@
         box-shadow: 64px 64px 144px rgba(0, 0, 0, 0.2);
       }
 
+      .watch_screen {
+        width: 123px;
+        height: 150px;
+        background: black;
+        border-radius: 16px;
+        box-shadow: 64px 64px 144px rgba(0, 0, 0, 0.2);
+        position: absolute;
+        bottom: -20px;
+        right: 30px;
+      }
+
       .title {
         font-size: 64px;
         font-weight: 900;
@@ -158,6 +170,11 @@
         .app_screen {
           box-shadow: 48px 48px 96px rgba(0, 0, 0, 0.1);
         }
+
+        .watch_screen {
+          box-shadow: 48px 48px 96px rgba(0, 0, 0, 0.1);
+          right: -20px;
+        }
       }
 
       @media (max-width: 750px) {
@@ -196,6 +213,11 @@
 
         .download_the_app_btn {
           display: block;
+        }
+
+        .watch_screen {
+          bottom: 80px;
+          right: calc(50vw - 180px);
         }
       }
 
@@ -388,6 +410,31 @@
             <text id="text3" font-size="10" x="5" y="-10">7:50 PM</text>
           </g>
         </svg>
+        <svg
+          class="watch_screen"
+          width="123px"
+          height="150px"
+          viewBox="0 0 123 150"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <image href="./watchos_screen.png" width="123" height="150" />
+          <text id="mainTimeWatch" font-size="10" x="90" y="15" fill="white">
+            7:50 PM
+          </text>
+          <path
+            id="curveWatch"
+            d="M8 84 l22 0 c0 0 13.33 -18 30 -18 c16.67 0 30 18 30 18 l23.67 0"
+            fill="transparent"
+            stroke="white"
+            stroke-width="1"
+          />
+          <g id="circleWatch">
+            <circle cx="0" cy="0" r="2" fill="white" />
+            <text id="textWatch" font-size="10" x="5" y="-10" fill="white">
+              7:50 PM
+            </text>
+          </g>
+        </svg>
       </div>
     </main>
     <footer>
@@ -433,6 +480,10 @@
     var curveMac3 = document.getElementById("curveMac3");
     var circleMac3 = document.getElementById("circleMac3");
     var textMac3 = document.getElementById("textMac3");
+    var textWatch0 = document.getElementById("mainTimeWatch");
+    var curveWatch1 = document.getElementById("curveWatch");
+    var circleWatch1 = document.getElementById("circleWatch");
+    var textWatch1 = document.getElementById("textWatch");
 
     var curve1Length = curve1.getTotalLength();
     var curve2Length = curve2.getTotalLength();
@@ -440,8 +491,9 @@
     var curveMac1Length = curveMac1.getTotalLength();
     var curveMac2Length = curveMac2.getTotalLength();
     var curveMac3Length = curveMac3.getTotalLength();
+    var curveWatch1Length = curveWatch1.getTotalLength();
 
-    function getTime(fraction, withoutPrefix) {
+    function getTime(fraction, withoutSuffix) {
       var seconds = 24 * 3600 * fraction;
       var hours = Math.floor(seconds / 3600);
       var minutes = Math.floor((seconds - hours * 3600) / 60);
@@ -454,7 +506,7 @@
         hours +
         ":" +
         (minutes < 10 ? "0" + minutes : minutes) +
-        (withoutPrefix ? "" : " " + suffix)
+        (withoutSuffix ? "" : " " + suffix)
       );
     }
 
@@ -507,6 +559,7 @@
 
       text0.textContent = getTime(time1, true);
       textMac0.textContent = getTime(time1);
+      textWatch0.textContent = getTime(time1, true);
 
       updateElement(text1, circle1, curve1, time1, 122, 278);
       updateElement(text2, circle2, curve2, time2, 122, 278);
@@ -514,6 +567,7 @@
       updateElement(textMac1, circleMac1, curveMac1, time1, 94, 205);
       updateElement(textMac2, circleMac2, curveMac2, time2, 94, 205);
       updateElement(textMac3, circleMac3, curveMac3, time3, 94, 205);
+      updateElement(textWatch1, circleWatch1, curveWatch1, time1, 8, 116);
 
       requestAnimationFrame(moveTime);
     }
