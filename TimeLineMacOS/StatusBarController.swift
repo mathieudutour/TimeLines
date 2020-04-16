@@ -97,21 +97,26 @@ extension StatusBarController {
 
   func showPopover(_ sender: AnyObject) {
     let contacts = CoreDataManager.shared.count()
+
+    // show the manage window when we don't have any contact
+    if contacts == 0 {
+      self.contentView.showWindow(self)
+      return
+    }
+
     let rowSize = 80
     let dividerSize = 29
     popover.contentSize = NSSize(
       width: 400,
-      height: min(CGFloat(contacts * rowSize + (contacts - 1) * dividerSize), CGFloat(rowSize * 5 + dividerSize * 4))
+      height: max(min(CGFloat(contacts * rowSize + (contacts - 1) * dividerSize), CGFloat(rowSize * 5 + dividerSize * 4)), 50)
     )
     popover.show(relativeTo: statusBarButton.bounds, of: statusBarButton, preferredEdge: NSRectEdge.maxY)
     eventMonitor?.start()
-    statusBarButton.cell?.isHighlighted = true
   }
 
   func hidePopover(_ sender: AnyObject) {
     popover.performClose(sender)
     eventMonitor?.stop()
-    statusBarButton.cell?.isHighlighted = false
   }
 
   func mouseEventHandler(_ event: NSEvent?) {
@@ -127,11 +132,11 @@ extension StatusBarController {
 // MARK: right click menu
 extension StatusBarController: NSMenuDelegate {
   func showRightClickMenu(_ sender: AnyObject) {
+    hidePopover(sender)
     showingMenu = true
     statusItem.menu = menu // add menu to button...
     statusItem.button?.performClick(nil) // ...and click
     eventMonitor?.start()
-    statusBarButton.cell?.isHighlighted = true
   }
 
   func hideRightClickMenu(_ sender: AnyObject) {
@@ -157,9 +162,7 @@ extension StatusBarController: NSMenuDelegate {
 
     menu.addSeparator()
 
-    menu.addCallbackItem("Send Feedback…") { _ in
-      NSWorkspace.shared.open(App.feedbackPage)
-    }
+    menu.addUrlItem("Send Feedback…", url: App.feedbackPage)
 
     menu.addQuitItem()
   }

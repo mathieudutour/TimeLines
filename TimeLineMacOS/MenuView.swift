@@ -20,23 +20,43 @@ struct MenuView: View {
   ) var contacts: FetchedResults<Contact>
 
   var body: some View {
-    List {
-      ForEach(contacts, id: \.self) { (contact: Contact) in
-        VStack {
-          ContactRow(
-            name: contact.name ?? "",
-            timezone: contact.timeZone,
-            coordinate: contact.location
-          )
-          if self.contacts.last != contact {
-            Divider()
+    ZStack {
+      List {
+        ForEach(contacts, id: \.self) { (contact: Contact) in
+          VStack {
+            ContactRow(
+              name: contact.name ?? "",
+              timezone: contact.timeZone,
+              coordinate: contact.location
+            )
+            if self.contacts.last != contact {
+              Divider()
+            }
+          }.onAppear(perform: {
+            contact.refreshTimeZone()
+          })
+        }
+      }
+      .listStyle(SidebarListStyle())
+
+      VStack {
+        HStack {
+          Spacer()
+          Button(action: {
+            guard let delegate = NSApp.delegate as? AppDelegate else {
+              return
+            }
+            delegate.statusBar?.showRightClickMenu(delegate)
+          }) {
+            Image(nsImage: NSImage(named: NSImage.actionTemplateName)!)
+              .colorMultiply(Color(NSColor.secondaryLabelColor))
           }
-        }.onAppear(perform: {
-          contact.refreshTimeZone()
-        })
+          .buttonStyle(ButtonThatLookLikeNothingStyle())
+          .padding(.init(top: 8, leading: 8, bottom: 8, trailing: 8))
+        }
+        Spacer()
       }
     }
-    .listStyle(SidebarListStyle())
   }
 }
 

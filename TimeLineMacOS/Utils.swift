@@ -9,7 +9,6 @@
 import Cocoa
 import SystemConfiguration
 import SwiftUI
-import Defaults
 import TimeLineSharedMacOS
 
 final class SSMenu: NSMenu, NSMenuDelegate {
@@ -552,66 +551,6 @@ extension NSMenu {
   func addUrlItem(_ title: String, url: URL) -> NSMenuItem {
     addCallbackItem(title) { _ in
       NSWorkspace.shared.open(url)
-    }
-  }
-
-  @discardableResult
-  func addUrlItem(_ title: NSAttributedString, url: URL) -> NSMenuItem {
-    addCallbackItem(title) { _ in
-      NSWorkspace.shared.open(url)
-    }
-  }
-
-  @discardableResult
-  func addDefaultsItem<Value: Equatable>(
-    _ title: String,
-    key: Defaults.Key<Value>,
-    value: Value,
-    isEnabled: Bool = true,
-    callback: ((NSMenuItem) -> Void)? = nil
-  ) -> NSMenuItem {
-    addCallbackItem(
-      title,
-      isEnabled: isEnabled,
-      isChecked: value == Defaults[key]
-    ) { item in
-      Defaults[key] = value
-      callback?(item)
-    }
-  }
-
-  @discardableResult
-  func addDefaultsItemForBool(
-    _ title: String,
-    key: Defaults.Key<Bool>,
-    isEnabled: Bool = true,
-    callback: ((NSMenuItem) -> Void)? = nil
-  ) -> NSMenuItem {
-    addCallbackItem(
-      title,
-      isEnabled: isEnabled,
-      isChecked: Defaults[key]
-    ) { item in
-      Defaults[key].toggle()
-      callback?(item)
-    }
-  }
-
-  @discardableResult
-  func addDefaultsItemForBool(
-    _ title: String,
-    key: String,
-    isEnabled: Bool = true,
-    callback: ((NSMenuItem) -> Void)? = nil
-  ) -> NSMenuItem {
-    let bool = UserDefaults.standard.bool(forKey: key)
-    return addCallbackItem(
-      title,
-      isEnabled: isEnabled,
-      isChecked: bool
-    ) { item in
-      UserDefaults.standard.set(!bool, forKey: key)
-      callback?(item)
     }
   }
 

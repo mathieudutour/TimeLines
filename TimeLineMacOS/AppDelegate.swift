@@ -46,6 +46,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       .environment(\.inAppPurchaseContext, iapManager!)
 
     if let window = windowController.window {
+      window.center()
       window.contentView = NSHostingView(rootView: manageView)
       window.setFrameAutosaveName("me.dutour.mathieu.timelinemacos.managecontacts")
       window.title = ""
@@ -64,7 +65,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       return
     }
 
-    LaunchAtLogin.isEnabled = true
+    LaunchAtLogin.isEnabled = false
 
     NSApp.activate(ignoringOtherApps: true)
     NSAlert.showModal(

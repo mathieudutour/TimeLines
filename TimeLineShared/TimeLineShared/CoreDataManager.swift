@@ -35,10 +35,6 @@ public class CoreDataManager {
 
     container.persistentStoreDescriptions = [storeDescription]
 
-    // set up cloud sync
-    container.viewContext.automaticallyMergesChangesFromParent = true
-    container.viewContext.mergePolicy = NSMergePolicy.mergeByPropertyStoreTrump
-
     container.loadPersistentStores(completionHandler: { (storeDescription, error) in
       if let error = error as NSError? {
         // Replace this implementation with code to handle the error appropriately.
@@ -54,6 +50,9 @@ public class CoreDataManager {
          */
         fatalError("Unresolved error \(error), \(error.userInfo)")
       }
+
+      // set up cloud sync
+      container.viewContext.automaticallyMergesChangesFromParent = true
     })
     return container
   }()
@@ -177,7 +176,6 @@ public class CoreDataManager {
     guard let fileContainer = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroup) else {
         fatalError("Shared file container could not be created.")
     }
-
     return fileContainer.appendingPathComponent("\(databaseName).sqlite")
   }
 }
