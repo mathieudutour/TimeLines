@@ -1,25 +1,25 @@
 {
   "images" : [
     {
-      "filename" : "macOS_icon.png",
+      "filename" : "favicon.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "16x16"
     },
     {
-      "filename" : "macOS_icon@2x.png",
+      "filename" : "favicon@2x.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "16x16"
     },
     {
-      "filename" : "macOS_icon@2x-1.png",
+      "filename" : "favicon@2x-1.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "32x32"
     },
     {
-      "filename" : "macOS_icon@4x.png",
+      "filename" : "favicon@4x.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "32x32"
