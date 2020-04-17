@@ -46,6 +46,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       .environment(\.inAppPurchaseContext, iapManager!)
 
     if let window = windowController.window {
+      window.delegate = self
       window.center()
       window.contentView = NSHostingView(rootView: manageView)
       window.setFrameAutosaveName("me.dutour.mathieu.timelinemacos.managecontacts")
@@ -82,8 +83,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     statusBar?.playRainbowAnimation()
   }
 
+  func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+    return false
+  }
+
   func applicationWillTerminate(_ aNotification: Notification) {
     // Insert code here to tear down your application
   }
 
+}
+
+extension AppDelegate: NSWindowDelegate {
+  func windowWillClose(_ notification: Notification) {
+    // terminate the app if closing the manage contacts window without adding contacts
+    if CoreDataManager.shared.count() <= 0 {
+      NSApp.terminate(nil)
+    }
+  }
 }
