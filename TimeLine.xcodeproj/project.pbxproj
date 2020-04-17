@@ -41,7 +41,6 @@
 		03D5A6592439CBE8004AC5EB /* TimeLineMacOS-launchagent.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 03D5A6432439CAD6004AC5EB /* TimeLineMacOS-launchagent.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		03D5A65A2439CBF5004AC5EB /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03D5A6282439BD01004AC5EB /* ServiceManagement.framework */; };
 		03D5A65C2439CC15004AC5EB /* LaunchAtLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D5A65B2439CC15004AC5EB /* LaunchAtLogin.swift */; };
-		03D5A6612439DA27004AC5EB /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = 03D5A6602439DA27004AC5EB /* Defaults */; };
 		03D5A675243C7D43004AC5EB /* ManageContacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D5A674243C7D42004AC5EB /* ManageContacts.swift */; };
 		03D5A689243DB959004AC5EB /* ContactEdition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D5A688243DB959004AC5EB /* ContactEdition.swift */; };
 		03D6335D2436149700F8D2CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D6335C2436149700F8D2CE /* AppDelegate.swift */; };
@@ -261,7 +260,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				03D5A6612439DA27004AC5EB /* Defaults in Frameworks */,
 				03D5A65A2439CBF5004AC5EB /* ServiceManagement.framework in Frameworks */,
 				03D5A60A2438C542004AC5EB /* TimeLineSharedMacOS.framework in Frameworks */,
 				03D5A60E2438C564004AC5EB /* CloudKit.framework in Frameworks */,
@@ -538,7 +536,6 @@
 			);
 			name = TimeLineMacOS;
 			packageProductDependencies = (
-				03D5A6602439DA27004AC5EB /* Defaults */,
 			);
 			productName = TimeLineMacOS;
 			productReference = 03D5A5EF2438C4FD004AC5EB /* TimeLine.app */;
@@ -642,7 +639,6 @@
 			);
 			mainGroup = 03D633502436149700F8D2CE;
 			packageReferences = (
-				03D5A65F2439DA27004AC5EB /* XCRemoteSwiftPackageReference "Defaults" */,
 			);
 			productRefGroup = 03D6335A2436149700F8D2CE /* Products */;
 			projectDirPath = "";
@@ -1362,25 +1358,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		03D5A65F2439DA27004AC5EB /* XCRemoteSwiftPackageReference "Defaults" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/sindresorhus/Defaults";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.1.1;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		03D5A6602439DA27004AC5EB /* Defaults */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 03D5A65F2439DA27004AC5EB /* XCRemoteSwiftPackageReference "Defaults" */;
-			productName = Defaults;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 03D633512436149700F8D2CE /* Project object */;
 }
