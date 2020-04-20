@@ -29,14 +29,15 @@ struct ContentView: View {
 
   @State private var showingSheet = false
   @State private var showingRestoreAlert = false
-  @State private var showingAlert: AlertType?
+  @State private var showingAlert = false
+  @State private var alertType: AlertType?
   @State private var showEmptyEdit = false
   @State private var errorMessage: String?
 
   var addNewContact: some View {
     Button(action: {
-      if (!self.iapManager.hasAlreadyPurchasedUnlimitedContacts && self.contacts.count > self.iapManager.contactsLimit) {
-        self.showingAlert = .upsell
+      if (!self.iapManager.hasAlreadyPurchasedUnlimitedContacts && self.contacts.count >= self.iapManager.contactsLimit) {
+        self.showAlert(.upsell)
       } else {
         self.showEmptyEdit = true
       }
@@ -91,10 +92,8 @@ struct ContentView: View {
           .cancel()
         ])
       })
-      .alert(isPresented: Binding(get: { self.showingAlert != nil }, set: { show in
-        if !show { self.showingAlert = nil }
-      })) {
-        switch self.showingAlert {
+      .alert(isPresented: $showingAlert) {
+        switch self.alertType {
         case .noProducts:
           return Alert(
             title: Text("Error while trying to get the In App Purchases"),
@@ -159,8 +158,15 @@ struct ContentView: View {
     }
   }
 
+  private func showAlert(_ type: AlertType, withMessage message: String? = nil) {
+    self.alertType = type
+    self.errorMessage = message
+    self.showingAlert = true
+  }
+
   private func dismissAlert() {
-    self.showingAlert = nil
+    self.showingAlert = false
+    self.alertType = nil
     self.errorMessage = nil
   }
 
@@ -172,8 +178,7 @@ struct ContentView: View {
         self.tryAgainBuy()
         break
       case .failure(let error):
-        self.errorMessage = error.localizedDescription
-        self.showingAlert = .noProducts
+        self.showAlert(.noProducts, withMessage: error.localizedDescription)
         break
       }
     })
@@ -181,34 +186,36 @@ struct ContentView: View {
 
   private func tryAgainBuy() {
     dismissAlert()
-    if let unlimitedContactsProduct = self.iapManager.unlimitedContactsProduct {
-      self.iapManager.buy(product: unlimitedContactsProduct) { result in
-        switch result {
-        case .success(_):
-          self.showEmptyEdit = true
-          break
-        case .failure(let error):
-          print(error)
-          self.errorMessage = error.localizedDescription
-          self.showingAlert = .cantBuy
+    DispatchQueue.main.async {
+      if let unlimitedContactsProduct = self.iapManager.unlimitedContactsProduct {
+        self.iapManager.buy(product: unlimitedContactsProduct) { result in
+          switch result {
+          case .success(_):
+            self.showEmptyEdit = true
+            break
+          case .failure(let error):
+            print(error)
+            self.showAlert(.cantBuy, withMessage: error.localizedDescription)
+          }
         }
+      } else {
+        self.showAlert(.noProducts)
       }
-    } else {
-      self.showingAlert = .noProducts
     }
   }
 
   private func tryAgainRestore() {
     dismissAlert()
-    iapManager.restorePurchases() { res in
-      switch res {
-      case .success(_):
-        self.showingAlert = .didRestore
-        break
-      case .failure(let error):
-        print(error)
-        self.errorMessage = error.localizedDescription
-        self.showingAlert = .cantRestore
+    DispatchQueue.main.async {
+      self.iapManager.restorePurchases() { res in
+        switch res {
+        case .success(_):
+          self.showAlert(.didRestore)
+          break
+        case .failure(let error):
+          print(error)
+          self.showAlert(.cantRestore, withMessage: error.localizedDescription)
+        }
       }
     }
   }

@@ -29,15 +29,16 @@ struct ManageContacts: View {
 
   @State private var showingEdit = false
   @State private var showingSheet = false
-  @State private var showingAlert: AlertType?
+  @State private var showingAlert = false
+  @State private var alertType: AlertType?
   @State private var errorMessage: String?
 
   var body: some View {
     NavigationView {
       List(selection: $selectedContact) {
         Button(action: {
-          if (!self.iapManager.hasAlreadyPurchasedUnlimitedContacts && self.contacts.count > self.iapManager.contactsLimit) {
-            self.showingAlert = .upsell
+          if (!self.iapManager.hasAlreadyPurchasedUnlimitedContacts && self.contacts.count >= self.iapManager.contactsLimit) {
+            self.showAlert(.upsell)
           } else {
             self.selectedContact = nil
             self.showingEdit = true
@@ -102,10 +103,8 @@ struct ManageContacts: View {
     .edgesIgnoringSafeArea(.top)
     .navigationViewStyle(DoubleColumnNavigationViewStyle())
     .background(Blur().edgesIgnoringSafeArea(.top))
-    .alert(isPresented: Binding(get: { self.showingAlert != nil }, set: { show in
-      if !show { self.showingAlert = nil }
-    })) {
-      switch self.showingAlert {
+    .alert(isPresented: $showingAlert) {
+      switch self.alertType {
       case .noProducts:
         return Alert(
           title: Text("Error while trying to get the In App Purchases"),
@@ -145,8 +144,15 @@ struct ManageContacts: View {
     }
   }
 
+  private func showAlert(_ type: AlertType, withMessage message: String? = nil) {
+    self.alertType = type
+    self.errorMessage = message
+    self.showingAlert = true
+  }
+
   private func dismissAlert() {
-    self.showingAlert = nil
+    self.showingAlert = false
+    self.alertType = nil
     self.errorMessage = nil
   }
 
@@ -158,8 +164,7 @@ struct ManageContacts: View {
         self.tryAgainBuy()
         break
       case .failure(let error):
-        self.errorMessage = error.localizedDescription
-        self.showingAlert = .noProducts
+        self.showAlert(.noProducts, withMessage: error.localizedDescription)
         break
       }
     })
@@ -167,21 +172,22 @@ struct ManageContacts: View {
 
   private func tryAgainBuy() {
     dismissAlert()
-    if let unlimitedContactsProduct = self.iapManager.unlimitedContactsProduct {
-      self.iapManager.buy(product: unlimitedContactsProduct) { result in
-        switch result {
-        case .success(_):
-          self.selectedContact = nil
-          self.showingEdit = true
-          break
-        case .failure(let error):
-          print(error)
-          self.errorMessage = error.localizedDescription
-          self.showingAlert = .cantBuy
+    DispatchQueue.main.async {
+      if let unlimitedContactsProduct = self.iapManager.unlimitedContactsProduct {
+        self.iapManager.buy(product: unlimitedContactsProduct) { result in
+          switch result {
+          case .success(_):
+            self.selectedContact = nil
+            self.showingEdit = true
+            break
+          case .failure(let error):
+            print(error)
+            self.showAlert(.cantBuy, withMessage: error.localizedDescription)
+          }
         }
+      } else {
+        self.showAlert(.noProducts)
       }
-    } else {
-      self.showingAlert = .noProducts
     }
   }
 }
