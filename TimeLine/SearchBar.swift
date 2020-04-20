@@ -11,14 +11,8 @@ import MapKit
 struct SearchController: UIViewControllerRepresentable {
   @State var matchingItems: [MKLocalSearchCompletion] = []
 
-  private var resultView: (_ mapItem: MKLocalSearchCompletion) -> Button<Text>
-
-  private var searchBarPlaceholder: String
-
-  init(_ searchBarPlaceholder: String = "", resultView: @escaping (_ mapItem: MKLocalSearchCompletion) -> Button<Text>) {
-    self.resultView = resultView
-    self.searchBarPlaceholder = searchBarPlaceholder
-  }
+  var searchBarPlaceholder: String
+  var resultView: (_ mapItem: MKLocalSearchCompletion) -> Button<Text>
 
   func makeUIViewController(context: Context) -> UINavigationController {
     let contentViewController = UIHostingController(rootView: SearchResultView(result: $matchingItems, content: resultView))
@@ -26,6 +20,7 @@ struct SearchController: UIViewControllerRepresentable {
 
     let searchController = UISearchController(searchResultsController: nil)
     searchController.searchResultsUpdater = context.coordinator
+    searchController.delegate = context.coordinator
     searchController.obscuresBackgroundDuringPresentation = false // for results
     searchController.searchBar.placeholder = searchBarPlaceholder
 
@@ -40,15 +35,16 @@ struct SearchController: UIViewControllerRepresentable {
   }
 
   func updateUIViewController(_ uiViewController: UINavigationController, context: UIViewControllerRepresentableContext<SearchController>) {
-    if !context.coordinator.didBecomeFirstResponder, uiViewController.view.window != nil  {
-      uiViewController.visibleViewController?.navigationItem.searchController?.searchBar.becomeFirstResponder()
-      context.coordinator.didBecomeFirstResponder = true
-    }
     uiViewController.visibleViewController?.navigationItem.searchController?.searchBar.placeholder = searchBarPlaceholder
+
+    if !context.coordinator.didBecomeFirstResponder, uiViewController.view.window != nil  {
+      context.coordinator.didBecomeFirstResponder = true
+      uiViewController.visibleViewController?.navigationItem.searchController?.isActive = true
+    }
   }
 }
 
-class SearchControllerCoordinator: NSObject, UISearchResultsUpdating, UISearchBarDelegate, MKLocalSearchCompleterDelegate {
+class SearchControllerCoordinator: NSObject, UISearchResultsUpdating, UISearchBarDelegate, MKLocalSearchCompleterDelegate, UISearchControllerDelegate {
   var parent: SearchController
   var didBecomeFirstResponder = false
   var searchCompleter = MKLocalSearchCompleter()
@@ -73,6 +69,13 @@ class SearchControllerCoordinator: NSObject, UISearchResultsUpdating, UISearchBa
   func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
     searchCompleter.queryFragment = ""
     return true
+  }
+
+  // MARK: - UISearchControllerDelegate
+  func didPresentSearchController(_ searchController: UISearchController) {
+    DispatchQueue.main.async {
+      searchController.searchBar.becomeFirstResponder()
+    }
   }
 
   // MARK: - MKLocalSearchCompleterDelegate
@@ -108,7 +111,7 @@ struct SearchResultView<Content: View>: View {
 
 struct TestSearchController: View {
     var body: some View {
-      SearchController() { res in
+      SearchController(searchBarPlaceholder: "placeholder") { res in
         Button(action: {}) {
           Text(res.title)
         }

@@ -58,6 +58,7 @@
 		03D633B124361C6A00F8D2CE /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03D633B024361C6A00F8D2CE /* CloudKit.framework */; };
 		03D633BE24362B8900F8D2CE /* ContactEdition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D633BD24362B8900F8D2CE /* ContactEdition.swift */; };
 		03D633C02436343700F8D2CE /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D633BF2436343700F8D2CE /* SearchBar.swift */; };
+		03F04B35244DF32000931FB0 /* AutoFocusTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F04B34244DF32000931FB0 /* AutoFocusTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -244,6 +245,7 @@
 		03D633B024361C6A00F8D2CE /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		03D633BD24362B8900F8D2CE /* ContactEdition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactEdition.swift; sourceTree = "<group>"; };
 		03D633BF2436343700F8D2CE /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		03F04B34244DF32000931FB0 /* AutoFocusTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoFocusTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -347,6 +349,7 @@
 				03D5A674243C7D42004AC5EB /* ManageContacts.swift */,
 				03D5A688243DB959004AC5EB /* ContactEdition.swift */,
 				03B8BF21243E2E410009E084 /* SearchController.swift */,
+				03F04B34244DF32000931FB0 /* AutoFocusTextField.swift */,
 				03D5A5F52438C4FF004AC5EB /* Assets.xcassets */,
 				03D5A5FA2438C4FF004AC5EB /* Main.storyboard */,
 				03D5A5FD2438C4FF004AC5EB /* Info.plist */,
@@ -767,6 +770,7 @@
 				03D5A689243DB959004AC5EB /* ContactEdition.swift in Sources */,
 				03D5A5F22438C4FD004AC5EB /* AppDelegate.swift in Sources */,
 				03D5A675243C7D43004AC5EB /* ManageContacts.swift in Sources */,
+				03F04B35244DF32000931FB0 /* AutoFocusTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

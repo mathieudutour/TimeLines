@@ -60,19 +60,7 @@ struct SearchController<Result>: View where Result: View {
   @Environment(\.presentationMode) var presentationMode
 
   @ObservedObject var matchingItems: ObservableArray<MKLocalSearchCompletion> = ObservableArray(array: [])
-  @State private var searchText = "" {
-    didSet {
-      self.coordinator.updateSearchResults(with: searchText)
-    }
-  }
-  @State private var showCancelButton: Bool = false
-
-  private var coordinator = SearchControllerCoordinator()
-
-  init(resultView: @escaping (_ mapItem: MKLocalSearchCompletion) -> Result) {
-    self.resultView = resultView
-    coordinator.parent = self
-  }
+  @State private var searchText = ""
 
   var body: some View {
     VStack {
@@ -80,13 +68,7 @@ struct SearchController<Result>: View where Result: View {
       HStack {
         ZStack(alignment: .leading) {
 
-          TextField("Location", text: Binding(
-          get: { self.searchText },
-          set: { newValue in
-            self.searchText = newValue
-          }), onEditingChanged: { isEditing in
-              self.showCancelButton = true
-          })
+          AutoFocusTextField(placeholder: "Location", text: $searchText, matchingItems: $matchingItems.array)
           .foregroundColor(.primary)
           .padding(.leading, 18)
 
@@ -133,27 +115,5 @@ struct SearchController<Result>: View where Result: View {
         }.background(Color(NSColor.controlBackgroundColor)).frame(width: p.size.width, height: p.size.height)
       }
     }.frame(minWidth: 300, minHeight: 250).background(Color(.windowBackgroundColor))
-  }
-
-  class SearchControllerCoordinator: NSObject, MKLocalSearchCompleterDelegate {
-    var parent: SearchController?
-    var searchCompleter = MKLocalSearchCompleter()
-
-    override init() {
-      super.init()
-      searchCompleter.delegate = self
-      searchCompleter.resultTypes = .address
-    }
-
-    func updateSearchResults(with text: String) {
-      searchCompleter.queryFragment = text
-    }
-
-    // MARK: - MKLocalSearchCompleterDelegate
-    func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
-      self.parent?.matchingItems.objectWillChange.send()
-      self.parent?.matchingItems.array = completer.results
-
-    }
   }
 }
