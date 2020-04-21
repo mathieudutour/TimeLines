@@ -1,4 +1,4 @@
-# TimeLine
+# Time Lines
 
 Know <strong><em>when</em></strong> all your friends, colleagues, and family are.
 

@@ -1,6 +1,6 @@
 //
 //  TodayViewController.swift
-//  TimeLine Widget
+//  Time Lines Widget
 //
 //  Created by Mathieu Dutour on 02/04/2020.
 //  Copyright © 2020 Mathieu Dutour. All rights reserved.
@@ -29,7 +29,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
       self.preferredContentSize = CGSize(width: maxSize.width, height: CGFloat(CoreDataManager.shared.count() * (80 + 13)))
     }
   }
-        
+
   @IBSegueAction func addSwiftUIView(_ coder: NSCoder) -> UIViewController? {
     // Get the managed object context from the shared persistent container.
     let context = CoreDataManager.shared.viewContext

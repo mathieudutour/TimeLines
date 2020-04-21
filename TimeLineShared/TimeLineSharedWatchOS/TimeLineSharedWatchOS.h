@@ -1,6 +1,6 @@
 //
-//  TimeLineSharedWatchOS.h
-//  TimeLineSharedWatchOS
+//  Time Lines SharedWatchOS.h
+//  Time Lines SharedWatchOS
 //
 //  Created by Mathieu Dutour on 12/04/2020.
 //  Copyright © 2020 Mathieu Dutour. All rights reserved.

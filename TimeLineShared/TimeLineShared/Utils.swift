@@ -1,6 +1,6 @@
 //
 //  Utils.swift
-//  TimeLineShared
+//  Time Lines Shared
 //
 //  Created by Mathieu Dutour on 06/04/2020.
 //  Copyright © 2020 Mathieu Dutour. All rights reserved.
@@ -101,6 +101,6 @@ public struct App {
       "body": metadata
     ]
 
-    return URL(string: "https://github.com/mathieudutour/TimeLine/issues/new")!.addingDictionaryAsQuery(query)
+    return URL(string: "https://github.com/mathieudutour/TimeLines/issues/new")!.addingDictionaryAsQuery(query)
   }()
 }

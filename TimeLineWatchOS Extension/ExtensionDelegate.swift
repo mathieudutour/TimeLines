@@ -1,6 +1,6 @@
 //
 //  ExtensionDelegate.swift
-//  TimeLineWatchOS Extension
+//  Time Lines WatchOS Extension
 //
 //  Created by Mathieu Dutour on 13/04/2020.
 //  Copyright © 2020 Mathieu Dutour. All rights reserved.

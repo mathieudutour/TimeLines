@@ -1,6 +1,6 @@
 //
 //  AutoFocusTextField.swift
-//  TimeLineMacOS
+//  Time LinesMacOS
 //
 //  Created by Mathieu Dutour on 20/04/2020.
 //  Copyright © 2020 Mathieu Dutour. All rights reserved.
@@ -29,7 +29,7 @@ struct AutoFocusTextField: NSViewRepresentable {
   func updateNSView(_ uiView: NSTextField, context: NSViewRepresentableContext<AutoFocusTextField>) {
     uiView.stringValue = text
     uiView.placeholderString = placeholder
-    
+
     if !context.coordinator.didSetFirstResponder, let window = uiView.window, window.firstResponder != uiView {
       context.coordinator.didSetFirstResponder = true
       uiView.becomeFirstResponder()

@@ -1,6 +1,6 @@
 //
 //  SearchController.swift
-//  TimeLineMacOS
+//  Time LinesMacOS
 //
 //  Created by Mathieu Dutour on 08/04/2020.
 //  Copyright © 2020 Mathieu Dutour. All rights reserved.

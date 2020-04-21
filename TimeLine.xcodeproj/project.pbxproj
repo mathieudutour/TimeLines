@@ -16,7 +16,7 @@
 		03B8BFCD244463C00009E084 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B8BFCC244463C00009E084 /* ExtensionDelegate.swift */; };
 		03B8BFCF244463C10009E084 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03B8BFCE244463C10009E084 /* Assets.xcassets */; };
 		03B8BFD2244463C10009E084 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03B8BFD1244463C10009E084 /* Preview Assets.xcassets */; };
-		03B8BFD6244463C10009E084 /* TimeLine.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 03B8BFB7244463BD0009E084 /* TimeLine.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		03B8BFD6244463C10009E084 /* Time Lines.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 03B8BFB7244463BD0009E084 /* Time Lines.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		03CD2B962444669600DFCD04 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03B8BFAD24437EF90009E084 /* CloudKit.framework */; };
 		03CD2B97244466AC00DFCD04 /* TimeLineSharedWatchOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03B8BF9F24437B0D0009E084 /* TimeLineSharedWatchOS.framework */; };
 		03CD2B98244466AC00DFCD04 /* TimeLineSharedWatchOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 03B8BF9F24437B0D0009E084 /* TimeLineSharedWatchOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -52,7 +52,7 @@
 		03D6337A2436151A00F8D2CE /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03D633792436151A00F8D2CE /* NotificationCenter.framework */; };
 		03D6337D2436151A00F8D2CE /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D6337C2436151A00F8D2CE /* TodayViewController.swift */; };
 		03D633802436151A00F8D2CE /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 03D6337E2436151A00F8D2CE /* MainInterface.storyboard */; };
-		03D633842436151A00F8D2CE /* TimeLine Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 03D633772436151A00F8D2CE /* TimeLine Widget.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		03D633842436151A00F8D2CE /* Time Lines Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 03D633772436151A00F8D2CE /* Time Lines Widget.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		03D633AC243619AF00F8D2CE /* TimeLineShared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03D633A32436165100F8D2CE /* TimeLineShared.framework */; };
 		03D633AD243619AF00F8D2CE /* TimeLineShared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 03D633A32436165100F8D2CE /* TimeLineShared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		03D633B124361C6A00F8D2CE /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03D633B024361C6A00F8D2CE /* CloudKit.framework */; };
@@ -113,7 +113,7 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				03B8BFD6244463C10009E084 /* TimeLine.app in Embed Watch Content */,
+				03B8BFD6244463C10009E084 /* Time Lines.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -167,7 +167,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				03D633842436151A00F8D2CE /* TimeLine Widget.appex in Embed App Extensions */,
+				03D633842436151A00F8D2CE /* Time Lines Widget.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -189,7 +189,7 @@
 		03B8BF21243E2E410009E084 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		03B8BF5B24435ED60009E084 /* TimeLineWatchOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = TimeLineWatchOS.app; path = "/Users/mathieudutour/Projects/TimeLine/build/Debug-watchos/TimeLineWatchOS.app"; sourceTree = "<absolute>"; };
 		03B8BFAD24437EF90009E084 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS6.2.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
-		03B8BFB7244463BD0009E084 /* TimeLine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimeLine.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		03B8BFB7244463BD0009E084 /* Time Lines.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Time Lines.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		03B8BFBA244463BD0009E084 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		03B8BFBC244463C00009E084 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		03B8BFBE244463C00009E084 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -204,7 +204,7 @@
 		03D5A52F243738D3004AC5EB /* WidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetView.swift; sourceTree = "<group>"; };
 		03D5A53224373BBB004AC5EB /* TimeLine Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "TimeLine Widget.entitlements"; sourceTree = "<group>"; };
 		03D5A5E12438C217004AC5EB /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/SwiftUI.framework; sourceTree = DEVELOPER_DIR; };
-		03D5A5EF2438C4FD004AC5EB /* TimeLine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimeLine.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		03D5A5EF2438C4FD004AC5EB /* Time Lines.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Time Lines.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		03D5A5F12438C4FD004AC5EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		03D5A5F52438C4FF004AC5EB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		03D5A5F82438C4FF004AC5EB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -227,7 +227,7 @@
 		03D5A65B2439CC15004AC5EB /* LaunchAtLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAtLogin.swift; sourceTree = "<group>"; };
 		03D5A674243C7D42004AC5EB /* ManageContacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageContacts.swift; sourceTree = "<group>"; };
 		03D5A688243DB959004AC5EB /* ContactEdition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactEdition.swift; sourceTree = "<group>"; };
-		03D633592436149700F8D2CE /* TimeLine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimeLine.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		03D633592436149700F8D2CE /* Time Lines.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Time Lines.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		03D6335C2436149700F8D2CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		03D6335E2436149700F8D2CE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		03D633632436149700F8D2CE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -235,7 +235,7 @@
 		03D633682436149C00F8D2CE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		03D6336B2436149C00F8D2CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		03D6336D2436149C00F8D2CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		03D633772436151A00F8D2CE /* TimeLine Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "TimeLine Widget.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		03D633772436151A00F8D2CE /* Time Lines Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Time Lines Widget.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		03D633792436151A00F8D2CE /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		03D6337C2436151A00F8D2CE /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		03D6337F2436151A00F8D2CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
@@ -406,11 +406,11 @@
 		03D6335A2436149700F8D2CE /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				03D633592436149700F8D2CE /* TimeLine.app */,
-				03D633772436151A00F8D2CE /* TimeLine Widget.appex */,
-				03D5A5EF2438C4FD004AC5EB /* TimeLine.app */,
+				03D633592436149700F8D2CE /* Time Lines.app */,
+				03D633772436151A00F8D2CE /* Time Lines Widget.appex */,
+				03D5A5EF2438C4FD004AC5EB /* Time Lines.app */,
 				03D5A6432439CAD6004AC5EB /* TimeLineMacOS-launchagent.app */,
-				03B8BFB7244463BD0009E084 /* TimeLine.app */,
+				03B8BFB7244463BD0009E084 /* Time Lines.app */,
 				03B8BFC3244463C00009E084 /* TimeLineWatchOS Extension.appex */,
 			);
 			name = Products;
@@ -502,7 +502,7 @@
 			);
 			name = TimeLineWatchOS;
 			productName = TimeLineWatchOS;
-			productReference = 03B8BFB7244463BD0009E084 /* TimeLine.app */;
+			productReference = 03B8BFB7244463BD0009E084 /* Time Lines.app */;
 			productType = "com.apple.product-type.application.watchapp2";
 		};
 		03B8BFC2244463C00009E084 /* TimeLineWatchOS Extension */ = {
@@ -541,7 +541,7 @@
 			packageProductDependencies = (
 			);
 			productName = TimeLineMacOS;
-			productReference = 03D5A5EF2438C4FD004AC5EB /* TimeLine.app */;
+			productReference = 03D5A5EF2438C4FD004AC5EB /* Time Lines.app */;
 			productType = "com.apple.product-type.application";
 		};
 		03D5A6422439CAD6004AC5EB /* TimeLineMacOS-launchagent */ = {
@@ -582,7 +582,7 @@
 			packageProductDependencies = (
 			);
 			productName = TimeLine;
-			productReference = 03D633592436149700F8D2CE /* TimeLine.app */;
+			productReference = 03D633592436149700F8D2CE /* Time Lines.app */;
 			productType = "com.apple.product-type.application";
 		};
 		03D633762436151A00F8D2CE /* TimeLine Widget */ = {
@@ -599,7 +599,7 @@
 			);
 			name = "TimeLine Widget";
 			productName = "TimeLine Widget";
-			productReference = 03D633772436151A00F8D2CE /* TimeLine Widget.appex */;
+			productReference = 03D633772436151A00F8D2CE /* Time Lines Widget.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -929,7 +929,7 @@
 				IBSC_MODULE = TimeLineWatchOS_Extension;
 				INFOPLIST_FILE = TimeLineWatchOS/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = me.dutour.mathieu.TimeLine.watchkitapp;
-				PRODUCT_NAME = TimeLine;
+				PRODUCT_NAME = "Time Lines";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development me.dutour.mathieu.TimeLine.watchkitapp";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -951,7 +951,7 @@
 				IBSC_MODULE = TimeLineWatchOS_Extension;
 				INFOPLIST_FILE = TimeLineWatchOS/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = me.dutour.mathieu.TimeLine.watchkitapp;
-				PRODUCT_NAME = TimeLine;
+				PRODUCT_NAME = "Time Lines";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore me.dutour.mathieu.TimeLine.watchkitapp";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -984,7 +984,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_BUNDLE_IDENTIFIER = me.dutour.mathieu.TimeLine;
-				PRODUCT_NAME = TimeLine;
+				PRODUCT_NAME = "Time Lines";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
@@ -1014,7 +1014,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_BUNDLE_IDENTIFIER = me.dutour.mathieu.TimeLine;
-				PRODUCT_NAME = TimeLine;
+				PRODUCT_NAME = "Time Lines";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
@@ -1206,7 +1206,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = me.dutour.mathieu.TimeLine;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Time Lines";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development me.dutour.mathieu.TimeLine";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SUPPORTS_MACCATALYST = NO;
@@ -1236,7 +1236,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = me.dutour.mathieu.TimeLine;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Time Lines";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore me.dutour.mathieu.TimeLine";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
@@ -1261,7 +1261,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "me.dutour.mathieu.TimeLine.TimeLine-Widget";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Time Lines Widget";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development me.dutour.mathieu.TimeLine.TimeLine-Widget";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
@@ -1286,7 +1286,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "me.dutour.mathieu.TimeLine.TimeLine-Widget";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Time Lines Widget";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore me.dutour.mathieu.TimeLine.TimeLine-Widget";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;

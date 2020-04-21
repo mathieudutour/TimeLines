@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  TimeLineMacOS
+//  Time LinesMacOS
 //
 //  Created by Mathieu Dutour on 04/04/2020.
 //  Copyright © 2020 Mathieu Dutour. All rights reserved.
@@ -70,13 +70,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     NSApp.activate(ignoringOtherApps: true)
     NSAlert.showModal(
-      message: "Welcome to TimeLine!",
+      message: "Welcome to Time Lines!",
       informativeText:
         """
-        TimeLine lives in the menu bar. Left-click it to see your contacts, right-click to see the options.
+        Time Lines lives in the menu bar. Left-click it to see your contacts, right-click to see the options.
 
-        See the project page for what else is planned: https://github.com/mathieudutour/TimeLine/issues
-        If you have any feedback, bug reports, or feature requests, kindly use the “Send Feedback” button in the TimeLine menu. We respond to all submissions and reported issues will be dealt with swiftly. It's preferable that you report bugs this way rather than as an App Store review, since the App Store will not allow us to contact you for more information.
+        See the project page for what else is planned: https://github.com/mathieudutour/TimeLines/issues
+        If you have any feedback, bug reports, or feature requests, kindly use the “Send Feedback” button in the Time Lines menu. We respond to all submissions and reported issues will be dealt with swiftly. It's preferable that you report bugs this way rather than as an App Store review, since the App Store will not allow us to contact you for more information.
         """
     )
 

@@ -1,6 +1,6 @@
 //
 //  Utils.swift
-//  TimeLineMacOS
+//  Time LinesMacOS
 //
 //  Created by Mathieu Dutour on 05/04/2020.
 //  Copyright © 2020 Mathieu Dutour. All rights reserved.

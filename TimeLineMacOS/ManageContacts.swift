@@ -1,6 +1,6 @@
 //
 //  ManageContacts.swift
-//  TimeLineMacOS
+//  Time LinesMacOS
 //
 //  Created by Mathieu Dutour on 07/04/2020.
 //  Copyright © 2020 Mathieu Dutour. All rights reserved.
@@ -121,7 +121,7 @@ struct ManageContacts: View {
         )
       case .upsell:
         return Alert(
-          title: Text("You've reached the limit of the free TimeLine version"),
+          title: Text("You've reached the limit of the free Time Lines version"),
           message: Text("Unlock the full version to add an unlimited number of contacts."),
           primaryButton: .default(Text("Unlock Full Version"), action: self.tryAgainBuy),
           secondaryButton: .cancel(Text("Cancel"), action: self.dismissAlert)

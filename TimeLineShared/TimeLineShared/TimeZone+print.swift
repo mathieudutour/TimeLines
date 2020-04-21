@@ -1,6 +1,6 @@
 //
 //  TimeZone+print.swift
-//  TimeLineShared
+//  Time Lines Shared
 //
 //  Created by Mathieu Dutour on 02/04/2020.
 //  Copyright © 2020 Mathieu Dutour. All rights reserved.
@@ -15,7 +15,7 @@ public extension TimeZone {
     formatter.timeStyle = .short
     return formatter
   }
-  
+
   func diffInSecond() -> Int {
     return self.secondsFromGMT() - TimeZone.autoupdatingCurrent.secondsFromGMT()
   }

@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  TimeLine
+//  Time Lines
 //
 //  Created by Mathieu Dutour on 02/04/2020.
 //  Copyright © 2020 Mathieu Dutour. All rights reserved.

@@ -1,6 +1,6 @@
 //
 //  StatusBarController.swift
-//  TimeLine macOS
+//  Time Lines macOS
 //
 //  Created by Mathieu Dutour on 04/04/2020.
 //  Copyright © 2020 Mathieu Dutour. All rights reserved.
@@ -31,7 +31,7 @@ class StatusBarController: NSObject {
     statusBarButton.image = #imageLiteral(resourceName: "menu-bar")
     statusBarButton.image?.size = NSSize(width: 18.0, height: 18.0)
     statusBarButton.image?.isTemplate = true
-    statusBarButton.toolTip = "TimeLine"
+    statusBarButton.toolTip = "Time Lines"
 
     statusBarButton.action = #selector(togglePopover(sender:))
     statusBarButton.sendAction(on: NSEvent.EventTypeMask.leftMouseUp.union(.rightMouseUp))

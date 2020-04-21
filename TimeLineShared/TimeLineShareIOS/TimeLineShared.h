@@ -1,6 +1,6 @@
 //
-//  TimeLineShared.h
-//  TimeLineShared
+//  Time Lines Shared.h
+//  Time Lines Shared
 //
 //  Created by Mathieu Dutour on 02/04/2020.
 //  Copyright © 2020 Mathieu Dutour. All rights reserved.
