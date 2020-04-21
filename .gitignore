@@ -12,6 +12,6 @@ config.*.yml
 **/*.xcodeproj/xcuserdata
 .env.sh
 screenshots
-TimeLine.app.dSYM.zip
-TimeLine.ipa
+Time Lines.app.dSYM.zip
+Time Lines.ipa
 Carthage
