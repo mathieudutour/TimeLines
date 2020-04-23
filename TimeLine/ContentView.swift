@@ -86,7 +86,7 @@ struct ContentView: View {
       .navigationBarItems(leading: contacts.count > 0 ? EditButton() : nil, trailing: Button(action: {
         self.showingSheet = true
       }) {
-        Image(systemName: "person")
+        Image(systemName: "person").padding()
       }
       .actionSheet(isPresented: $showingSheet) {
         ActionSheet(title: Text("Settings"), buttons: [
