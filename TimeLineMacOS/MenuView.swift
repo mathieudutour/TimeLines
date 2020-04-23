@@ -29,8 +29,7 @@ struct MenuView: View {
               timezone: contact.timeZone,
               coordinate: contact.location,
               startTime: contact.startTime,
-              endTime: contact.endTime,
-              canScrub: true
+              endTime: contact.endTime
             )
             if self.contacts.last != contact {
               Divider()

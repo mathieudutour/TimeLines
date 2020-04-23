@@ -56,8 +56,7 @@ struct ContentView: View {
         ContactRow(
           name: "Me",
           timezone: TimeZone.current,
-          coordinate: TimeZone.current.roughLocation,
-          canScrub: true
+          coordinate: TimeZone.current.roughLocation
         ).padding(.trailing, 15)
         ForEach(contacts, id: \.self) { (contact: Contact) in
           NavigationLink(destination: ContactDetails(contact: contact, editView: {

@@ -20,6 +20,6 @@ public extension Date {
   }
 
   static func fractionOfToday(_ fraction: Double) -> Date {
-    return cal.startOfDay(for: Date()).addingTimeInterval(24 * 3600 * min(max(fraction, 0), 0.9999999))
+    return cal.startOfDay(for: Date()).addingTimeInterval(24 * 3600 * fraction.remainder(dividingBy: 1))
   }
 }

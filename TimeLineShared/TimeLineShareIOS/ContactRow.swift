@@ -15,15 +15,13 @@ public struct ContactRow: View {
   public var coordinate: CLLocationCoordinate2D?
   public var startTime: Date?
   public var endTime: Date?
-  public var canScrub: Bool
 
-  public init(name: String, timezone: TimeZone?, coordinate: CLLocationCoordinate2D?, startTime: Date? = nil, endTime: Date? = nil, canScrub: Bool = false) {
+  public init(name: String, timezone: TimeZone?, coordinate: CLLocationCoordinate2D?, startTime: Date? = nil, endTime: Date? = nil) {
     self.name = name
     self.timezone = timezone
     self.coordinate = coordinate
     self.startTime = startTime
     self.endTime = endTime
-    self.canScrub = canScrub
   }
 
   public var body: some View {
@@ -39,7 +37,7 @@ public struct ContactRow: View {
 
       Spacer()
 
-      Line(coordinate: coordinate, timezone: timezone, startTime: startTime, endTime: endTime, canScrub: canScrub)
+      Line(coordinate: coordinate, timezone: timezone, startTime: startTime, endTime: endTime)
         .frame(width: 220, height: 80, alignment: .trailing)
     }
   }

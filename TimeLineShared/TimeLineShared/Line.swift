@@ -223,17 +223,15 @@ public struct Line: View {
   var timezone: TimeZone?
   var startTime: Date?
   var endTime: Date?
-  var canScrub: Bool
 
   var lineWidth: CGFloat?
   var maxHeight: CGFloat?
 
-  public init(coordinate: CLLocationCoordinate2D?, timezone: TimeZone?, startTime: Date? = nil, endTime: Date? = nil, canScrub: Bool = false) {
+  public init(coordinate: CLLocationCoordinate2D?, timezone: TimeZone?, startTime: Date? = nil, endTime: Date? = nil) {
     self.coordinate = coordinate
     self.timezone = timezone
     self.startTime = startTime
     self.endTime = endTime
-    self.canScrub = canScrub
   }
 
   public var body: some View {
@@ -241,6 +239,8 @@ public struct Line: View {
 
     let start = startTime?.inTodaysTime() ?? solar?.civilSunrise
     let end = endTime?.inTodaysTime() ?? solar?.civilSunset
+
+    let diff = Double(timezone?.diffInSecond() ?? 0) / (24 * 3600)
 
     return LineGeometryReader { p in
       ZStack(alignment: .topLeading) {
@@ -250,17 +250,18 @@ public struct Line: View {
         CurrentTimeText(now: self.currentTime.now, timezone: self.timezone, startTime: start, endTime: end)
       }
       .frame(width: p.width, height: p.height)
-      .gesture(DragGesture()
+      .gesture(
+        DragGesture()
         .onChanged { value in
-          if self.canScrub {
-            self.currentTime.customTime(Date.fractionOfToday(Double(value.location.x / p.width)))
-          }
+          self.currentTime.customTime(Date.fractionOfToday(Double(value.location.x / p.width) - diff))
         }
+      )
+      .gesture(
+        TapGesture()
         .onEnded { value in
-          if self.canScrub {
-            self.currentTime.releaseCustomTime()
-          }
-        })
+          self.currentTime.releaseCustomTime()
+        }
+      )
     }
   }
 }
