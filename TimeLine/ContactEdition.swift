@@ -20,6 +20,7 @@ struct ContactEdition: View {
   @State private var locationText = ""
   @State private var location: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
   @State private var showModal = false
+  @State private var saving = false
 
   @State private var timezone: TimeZone?
 
@@ -73,16 +74,22 @@ struct ContactEdition: View {
 
       Spacer()
     }.navigationBarItems(trailing: Button(action: {
-      self.save()
+      if !self.saving {
+        self.save()
+      }
     }) {
-      Text("Save")
+      if self.saving {
+        ActivityIndicator(isAnimating: true)
+      } else {
+        Text("Save")
+      }
     }
     .disabled(contactName == "" || locationText == ""))
   }
 
   func save() {
-    self.presentationMode.wrappedValue.dismiss()
     if let locationCompletion = locationCompletion, locationCompletion.title != contact?.locationName {
+      saving = true
       // need to fetch the new location
       let request = MKLocalSearch.Request(completion: locationCompletion)
       request.resultTypes = .address
@@ -94,9 +101,12 @@ struct ContactEdition: View {
         self.timezone = mapItem.timeZone
         self.location = mapItem.placemark.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)
         self.updateContact()
+        self.presentationMode.wrappedValue.dismiss()
       }
     } else if contactName != contact?.name {
+      saving = true
       self.updateContact()
+      self.presentationMode.wrappedValue.dismiss()
     }
   }
 
@@ -117,6 +127,7 @@ struct ContactEdition: View {
         timezone: Int16(timezone?.secondsFromGMT() ?? 0)
       )
     }
+    saving = false
   }
 }
 

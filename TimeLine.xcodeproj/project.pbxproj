@@ -58,6 +58,7 @@
 		03D633B124361C6A00F8D2CE /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03D633B024361C6A00F8D2CE /* CloudKit.framework */; };
 		03D633BE24362B8900F8D2CE /* ContactEdition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D633BD24362B8900F8D2CE /* ContactEdition.swift */; };
 		03D633C02436343700F8D2CE /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D633BF2436343700F8D2CE /* SearchBar.swift */; };
+		03DCC2C22451CE98000D0B94 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DCC2C12451CE98000D0B94 /* ActivityIndicator.swift */; };
 		03F04B35244DF32000931FB0 /* AutoFocusTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F04B34244DF32000931FB0 /* AutoFocusTextField.swift */; };
 /* End PBXBuildFile section */
 
@@ -245,6 +246,7 @@
 		03D633B024361C6A00F8D2CE /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		03D633BD24362B8900F8D2CE /* ContactEdition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactEdition.swift; sourceTree = "<group>"; };
 		03D633BF2436343700F8D2CE /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		03DCC2C12451CE98000D0B94 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		03F04B34244DF32000931FB0 /* AutoFocusTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoFocusTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -424,6 +426,7 @@
 				03D6335E2436149700F8D2CE /* SceneDelegate.swift */,
 				03D633632436149700F8D2CE /* ContentView.swift */,
 				03D633BD24362B8900F8D2CE /* ContactEdition.swift */,
+				03DCC2C12451CE98000D0B94 /* ActivityIndicator.swift */,
 				03D633BF2436343700F8D2CE /* SearchBar.swift */,
 				03D633BA2436275E00F8D2CE /* Resources */,
 				03D633652436149C00F8D2CE /* Assets.xcassets */,
@@ -790,6 +793,7 @@
 				03D633C02436343700F8D2CE /* SearchBar.swift in Sources */,
 				03D633642436149700F8D2CE /* ContentView.swift in Sources */,
 				03D6335F2436149700F8D2CE /* SceneDelegate.swift in Sources */,
+				03DCC2C22451CE98000D0B94 /* ActivityIndicator.swift in Sources */,
 				03D633BE24362B8900F8D2CE /* ContactEdition.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
