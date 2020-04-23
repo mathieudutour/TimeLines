@@ -26,16 +26,29 @@ public class CurrentTime: NSObject, ObservableObject {
   @Published public var now: Date = Date()
 
   private var timer: Timer?
+  private var customTime = false
 
   private override init() {
     super.init()
 
     timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-      self.now = Date()
+      if !self.customTime {
+        self.now = Date()
+      }
     }
   }
 
   deinit {
     timer?.invalidate()
+  }
+
+  public func customTime(_ date: Date) {
+    self.customTime = true
+    self.now = date
+  }
+
+  public func releaseCustomTime() {
+    self.customTime = false
+    self.now = Date()
   }
 }

@@ -18,4 +18,8 @@ public extension Date {
   func inTodaysTime() -> Date {
     return cal.startOfDay(for: Date()).addingTimeInterval(self.timeIntervalSince(cal.startOfDay(for: self)))
   }
+
+  static func fractionOfToday(_ fraction: Double) -> Date {
+    return cal.startOfDay(for: Date()).addingTimeInterval(24 * 3600 * min(max(fraction, 0), 0.9999999))
+  }
 }

@@ -223,15 +223,17 @@ public struct Line: View {
   var timezone: TimeZone?
   var startTime: Date?
   var endTime: Date?
+  var canScrub: Bool
 
   var lineWidth: CGFloat?
   var maxHeight: CGFloat?
 
-  public init(coordinate: CLLocationCoordinate2D?, timezone: TimeZone?, startTime: Date? = nil, endTime: Date? = nil) {
+  public init(coordinate: CLLocationCoordinate2D?, timezone: TimeZone?, startTime: Date? = nil, endTime: Date? = nil, canScrub: Bool = false) {
     self.coordinate = coordinate
     self.timezone = timezone
     self.startTime = startTime
     self.endTime = endTime
+    self.canScrub = canScrub
   }
 
   public var body: some View {
@@ -248,6 +250,17 @@ public struct Line: View {
         CurrentTimeText(now: self.currentTime.now, timezone: self.timezone, startTime: start, endTime: end)
       }
       .frame(width: p.width, height: p.height)
+      .gesture(DragGesture()
+        .onChanged { value in
+          if self.canScrub {
+            self.currentTime.customTime(Date.fractionOfToday(Double(value.location.x / p.width)))
+          }
+        }
+        .onEnded { value in
+          if self.canScrub {
+            self.currentTime.releaseCustomTime()
+          }
+        })
     }
   }
 }
