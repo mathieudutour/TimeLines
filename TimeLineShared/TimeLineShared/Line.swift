@@ -19,24 +19,21 @@ import CoreLocation
 
 fileprivate let cal = Calendar(identifier: .gregorian)
 
-fileprivate func dateInTimeZone(_ date: Date, _ timezone: TimeZone?) -> Date {
-  return date.addingTimeInterval(TimeInterval(timezone?.diffInSecond() ?? 0))
-}
 fileprivate func point(_ date: Date, _ timezone: TimeZone?) -> CGFloat {
-  let inTZ = dateInTimeZone(date, timezone)
+  let inTZ = date.inTimeZone(timezone)
   return CGFloat(inTZ.timeIntervalSince(cal.startOfDay(for: inTZ)) / (3600 * 24))
 }
 
 fileprivate let defaultLineWidth: CGFloat = 2
 fileprivate let defaultMaxHeight: CGFloat = 25
 
-fileprivate func circlePosition(frame: CGRect, time: Date, timezone: TimeZone?, sunrise: Date?, sunset: Date?) -> CGPoint {
+fileprivate func circlePosition(frame: CGRect, time: Date, timezone: TimeZone?, startTime: Date?, endTime: Date?) -> CGPoint {
 
   let timePoint = point(time, timezone)
 
   guard
-    let sunrise = sunrise,
-    let sunset = sunset
+    let startTime = startTime,
+    let endTime = endTime
   else {
     return CGPoint(
       x: frame.origin.x + frame.width * CGFloat(timePoint),
@@ -44,15 +41,15 @@ fileprivate func circlePosition(frame: CGRect, time: Date, timezone: TimeZone?, 
     )
   }
 
-  let sunrisePoint = point(sunrise, timezone)
-  let sunsetPoint = point(sunset, timezone)
+  let startPoint = point(startTime, timezone)
+  let endPoint = point(endTime, timezone)
 
   var y: CGFloat = frame.origin.y + frame.height
 
-  if timePoint < sunsetPoint && timePoint > sunrisePoint {
+  if timePoint < endPoint && timePoint > startPoint {
     // find the position on the parabola
-    let w = frame.width * (sunsetPoint - sunrisePoint)
-    let x1 = frame.width * CGFloat(sunrisePoint)
+    let w = frame.width * (endPoint - startPoint)
+    let x1 = frame.width * CGFloat(startPoint)
     let c = y
     let b = -4 * frame.height / w
     let a = -b / w
@@ -68,8 +65,8 @@ fileprivate func circlePosition(frame: CGRect, time: Date, timezone: TimeZone?, 
 
 struct ParabolaLine: Shape {
   var timezone: TimeZone?
-  var sunrise: Date?
-  var sunset: Date?
+  var startTime: Date?
+  var endTime: Date?
 
   func path(in frame: CGRect) -> Path {
     var path = Path()
@@ -80,8 +77,8 @@ struct ParabolaLine: Shape {
     )
 
     guard
-      let sunrise = sunrise,
-      let sunset = sunset
+      let startTime = startTime,
+      let endTime = endTime
     else {
       path.addLine(to: CGPoint(
         x: frame.origin.x + frame.width,
@@ -91,40 +88,40 @@ struct ParabolaLine: Shape {
       return path
     }
 
-    let sunrisePoint = point(sunrise, timezone)
-    let sunsetPoint = point(sunset, timezone)
+    let startPoint = point(startTime, timezone)
+    let endPoint = point(endTime, timezone)
 
     path.addLine(to: CGPoint(
-      x: frame.origin.x + frame.width * CGFloat(sunrisePoint),
+      x: frame.origin.x + frame.width * CGFloat(startPoint),
       y: frame.origin.y + frame.height
     ))
 
     path.addCurve(
       to: CGPoint(
-        x: frame.origin.x + frame.width * CGFloat((sunsetPoint - sunrisePoint) / 2 + sunrisePoint),
+        x: frame.origin.x + frame.width * CGFloat((endPoint - startPoint) / 2 + startPoint),
         y: frame.origin.y
       ),
       control1: CGPoint(
-        x: frame.origin.x + frame.width * CGFloat(sunrisePoint),
+        x: frame.origin.x + frame.width * CGFloat(startPoint),
         y: frame.origin.y + frame.height
       ),
       control2: CGPoint(
-        x: frame.origin.x + frame.width * CGFloat((sunsetPoint - sunrisePoint) / 5 + sunrisePoint),
+        x: frame.origin.x + frame.width * CGFloat((endPoint - startPoint) / 5 + startPoint),
         y: frame.origin.y
       )
     )
 
     path.addCurve(
       to: CGPoint(
-        x: frame.origin.x + frame.width * CGFloat(sunsetPoint),
+        x: frame.origin.x + frame.width * CGFloat(endPoint),
         y: frame.origin.y + frame.height
       ),
       control1: CGPoint(
-        x: frame.origin.x + frame.width * CGFloat((sunsetPoint - sunrisePoint) * 4 / 5 + sunrisePoint),
+        x: frame.origin.x + frame.width * CGFloat((endPoint - startPoint) * 4 / 5 + startPoint),
         y: frame.origin.y
       ),
       control2: CGPoint(
-        x: frame.origin.x + frame.width * CGFloat(sunsetPoint),
+        x: frame.origin.x + frame.width * CGFloat(endPoint),
         y: frame.origin.y + frame.height
       )
     )
@@ -141,15 +138,15 @@ struct ParabolaLine: Shape {
 struct CurrentTimeCircle: Shape {
   var now: Date
   var timezone: TimeZone?
-  var sunrise: Date?
-  var sunset: Date?
+  var startTime: Date?
+  var endTime: Date?
 
   var lineWidth: CGFloat?
 
   func path(in frame: CGRect) -> Path {
     var path = Path()
 
-    let pos = circlePosition(frame: frame, time: now, timezone: timezone, sunrise: sunrise, sunset: sunset)
+    let pos = circlePosition(frame: frame, time: now, timezone: timezone, startTime: startTime, endTime: endTime)
 
     path.addArc(center: pos, radius: (lineWidth ?? defaultLineWidth) * 1.5, startAngle: Angle.zero, endAngle: Angle.degrees(360), clockwise: true)
 
@@ -160,14 +157,14 @@ struct CurrentTimeCircle: Shape {
 struct CurrentTimeText: View {
   var now: Date
   var timezone: TimeZone?
-  var sunrise: Date?
-  var sunset: Date?
+  var startTime: Date?
+  var endTime: Date?
 
   func getPosition(_ frame: CGRect, _ text: String?) -> CGRect {
     guard let string = text else {
       return .zero
     }
-    let pos = circlePosition(frame: frame, time: now, timezone: timezone, sunrise: sunrise, sunset: sunset)
+    let pos = circlePosition(frame: frame, time: now, timezone: timezone, startTime: startTime, endTime: endTime)
     let size = NSString(string: string).size(withAttributes: [NSAttributedString.Key.font: CPFont.systemFont(ofSize: 15)])
 
     var x = pos.x
@@ -224,22 +221,31 @@ public struct Line: View {
 
   var coordinate: CLLocationCoordinate2D?
   var timezone: TimeZone?
+  var startTime: Date?
+  var endTime: Date?
+
   var lineWidth: CGFloat?
   var maxHeight: CGFloat?
 
-  public init(coordinate: CLLocationCoordinate2D?, timezone: TimeZone?) {
+  public init(coordinate: CLLocationCoordinate2D?, timezone: TimeZone?, startTime: Date? = nil, endTime: Date? = nil) {
     self.coordinate = coordinate
     self.timezone = timezone
+    self.startTime = startTime
+    self.endTime = endTime
   }
 
   public var body: some View {
-    let solar = Solar(coordinate: coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0))
+    let solar = coordinate != nil ? Solar(coordinate: coordinate!) : nil
+
+    let start = startTime?.inTodaysTime() ?? solar?.civilSunrise
+    let end = endTime?.inTodaysTime() ?? solar?.civilSunset
 
     return LineGeometryReader { p in
       ZStack(alignment: .topLeading) {
-        ParabolaLine(timezone: self.timezone, sunrise: solar?.civilSunrise, sunset: solar?.civilSunset).stroke(style: StrokeStyle(lineWidth: defaultLineWidth, lineCap: .round, lineJoin: .round))
-        CurrentTimeCircle(now: self.currentTime.now, timezone: self.timezone, sunrise: solar?.civilSunrise, sunset: solar?.civilSunset)
-        CurrentTimeText(now: self.currentTime.now, timezone: self.timezone, sunrise: solar?.civilSunrise, sunset: solar?.civilSunset)
+        ParabolaLine(timezone: self.timezone, startTime: start, endTime: end)
+          .stroke(style: StrokeStyle(lineWidth: defaultLineWidth, lineCap: .round, lineJoin: .round))
+        CurrentTimeCircle(now: self.currentTime.now, timezone: self.timezone, startTime: start, endTime: end)
+        CurrentTimeText(now: self.currentTime.now, timezone: self.timezone, startTime: start, endTime: end)
       }
       .frame(width: p.width, height: p.height)
     }
@@ -249,11 +255,11 @@ public struct Line: View {
 public struct Line_Previews: PreviewProvider {
   public static var previews: some View {
     Group {
-      Line(coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0), timezone: TimeZone(secondsFromGMT: 0)!)
-      Line(coordinate: CLLocationCoordinate2D(latitude: 10, longitude: 10), timezone: TimeZone(secondsFromGMT: 3600)!)
-      Line(coordinate: CLLocationCoordinate2D(latitude: 45, longitude: 45), timezone: TimeZone(secondsFromGMT: 9200)!)
-      Line(coordinate: CLLocationCoordinate2D(latitude: 45, longitude: -70), timezone: TimeZone(secondsFromGMT: -14000)!)
-      Line(coordinate: CLLocationCoordinate2D(latitude: 80, longitude: 80), timezone: TimeZone(secondsFromGMT: -8000)!)
+      Line(coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0), timezone: TimeZone(secondsFromGMT: 0), startTime: Date(timeIntervalSince1970: 16000))
+      Line(coordinate: CLLocationCoordinate2D(latitude: 10, longitude: 10), timezone: TimeZone(secondsFromGMT: 3600))
+      Line(coordinate: CLLocationCoordinate2D(latitude: 45, longitude: 45), timezone: TimeZone(secondsFromGMT: 9200))
+      Line(coordinate: CLLocationCoordinate2D(latitude: 45, longitude: -70), timezone: TimeZone(secondsFromGMT: -14000))
+      Line(coordinate: CLLocationCoordinate2D(latitude: 80, longitude: 80), timezone: TimeZone(secondsFromGMT: -8000))
     }
     .previewLayout(.fixed(width: 300, height: 80))
   }

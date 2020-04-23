@@ -11,6 +11,25 @@ import TimeLineShared
 import MapKit
 import CoreLocation
 
+struct CustomTimePicker: View {
+  var text: String
+  @Binding var custom: Bool
+  @Binding var time: Date
+
+  var body: some View {
+    VStack {
+      Toggle(isOn: $custom) {
+        Text(text)
+      }
+      if custom {
+        DatePicker(selection: $time, displayedComponents: .hourAndMinute) {
+          Text("")
+        }.labelsHidden()
+      }
+    }
+  }
+}
+
 struct ContactEdition: View {
   @Environment(\.presentationMode) var presentationMode
 
@@ -21,6 +40,10 @@ struct ContactEdition: View {
   @State private var location: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
   @State private var showModal = false
   @State private var saving = false
+  @State private var customStartTime = false
+  @State private var customEndTime = false
+  @State private var startTime: Date
+  @State private var endTime: Date
 
   @State private var timezone: TimeZone?
 
@@ -28,14 +51,21 @@ struct ContactEdition: View {
 
   init(contact: Contact?) {
     self.contact = contact
+
+    let today = Calendar.current.startOfDay(for: Date())
+
     _contactName = State(initialValue: contact?.name ?? "")
     _locationText = State(initialValue: contact?.locationName ?? "")
     _location = State(initialValue: contact?.location ?? CLLocationCoordinate2D(latitude: 0, longitude: 0))
     _timezone = State(initialValue: contact?.timeZone)
+    _customStartTime = State(initialValue: contact?.startTime != nil)
+    _customEndTime = State(initialValue: contact?.endTime != nil)
+    _startTime = State(initialValue: contact?.startTime?.inTodaysTime() ?? today.addingTimeInterval(3600 * 9))
+    _endTime = State(initialValue: contact?.endTime?.inTodaysTime() ?? today.addingTimeInterval(3600 * 18))
   }
 
   var body: some View {
-    VStack {
+    ScrollView {
       VStack(alignment: .leading) {
         HStack {
           Text("Name")
@@ -69,6 +99,11 @@ struct ContactEdition: View {
             }
           }
         }
+        Text("A time line will show the sunrise and sunset times at the location of the contact by default. You can customize those times if you'd like to show working hours for example.")
+          .padding(.top, 50)
+          .foregroundColor(Color.secondary)
+        CustomTimePicker(text: "Customize rise time", custom: $customStartTime, time: $startTime)
+        CustomTimePicker(text: "Customize set time", custom: $customEndTime, time: $endTime)
       }
       .padding()
 
@@ -87,6 +122,10 @@ struct ContactEdition: View {
     .disabled(contactName == "" || locationText == ""))
   }
 
+  func didChangeTime(_ previousTime: Date?, _ custom: Bool, _ newTime: Date) -> Bool {
+    return (previousTime == nil && custom) || (previousTime != nil && !custom) || (previousTime != nil && previousTime?.inTodaysTime() != newTime)
+  }
+
   func save() {
     if let locationCompletion = locationCompletion, locationCompletion.title != contact?.locationName {
       saving = true
@@ -103,7 +142,7 @@ struct ContactEdition: View {
         self.updateContact()
         self.presentationMode.wrappedValue.dismiss()
       }
-    } else if contactName != contact?.name {
+    } else if contactName != contact?.name || didChangeTime(contact?.startTime, customStartTime, startTime) || didChangeTime(contact?.endTime, customEndTime, endTime) {
       saving = true
       self.updateContact()
       self.presentationMode.wrappedValue.dismiss()
@@ -117,6 +156,8 @@ struct ContactEdition: View {
       contact.longitude = location.longitude
       contact.locationName = locationText
       contact.timezone = Int16(timezone?.secondsFromGMT() ?? 0)
+      contact.startTime = customStartTime ? startTime : nil
+      contact.endTime = customEndTime ? endTime : nil
       CoreDataManager.shared.saveContext()
     } else {
       CoreDataManager.shared.createContact(
@@ -124,7 +165,9 @@ struct ContactEdition: View {
         latitude: location.latitude,
         longitude: location.longitude,
         locationName: locationText,
-        timezone: Int16(timezone?.secondsFromGMT() ?? 0)
+        timezone: Int16(timezone?.secondsFromGMT() ?? 0),
+        startTime: customStartTime ? startTime : nil,
+        endTime: customEndTime ? endTime : nil
       )
     }
     saving = false

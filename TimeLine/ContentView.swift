@@ -57,7 +57,7 @@ struct ContentView: View {
           name: "Me",
           timezone: TimeZone.current,
           coordinate: TimeZone.current.roughLocation
-        ).padding(.trailing, 16)
+        ).padding(.trailing, 15)
         ForEach(contacts, id: \.self) { (contact: Contact) in
           NavigationLink(destination: ContactDetails(contact: contact, editView: {
             NavigationLink(destination: ContactEdition(contact: contact)) {
@@ -70,7 +70,9 @@ struct ContentView: View {
             ContactRow(
               name: contact.name ?? "",
               timezone: contact.timeZone,
-              coordinate: contact.location
+              coordinate: contact.location,
+              startTime: contact.startTime,
+              endTime: contact.endTime
             )
           }.onAppear(perform: {
             contact.refreshTimeZone()

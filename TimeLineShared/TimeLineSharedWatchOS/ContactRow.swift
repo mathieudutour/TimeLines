@@ -13,11 +13,15 @@ public struct ContactRow: View {
   public var name: String
   public var timezone: TimeZone?
   public var coordinate: CLLocationCoordinate2D?
+  public var startTime: Date?
+  public var endTime: Date?
 
-  public init(name: String, timezone: TimeZone?, coordinate: CLLocationCoordinate2D?) {
+  public init(name: String, timezone: TimeZone?, coordinate: CLLocationCoordinate2D?, startTime: Date? = nil, endTime: Date? = nil) {
     self.name = name
     self.timezone = timezone
     self.coordinate = coordinate
+    self.startTime = startTime
+    self.endTime = endTime
   }
 
   public var body: some View {
@@ -34,7 +38,7 @@ public struct ContactRow: View {
 
       Spacer()
 
-      Line(coordinate: coordinate, timezone: timezone)
+      Line(coordinate: coordinate, timezone: timezone, startTime: startTime, endTime: endTime)
         .frame(height: 80)
     }
   }

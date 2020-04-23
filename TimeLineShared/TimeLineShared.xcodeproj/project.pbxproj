@@ -49,6 +49,9 @@
 		03DCC2BE2451C879000D0B94 /* timezone-data.json in Resources */ = {isa = PBXBuildFile; fileRef = 03DCC2BD2451C879000D0B94 /* timezone-data.json */; };
 		03DCC2BF2451CA40000D0B94 /* timezone-data.json in Resources */ = {isa = PBXBuildFile; fileRef = 03DCC2BD2451C879000D0B94 /* timezone-data.json */; };
 		03DCC2C02451CA41000D0B94 /* timezone-data.json in Resources */ = {isa = PBXBuildFile; fileRef = 03DCC2BD2451C879000D0B94 /* timezone-data.json */; };
+		03DCC2C72451DBC0000D0B94 /* Date+timezone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DCC2C62451DBC0000D0B94 /* Date+timezone.swift */; };
+		03DCC2C82451DC4C000D0B94 /* Date+timezone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DCC2C62451DBC0000D0B94 /* Date+timezone.swift */; };
+		03DCC2C92451DC4D000D0B94 /* Date+timezone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DCC2C62451DBC0000D0B94 /* Date+timezone.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +83,7 @@
 		03D633C5243653AB00F8D2CE /* Solar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Solar.swift; sourceTree = "<group>"; };
 		03DCC2B92451C0FE000D0B94 /* TimeZone+location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeZone+location.swift"; sourceTree = "<group>"; };
 		03DCC2BD2451C879000D0B94 /* timezone-data.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "timezone-data.json"; sourceTree = "<group>"; };
+		03DCC2C62451DBC0000D0B94 /* Date+timezone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+timezone.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,14 +178,15 @@
 				03D633972436165100F8D2CE /* Info.plist */,
 				03D633A4243616C200F8D2CE /* Model.xcdatamodeld */,
 				03D633A72436182000F8D2CE /* CoreDataManager.swift */,
+				03D633B42436259B00F8D2CE /* Contact+location.swift */,
 				037918C22445A24100715C81 /* CurrentTime.swift */,
 				03D5A668243A3CAA004AC5EB /* InAppPurchases.swift */,
 				03D5A671243B6A0D004AC5EB /* Utils.swift */,
 				03D633C5243653AB00F8D2CE /* Solar.swift */,
-				03D633B42436259B00F8D2CE /* Contact+location.swift */,
 				03D5A679243C7E9B004AC5EB /* MapView.swift */,
 				03D5A53924373FC6004AC5EB /* Line.swift */,
 				03D5A676243C7DD5004AC5EB /* ContactDetails.swift */,
+				03DCC2C62451DBC0000D0B94 /* Date+timezone.swift */,
 				03D633C324364BF000F8D2CE /* TimeZone+print.swift */,
 				03DCC2B92451C0FE000D0B94 /* TimeZone+location.swift */,
 				03DCC2BD2451C879000D0B94 /* timezone-data.json */,
@@ -352,6 +357,7 @@
 				03B8BFA724437B340009E084 /* Contact+location.swift in Sources */,
 				03B8BFA824437B340009E084 /* Line.swift in Sources */,
 				03CD2B9B24446B7700DFCD04 /* ContactRow.swift in Sources */,
+				03DCC2C92451DC4D000D0B94 /* Date+timezone.swift in Sources */,
 				037918C52445A6F100715C81 /* CurrentTime.swift in Sources */,
 				03B8BFA924437B340009E084 /* TimeZone+print.swift in Sources */,
 				03DCC2BC2451C3AD000D0B94 /* TimeZone+location.swift in Sources */,
@@ -373,6 +379,7 @@
 				03D5A5CC2438B6C3004AC5EB /* Solar.swift in Sources */,
 				03DCC2BB2451C3AD000D0B94 /* TimeZone+location.swift in Sources */,
 				037918C42445A6F100715C81 /* CurrentTime.swift in Sources */,
+				03DCC2C82451DC4C000D0B94 /* Date+timezone.swift in Sources */,
 				03D5A5CF2438B6C3004AC5EB /* Contact+location.swift in Sources */,
 				03D5A5D02438B6C3004AC5EB /* TimeZone+print.swift in Sources */,
 				03D5A5E52438C2A2004AC5EB /* ContactRow.swift in Sources */,
@@ -389,6 +396,7 @@
 				03D633A82436182000F8D2CE /* CoreDataManager.swift in Sources */,
 				03D5A67A243C7E9B004AC5EB /* MapView.swift in Sources */,
 				03D5A672243B6A0D004AC5EB /* Utils.swift in Sources */,
+				03DCC2C72451DBC0000D0B94 /* Date+timezone.swift in Sources */,
 				03D633B52436259B00F8D2CE /* Contact+location.swift in Sources */,
 				037918C32445A24100715C81 /* CurrentTime.swift in Sources */,
 				03D633C424364BF000F8D2CE /* TimeZone+print.swift in Sources */,

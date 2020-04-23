@@ -11,6 +11,26 @@ import TimeLineSharedMacOS
 import MapKit
 import CoreLocation
 
+struct CustomTimePicker: View {
+  var text: String
+  @Binding var custom: Bool
+  @Binding var time: Date
+
+  var body: some View {
+    HStack {
+      Toggle(isOn: $custom) {
+        Text(text)
+      }
+      Spacer()
+      if custom {
+        DatePicker(selection: $time, displayedComponents: .hourAndMinute) {
+          Text("")
+        }.labelsHidden()
+      }
+    }
+  }
+}
+
 struct ButtonThatLookLikeTextFieldStyle: ButtonStyle {
   var locationText: String
 
@@ -29,6 +49,7 @@ struct ContactEdition: View {
 
   @Binding var contact: Contact?
   @Binding var showingEdit: Bool
+  @State private var saving = false
 
   @State private var contactName: String
   @State private var locationText = ""
@@ -36,16 +57,26 @@ struct ContactEdition: View {
   @State private var showModal = false
 
   @State private var timezone: TimeZone?
+  @State private var customStartTime = false
+  @State private var customEndTime = false
+  @State private var startTime: Date
+  @State private var endTime: Date
 
   @State private var locationCompletion: MKLocalSearchCompletion?
 
   init(contact: Binding<Contact?>, showingEdit: Binding<Bool>) {
+    let today = Calendar.current.startOfDay(for: Date())
+
     self._contact = contact
     self._showingEdit = showingEdit
     _contactName = State(initialValue: contact.wrappedValue?.name ?? "")
     _locationText = State(initialValue: contact.wrappedValue?.locationName ?? "")
     _location = State(initialValue: contact.wrappedValue?.location ?? CLLocationCoordinate2D(latitude: 0, longitude: 0))
     _timezone = State(initialValue: contact.wrappedValue?.timeZone)
+    _customStartTime = State(initialValue: contact.wrappedValue?.startTime != nil)
+    _customEndTime = State(initialValue: contact.wrappedValue?.endTime != nil)
+    _startTime = State(initialValue: contact.wrappedValue?.startTime?.inTodaysTime() ?? today.addingTimeInterval(3600 * 9))
+    _endTime = State(initialValue: contact.wrappedValue?.endTime?.inTodaysTime() ?? today.addingTimeInterval(3600 * 18))
   }
 
   var body: some View {
@@ -92,6 +123,13 @@ struct ContactEdition: View {
           }.frame(height: 30)
 
         }
+
+        Text("A time line will show the sunrise and sunset times at the location of the contact by default. You can customize those times if you'd like to show working hours for example.")
+          .padding(.top, 50)
+          .foregroundColor(Color.secondary)
+        CustomTimePicker(text: "Customize rise time", custom: $customStartTime, time: $startTime)
+        CustomTimePicker(text: "Customize set time", custom: $customEndTime, time: $endTime)
+
         HStack {
           Spacer()
           Button(action: {
@@ -110,6 +148,10 @@ struct ContactEdition: View {
     }
   }
 
+  func didChangeTime(_ previousTime: Date?, _ custom: Bool, _ newTime: Date) -> Bool {
+    return (previousTime == nil && custom) || (previousTime != nil && !custom) || (previousTime != nil && previousTime?.inTodaysTime() != newTime)
+  }
+
   func save() {
     if let locationCompletion = locationCompletion, locationCompletion.title != contact?.locationName {
       // need to fetch the new location
@@ -124,7 +166,7 @@ struct ContactEdition: View {
         self.location = mapItem.placemark.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)
         self.updateContact()
       }
-    } else if contactName != contact?.name {
+    } else if contactName != contact?.name || didChangeTime(contact?.startTime, customStartTime, startTime) || didChangeTime(contact?.endTime, customEndTime, endTime) {
       self.updateContact()
     }
   }
@@ -136,6 +178,8 @@ struct ContactEdition: View {
       contact.longitude = location.longitude
       contact.locationName = locationText
       contact.timezone = Int16(timezone?.secondsFromGMT() ?? 0)
+      contact.startTime = customStartTime ? startTime : nil
+      contact.endTime = customEndTime ? endTime : nil
       CoreDataManager.shared.saveContext()
     } else {
       contact = CoreDataManager.shared.createContact(
@@ -143,7 +187,9 @@ struct ContactEdition: View {
         latitude: location.latitude,
         longitude: location.longitude,
         locationName: locationText,
-        timezone: Int16(timezone?.secondsFromGMT() ?? 0)
+        timezone: Int16(timezone?.secondsFromGMT() ?? 0),
+        startTime: customStartTime ? startTime : nil,
+        endTime: customEndTime ? endTime : nil
       )
     }
     showingEdit = false

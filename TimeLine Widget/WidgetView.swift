@@ -24,7 +24,9 @@ struct WidgetView : View {
         ContactRow(
           name: contact.name ?? "",
           timezone: contact.timeZone,
-          coordinate: contact.location
+          coordinate: contact.location,
+          startTime: contact.startTime,
+          endTime: contact.endTime
         ).onAppear(perform: {
           contact.refreshTimeZone()
         })

@@ -29,7 +29,7 @@ struct Main: View {
         Text(contact.timeZone?.prettyPrintTime(currentTime.now) ?? "")
           .font(.subheadline)
       }
-      Line(coordinate: contact.location, timezone: contact.timeZone)
+      Line(coordinate: contact.location, timezone: contact.timeZone, startTime: contact.startTime, endTime: contact.endTime)
         .frame(height: 80)
         .padding()
     }
