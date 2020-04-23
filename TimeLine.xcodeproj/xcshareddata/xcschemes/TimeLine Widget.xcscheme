@@ -16,7 +16,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "03D633762436151A00F8D2CE"
-               BuildableName = "TimeLine Widget.appex"
+               BuildableName = "Time Lines Widget.appex"
                BlueprintName = "TimeLine Widget"
                ReferencedContainer = "container:TimeLine.xcodeproj">
             </BuildableReference>
@@ -30,7 +30,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "03D633582436149700F8D2CE"
-               BuildableName = "TimeLine.app"
+               BuildableName = "Time Lines.app"
                BlueprintName = "TimeLine"
                ReferencedContainer = "container:TimeLine.xcodeproj">
             </BuildableReference>
@@ -63,7 +63,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "03D633762436151A00F8D2CE"
-            BuildableName = "TimeLine Widget.appex"
+            BuildableName = "Time Lines Widget.appex"
             BlueprintName = "TimeLine Widget"
             ReferencedContainer = "container:TimeLine.xcodeproj">
          </BuildableReference>
@@ -72,7 +72,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "03D633582436149700F8D2CE"
-            BuildableName = "TimeLine.app"
+            BuildableName = "Time Lines.app"
             BlueprintName = "TimeLine"
             ReferencedContainer = "container:TimeLine.xcodeproj">
          </BuildableReference>
@@ -90,7 +90,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "03D633582436149700F8D2CE"
-            BuildableName = "TimeLine.app"
+            BuildableName = "Time Lines.app"
             BlueprintName = "TimeLine"
             ReferencedContainer = "container:TimeLine.xcodeproj">
          </BuildableReference>

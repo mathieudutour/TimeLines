@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "03B8BFB6244463BD0009E084"
-               BuildableName = "TimeLine.app"
+               BuildableName = "Time Lines.app"
                BlueprintName = "TimeLineWatchOS"
                ReferencedContainer = "container:TimeLine.xcodeproj">
             </BuildableReference>
@@ -29,7 +29,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "03D633582436149700F8D2CE"
-               BuildableName = "TimeLine.app"
+               BuildableName = "Time Lines.app"
                BlueprintName = "TimeLine"
                ReferencedContainer = "container:TimeLine.xcodeproj">
             </BuildableReference>
@@ -61,7 +61,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "03B8BFB6244463BD0009E084"
-            BuildableName = "TimeLine.app"
+            BuildableName = "Time Lines.app"
             BlueprintName = "TimeLineWatchOS"
             ReferencedContainer = "container:TimeLine.xcodeproj">
          </BuildableReference>
@@ -80,7 +80,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "03B8BFB6244463BD0009E084"
-            BuildableName = "TimeLine.app"
+            BuildableName = "Time Lines.app"
             BlueprintName = "TimeLineWatchOS"
             ReferencedContainer = "container:TimeLine.xcodeproj">
          </BuildableReference>
@@ -89,7 +89,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "03B8BFB6244463BD0009E084"
-            BuildableName = "TimeLine.app"
+            BuildableName = "Time Lines.app"
             BlueprintName = "TimeLineWatchOS"
             ReferencedContainer = "container:TimeLine.xcodeproj">
          </BuildableReference>

@@ -90,6 +90,7 @@ public struct App {
       """
 
 
+
       ---
       \(App.name) \(App.versionWithBuild) - \(App.id)
       macOS \(System.osVersion)
@@ -97,7 +98,7 @@ public struct App {
       """
 
     let query: [String: String] = [
-      "title": "[Feedback]",
+      "title": "[Feedback] ",
       "body": metadata
     ]
 

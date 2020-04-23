@@ -53,6 +53,11 @@ struct ContentView: View {
     NavigationView {
       List {
         addNewContact.foregroundColor(Color(UIColor.secondaryLabel))
+        ContactRow(
+          name: "Me",
+          timezone: TimeZone.current,
+          coordinate: TimeZone.current.roughLocation
+        ).padding(.trailing, 16)
         ForEach(contacts, id: \.self) { (contact: Contact) in
           NavigationLink(destination: ContactDetails(contact: contact, editView: {
             NavigationLink(destination: ContactEdition(contact: contact)) {

@@ -43,6 +43,12 @@
 		03D633B52436259B00F8D2CE /* Contact+location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D633B42436259B00F8D2CE /* Contact+location.swift */; };
 		03D633C424364BF000F8D2CE /* TimeZone+print.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D633C324364BF000F8D2CE /* TimeZone+print.swift */; };
 		03D633C6243653AB00F8D2CE /* Solar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D633C5243653AB00F8D2CE /* Solar.swift */; };
+		03DCC2BA2451C0FE000D0B94 /* TimeZone+location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DCC2B92451C0FE000D0B94 /* TimeZone+location.swift */; };
+		03DCC2BB2451C3AD000D0B94 /* TimeZone+location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DCC2B92451C0FE000D0B94 /* TimeZone+location.swift */; };
+		03DCC2BC2451C3AD000D0B94 /* TimeZone+location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DCC2B92451C0FE000D0B94 /* TimeZone+location.swift */; };
+		03DCC2BE2451C879000D0B94 /* timezone-data.json in Resources */ = {isa = PBXBuildFile; fileRef = 03DCC2BD2451C879000D0B94 /* timezone-data.json */; };
+		03DCC2BF2451CA40000D0B94 /* timezone-data.json in Resources */ = {isa = PBXBuildFile; fileRef = 03DCC2BD2451C879000D0B94 /* timezone-data.json */; };
+		03DCC2C02451CA41000D0B94 /* timezone-data.json in Resources */ = {isa = PBXBuildFile; fileRef = 03DCC2BD2451C879000D0B94 /* timezone-data.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +78,8 @@
 		03D633B42436259B00F8D2CE /* Contact+location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Contact+location.swift"; sourceTree = "<group>"; };
 		03D633C324364BF000F8D2CE /* TimeZone+print.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeZone+print.swift"; sourceTree = "<group>"; };
 		03D633C5243653AB00F8D2CE /* Solar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Solar.swift; sourceTree = "<group>"; };
+		03DCC2B92451C0FE000D0B94 /* TimeZone+location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeZone+location.swift"; sourceTree = "<group>"; };
+		03DCC2BD2451C879000D0B94 /* timezone-data.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "timezone-data.json"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,6 +183,8 @@
 				03D5A53924373FC6004AC5EB /* Line.swift */,
 				03D5A676243C7DD5004AC5EB /* ContactDetails.swift */,
 				03D633C324364BF000F8D2CE /* TimeZone+print.swift */,
+				03DCC2B92451C0FE000D0B94 /* TimeZone+location.swift */,
+				03DCC2BD2451C879000D0B94 /* timezone-data.json */,
 			);
 			path = TimeLineShared;
 			sourceTree = "<group>";
@@ -309,6 +319,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03DCC2C02451CA41000D0B94 /* timezone-data.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,6 +327,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03DCC2BF2451CA40000D0B94 /* timezone-data.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,6 +335,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03DCC2BE2451C879000D0B94 /* timezone-data.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,6 +354,7 @@
 				03CD2B9B24446B7700DFCD04 /* ContactRow.swift in Sources */,
 				037918C52445A6F100715C81 /* CurrentTime.swift in Sources */,
 				03B8BFA924437B340009E084 /* TimeZone+print.swift in Sources */,
+				03DCC2BC2451C3AD000D0B94 /* TimeZone+location.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,6 +371,7 @@
 				03D5A5CB2438B6C3004AC5EB /* CoreDataManager.swift in Sources */,
 				03B8BF20243DF23D0009E084 /* Line.swift in Sources */,
 				03D5A5CC2438B6C3004AC5EB /* Solar.swift in Sources */,
+				03DCC2BB2451C3AD000D0B94 /* TimeZone+location.swift in Sources */,
 				037918C42445A6F100715C81 /* CurrentTime.swift in Sources */,
 				03D5A5CF2438B6C3004AC5EB /* Contact+location.swift in Sources */,
 				03D5A5D02438B6C3004AC5EB /* TimeZone+print.swift in Sources */,
@@ -370,6 +385,7 @@
 			files = (
 				03D633C6243653AB00F8D2CE /* Solar.swift in Sources */,
 				03D5A677243C7DD5004AC5EB /* ContactDetails.swift in Sources */,
+				03DCC2BA2451C0FE000D0B94 /* TimeZone+location.swift in Sources */,
 				03D633A82436182000F8D2CE /* CoreDataManager.swift in Sources */,
 				03D5A67A243C7E9B004AC5EB /* MapView.swift in Sources */,
 				03D5A672243B6A0D004AC5EB /* Utils.swift in Sources */,
