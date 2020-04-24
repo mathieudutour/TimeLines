@@ -7,6 +7,45 @@
 //
 import SwiftUI
 import TimeLineShared
+import Combine
+
+protocol TagPickerDelegate {
+  func didSelectTag(_ tag: Tag) -> Void
+}
+
+struct AccessoryView : View {
+  @Environment(\.managedObjectContext) var context
+
+  @FetchRequest(
+      entity: Tag.entity(),
+      sortDescriptors: [NSSortDescriptor(keyPath: \Tag.name, ascending: true)]
+  ) var existingTokens: FetchedResults<Tag>
+
+  var delegate: TagPickerDelegate
+  @Binding var search: String
+  @Binding var tokens: [Tag]
+
+  func filterTag(_ tag: Tag) -> Bool {
+    return (search.count == 0 || NSPredicate(format: "name contains[c] %@", argumentArray: [search]).evaluate(with: tag))
+      && tokens.first(where: { token in
+        return (tag.name?.lowercased() ?? "") == (token.name?.lowercased() ?? "")
+      }) == nil
+  }
+
+  var body: some View {
+    ScrollView(.horizontal) {
+      HStack(spacing: 5) {
+        ForEach(existingTokens.filter { filterTag($0) }, id: \Tag.name) { tag in
+          TagView(tag: tag, onSelectTag: { tag, _ in
+            self.delegate.didSelectTag(tag)
+          })
+        }
+        .padding(.leading, 5)
+        .padding(.trailing, 5)
+      }
+    }.frame(maxWidth: UIScreen.main.bounds.width, minHeight: 45, maxHeight: 45)
+  }
+}
 
 struct SearchBar: UIViewRepresentable {
   @Environment(\.managedObjectContext) var context
@@ -22,6 +61,19 @@ struct SearchBar: UIViewRepresentable {
   @Binding var tokens: [Tag]
   var allowCreatingTokens: Bool = false
 
+  let scroll: UIScrollView = {
+    let scroll = UIScrollView(frame: .zero)
+    return scroll
+  }()
+
+  let accessory: UIView = {
+    let accessoryView = UIView(frame: .zero)
+    accessoryView.backgroundColor = .secondarySystemBackground
+    accessoryView.translatesAutoresizingMaskIntoConstraints = false
+
+    return accessoryView
+  }()
+
   func makeUIView(context: Context) -> UISearchBar {
     let bar = UISearchBar()
     bar.placeholder = placeholder
@@ -29,6 +81,18 @@ struct SearchBar: UIViewRepresentable {
     bar.text = search
     bar.returnKeyType = .next
     bar.searchBarStyle = .minimal
+
+    accessory.frame = CGRect(x: 0, y: 0, width: 100, height: 45)
+
+    let child = UIHostingController(rootView: AccessoryView(delegate: context.coordinator, search: $search, tokens: $tokens).environment(\.managedObjectContext, self.context))
+    child.view.translatesAutoresizingMaskIntoConstraints = false
+    child.view.frame = accessory.bounds
+    child.view.backgroundColor = .clear
+
+    accessory.addSubview(child.view)
+
+    bar.inputAccessoryView = accessory
+
     return bar
   }
   
@@ -48,7 +112,7 @@ struct SearchBar: UIViewRepresentable {
   }
 }
 
-class SearchBarCoordinator: NSObject, UISearchBarDelegate {
+class SearchBarCoordinator: NSObject, UISearchBarDelegate, TagPickerDelegate {
   var parent: SearchBar
 
   init(_ parent: SearchBar) {
@@ -87,6 +151,10 @@ class SearchBarCoordinator: NSObject, UISearchBarDelegate {
     if parent.tokens.first(where: { $0.name?.lowercased() == newToken.name?.lowercased() }) == nil {
       parent.tokens.append(newToken)
     }
+  }
+
+  func didSelectTag(_ tag: Tag) {
+    parent.tokens.append(tag)
   }
 }
 

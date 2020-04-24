@@ -8,23 +8,34 @@
 
 import SwiftUI
 
-struct TagView: View {
-  @ObservedObject var tag: Tag
+public struct TagView: View {
+  @Environment(\.presentationMode) var presentationMode
 
-  var body: some View {
-    HStack {
-      tag.swiftCircle
-        .frame(width: 15, height: 15)
-        .padding(.leading, 4)
-      Text(tag.name ?? "").font(.subheadline).foregroundColor(Color.white)
-        .padding(.init(top: 2, leading: 0, bottom: 2, trailing: 4))
-    }.background(Color.gray)
-    .cornerRadius(3)
+  @ObservedObject var tag: Tag
+  public var onSelectTag: (_ tag: Tag, _ presentationMode: inout PresentationMode) -> Void
+
+  public init(tag: Tag, onSelectTag: @escaping (_ tag: Tag, _ presentationMode: inout PresentationMode) -> Void = { _, _ in }) {
+    self.tag = tag
+    self.onSelectTag = onSelectTag
+  }
+
+  public var body: some View {
+    Button(action: {
+      self.onSelectTag(self.tag, &self.presentationMode.wrappedValue)
+    }) {
+      HStack {
+        tag.swiftCircle
+          .frame(width: 15, height: 15)
+          .padding(.leading, 4)
+        Text(tag.name ?? "").font(.subheadline).foregroundColor(Color.white)
+          .padding(.init(top: 2, leading: 0, bottom: 2, trailing: 4))
+      }.background(Color.gray)
+      .cornerRadius(3)
+    }
   }
 }
 
 struct Main: View {
-  @Environment(\.presentationMode) var presentationMode
   @ObservedObject var contact: Contact
   @ObservedObject var currentTime = CurrentTime.shared
 
@@ -50,11 +61,7 @@ struct Main: View {
       ScrollView(.horizontal) {
         HStack(spacing: 10) {
           ForEach(contact.arrayTags, id: \Tag.name) { tag in
-            Button(action: {
-              self.onSelectTag(tag, &self.presentationMode.wrappedValue)
-            }) {
-              TagView(tag: tag)
-            }
+            TagView(tag: tag, onSelectTag: self.onSelectTag)
           }
         }
       }
