@@ -88,7 +88,7 @@ struct ContactEdition: View {
               .foregroundColor(Color(locationText == "" ? UIColor.placeholderText : UIColor.label))
               .frame(alignment: .trailing)
           }.sheet(isPresented: self.$showModal) {
-            SearchController(searchBarPlaceholder: "Search for a place") { mapItem in
+            LocationSearchController(searchBarPlaceholder: "Search for a place") { mapItem in
               Button(action: {
                 self.locationCompletion = mapItem
                 self.locationText = mapItem.title

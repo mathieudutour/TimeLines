@@ -8,14 +8,14 @@
 import SwiftUI
 import MapKit
 
-struct SearchController: UIViewControllerRepresentable {
+struct LocationSearchController: UIViewControllerRepresentable {
   @State var matchingItems: [MKLocalSearchCompletion] = []
 
   var searchBarPlaceholder: String
   var resultView: (_ mapItem: MKLocalSearchCompletion) -> Button<Text>
 
   func makeUIViewController(context: Context) -> UINavigationController {
-    let contentViewController = UIHostingController(rootView: SearchResultView(result: $matchingItems, content: resultView))
+    let contentViewController = UIHostingController(rootView: LocationSearchResultView(result: $matchingItems, content: resultView))
     let navigationController = UINavigationController(rootViewController: contentViewController)
 
     let searchController = UISearchController(searchResultsController: nil)
@@ -34,7 +34,7 @@ struct SearchController: UIViewControllerRepresentable {
     return navigationController
   }
 
-  func updateUIViewController(_ uiViewController: UINavigationController, context: UIViewControllerRepresentableContext<SearchController>) {
+  func updateUIViewController(_ uiViewController: UINavigationController, context: UIViewControllerRepresentableContext<LocationSearchController>) {
     uiViewController.visibleViewController?.navigationItem.searchController?.searchBar.placeholder = searchBarPlaceholder
 
     if !context.coordinator.didBecomeFirstResponder, uiViewController.view.window != nil  {
@@ -44,12 +44,12 @@ struct SearchController: UIViewControllerRepresentable {
   }
 }
 
-class SearchControllerCoordinator: NSObject, UISearchResultsUpdating, UISearchBarDelegate, MKLocalSearchCompleterDelegate, UISearchControllerDelegate {
-  var parent: SearchController
+class LocationSearchControllerCoordinator: NSObject, UISearchResultsUpdating, UISearchBarDelegate, MKLocalSearchCompleterDelegate, UISearchControllerDelegate {
+  var parent: LocationSearchController
   var didBecomeFirstResponder = false
   var searchCompleter = MKLocalSearchCompleter()
 
-  init(_ parent: SearchController) {
+  init(_ parent: LocationSearchController) {
     self.parent = parent
     super.init()
     searchCompleter.delegate = self
@@ -84,14 +84,14 @@ class SearchControllerCoordinator: NSObject, UISearchResultsUpdating, UISearchBa
   }
 }
 
-extension SearchController {
-  func makeCoordinator() -> SearchControllerCoordinator {
-    SearchControllerCoordinator(self)
+extension LocationSearchController {
+  func makeCoordinator() -> LocationSearchControllerCoordinator {
+    LocationSearchControllerCoordinator(self)
   }
 }
 
 // "nofity" the result content about the searchText
-struct SearchResultView<Content: View>: View {
+struct LocationSearchResultView<Content: View>: View {
   @Binding var matchingItems: [MKLocalSearchCompletion]
   private var content: (_ mapItem: MKLocalSearchCompletion) -> Content
 
@@ -109,9 +109,10 @@ struct SearchResultView<Content: View>: View {
   }
 }
 
+#if DEBUG
 struct TestSearchController: View {
     var body: some View {
-      SearchController(searchBarPlaceholder: "placeholder") { res in
+      LocationSearchController(searchBarPlaceholder: "placeholder") { res in
         Button(action: {}) {
           Text(res.title)
         }
@@ -124,3 +125,4 @@ struct TestSearchController_Previews: PreviewProvider {
         TestSearchController()
     }
 }
+#endif
