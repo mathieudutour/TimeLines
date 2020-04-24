@@ -76,7 +76,7 @@ public class CoreDataManager {
   }
 
   @discardableResult
-  public func createContact(name: String, latitude: Double, longitude: Double, locationName: String, timezone: Int16, startTime: Date?, endTime: Date?) -> Contact? {
+  public func createContact(name: String, latitude: Double, longitude: Double, locationName: String, timezone: Int16, startTime: Date?, endTime: Date?, tags: NSSet?) -> Contact? {
     let index = self.count()
     let context = persistentContainer.viewContext
     let contact = NSEntityDescription.insertNewObject(forEntityName: "Contact", into: context) as! Contact
@@ -89,6 +89,7 @@ public class CoreDataManager {
     contact.index = Int16(index)
     contact.startTime = startTime
     contact.endTime = endTime
+    contact.tags = tags
 
     do {
       try context.save()
@@ -96,6 +97,26 @@ public class CoreDataManager {
       return contact
     } catch let error {
       print("❌ Failed to create Contact: \(error.localizedDescription)")
+      return nil
+    }
+  }
+
+  @discardableResult
+  public func createTag(name: String) -> Tag? {
+    let context = persistentContainer.viewContext
+    let tag = NSEntityDescription.insertNewObject(forEntityName: "Tag", into: context) as! Tag
+
+    tag.name = name
+    tag.red = Double.random(in: 0 ... 1)
+    tag.green = Double.random(in: 0 ... 1)
+    tag.blue = Double.random(in: 0 ... 1)
+
+    do {
+      try context.save()
+      print("✅ Tag saved succesfuly")
+      return tag
+    } catch let error {
+      print("❌ Failed to create Tag: \(error.localizedDescription)")
       return nil
     }
   }

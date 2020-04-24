@@ -44,6 +44,8 @@ struct ContactEdition: View {
   @State private var customEndTime = false
   @State private var startTime: Date
   @State private var endTime: Date
+  @State private var search = ""
+  @State private var tags: [Tag]
 
   @State private var timezone: TimeZone?
 
@@ -62,6 +64,7 @@ struct ContactEdition: View {
     _customEndTime = State(initialValue: contact?.endTime != nil)
     _startTime = State(initialValue: contact?.startTime?.inTodaysTime() ?? today.addingTimeInterval(3600 * 9))
     _endTime = State(initialValue: contact?.endTime?.inTodaysTime() ?? today.addingTimeInterval(3600 * 18))
+    _tags = State(initialValue: contact?.tags?.map({ $0 as! Tag }) ?? [])
   }
 
   var body: some View {
@@ -99,6 +102,10 @@ struct ContactEdition: View {
             }
           }
         }
+        HStack {
+          Text("Tags")
+          SearchBar(placeholder: "Add tags...", search: $search, tokens: $tags, allowCreatingTokens: true)
+        }
         Text("A time line will show the sunrise and sunset times at the location of the contact by default. You can customize those times if you'd like to show working hours for example.")
           .padding(.top, 50)
           .foregroundColor(Color.secondary)
@@ -108,7 +115,9 @@ struct ContactEdition: View {
       .padding()
 
       Spacer()
-    }.navigationBarItems(trailing: Button(action: {
+    }
+    .resignKeyboardOnDragGesture()
+    .navigationBarItems(trailing: Button(action: {
       if !self.saving {
         self.save()
       }
@@ -119,15 +128,23 @@ struct ContactEdition: View {
         Text("Save")
       }
     }
-    .disabled(contactName == "" || locationText == ""))
+    .disabled(!didUpdateUser()))
   }
 
   func didChangeTime(_ previousTime: Date?, _ custom: Bool, _ newTime: Date) -> Bool {
     return (previousTime == nil && custom) || (previousTime != nil && !custom) || (previousTime != nil && previousTime?.inTodaysTime() != newTime)
   }
 
+  func didChangeLocation() -> Bool {
+    return locationCompletion != nil && locationCompletion?.title != contact?.locationName
+  }
+
+  func didUpdateUser() -> Bool {
+    return didChangeLocation() || contactName != contact?.name || didChangeTime(contact?.startTime, customStartTime, startTime) || didChangeTime(contact?.endTime, customEndTime, endTime) || tags != contact?.arrayTags
+  }
+
   func save() {
-    if let locationCompletion = locationCompletion, locationCompletion.title != contact?.locationName {
+    if let locationCompletion = locationCompletion, didChangeLocation() {
       saving = true
       // need to fetch the new location
       let request = MKLocalSearch.Request(completion: locationCompletion)
@@ -142,7 +159,7 @@ struct ContactEdition: View {
         self.updateContact()
         self.presentationMode.wrappedValue.dismiss()
       }
-    } else if contactName != contact?.name || didChangeTime(contact?.startTime, customStartTime, startTime) || didChangeTime(contact?.endTime, customEndTime, endTime) {
+    } else if didUpdateUser() {
       saving = true
       self.updateContact()
       self.presentationMode.wrappedValue.dismiss()
@@ -158,6 +175,7 @@ struct ContactEdition: View {
       contact.timezone = Int16(timezone?.secondsFromGMT() ?? 0)
       contact.startTime = customStartTime ? startTime : nil
       contact.endTime = customEndTime ? endTime : nil
+      contact.tags = NSSet(array: tags)
       CoreDataManager.shared.saveContext()
     } else {
       CoreDataManager.shared.createContact(
@@ -167,7 +185,8 @@ struct ContactEdition: View {
         locationName: locationText,
         timezone: Int16(timezone?.secondsFromGMT() ?? 0),
         startTime: customStartTime ? startTime : nil,
-        endTime: customEndTime ? endTime : nil
+        endTime: customEndTime ? endTime : nil,
+        tags: NSSet(array: tags)
       )
     }
     saving = false

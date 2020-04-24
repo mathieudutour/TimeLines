@@ -58,7 +58,7 @@ struct ContentView: View {
   @State private var showEmptyEdit = false
   @State private var errorMessage: String?
   @State private var search = ""
-  @State private var searchTokens: [String] = []
+  @State private var searchTokens: [Tag] = []
 
   private let currentTimeZone = TimeZone.autoupdatingCurrent
   private let roughLocation = TimeZone.autoupdatingCurrent.roughLocation
@@ -85,7 +85,7 @@ struct ContentView: View {
           EmptyView()
         }
         List {
-          SearchBar(search: $search, tokens: $searchTokens, existingTokens: [])
+          SearchBar(search: $search, tokens: $searchTokens)
           if search.count == 0 {
             addNewContact.foregroundColor(Color(UIColor.secondaryLabel))
           }
@@ -188,7 +188,12 @@ struct ContentView: View {
   }
 
   private func filterContact(_ contact: Contact) -> Bool {
-    guard search.count == 0 || NSPredicate(format: "name contains[c] %@", argumentArray: [search]).evaluate(with: contact) else {
+    guard search.count == 0 || NSPredicate(format: "name contains[c] %@", argumentArray: [search]).evaluate(with: contact) || contact.tags?.first(where: { tag in
+      guard let tag = tag as? Tag else {
+        return false
+      }
+      return tag.name?.lowercased().contains(search.lowercased()) ?? false
+    }) != nil else {
       return false
     }
 
@@ -201,7 +206,7 @@ struct ContentView: View {
         guard let tag = tag as? Tag else {
           return false
         }
-        return tag.name?.lowercased() == token.lowercased()
+        return tag.name?.lowercased() == token.name?.lowercased()
       }) != nil
     }
 

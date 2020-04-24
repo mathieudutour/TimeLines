@@ -189,7 +189,8 @@ struct ContactEdition: View {
         locationName: locationText,
         timezone: Int16(timezone?.secondsFromGMT() ?? 0),
         startTime: customStartTime ? startTime : nil,
-        endTime: customEndTime ? endTime : nil
+        endTime: customEndTime ? endTime : nil,
+        tags: NSSet()
       )
     }
     showingEdit = false

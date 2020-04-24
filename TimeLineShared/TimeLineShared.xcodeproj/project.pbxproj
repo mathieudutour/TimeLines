@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		035977AB245319890056732F /* Contact+tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035977AA245319890056732F /* Contact+tags.swift */; };
+		035977AC24531B4A0056732F /* Contact+tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035977AA245319890056732F /* Contact+tags.swift */; };
+		035977AD24531B4B0056732F /* Contact+tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035977AA245319890056732F /* Contact+tags.swift */; };
 		037918C32445A24100715C81 /* CurrentTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037918C22445A24100715C81 /* CurrentTime.swift */; };
 		037918C42445A6F100715C81 /* CurrentTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037918C22445A24100715C81 /* CurrentTime.swift */; };
 		037918C52445A6F100715C81 /* CurrentTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037918C22445A24100715C81 /* CurrentTime.swift */; };
@@ -55,6 +58,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		035977AA245319890056732F /* Contact+tags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Contact+tags.swift"; sourceTree = "<group>"; };
 		037918C22445A24100715C81 /* CurrentTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentTime.swift; sourceTree = "<group>"; };
 		03B8BF9524437AF70009E084 /* TimeLineSharedWatchOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TimeLineSharedWatchOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		03B8BF9724437AF70009E084 /* TimeLineSharedWatchOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeLineSharedWatchOS.h; sourceTree = "<group>"; };
@@ -179,6 +183,7 @@
 				03D633A4243616C200F8D2CE /* Model.xcdatamodeld */,
 				03D633A72436182000F8D2CE /* CoreDataManager.swift */,
 				03D633B42436259B00F8D2CE /* Contact+location.swift */,
+				035977AA245319890056732F /* Contact+tags.swift */,
 				037918C22445A24100715C81 /* CurrentTime.swift */,
 				03D5A668243A3CAA004AC5EB /* InAppPurchases.swift */,
 				03D5A671243B6A0D004AC5EB /* Utils.swift */,
@@ -360,6 +365,7 @@
 				03DCC2C92451DC4D000D0B94 /* Date+timezone.swift in Sources */,
 				037918C52445A6F100715C81 /* CurrentTime.swift in Sources */,
 				03B8BFA924437B340009E084 /* TimeZone+print.swift in Sources */,
+				035977AD24531B4B0056732F /* Contact+tags.swift in Sources */,
 				03DCC2BC2451C3AD000D0B94 /* TimeZone+location.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -371,6 +377,7 @@
 				03D5A67B243C7EEA004AC5EB /* MapView.swift in Sources */,
 				03D5A678243C7DF3004AC5EB /* ContactDetails.swift in Sources */,
 				03D5A673243B6A32004AC5EB /* Utils.swift in Sources */,
+				035977AC24531B4A0056732F /* Contact+tags.swift in Sources */,
 				03D5A66D243A41F9004AC5EB /* InAppPurchases.swift in Sources */,
 				03D5A5D12438B6CB004AC5EB /* Model.xcdatamodeld in Sources */,
 				03D5A680243CA078004AC5EB /* VisualEffectView.swift in Sources */,
@@ -398,6 +405,7 @@
 				03D5A672243B6A0D004AC5EB /* Utils.swift in Sources */,
 				03DCC2C72451DBC0000D0B94 /* Date+timezone.swift in Sources */,
 				03D633B52436259B00F8D2CE /* Contact+location.swift in Sources */,
+				035977AB245319890056732F /* Contact+tags.swift in Sources */,
 				037918C32445A24100715C81 /* CurrentTime.swift in Sources */,
 				03D633C424364BF000F8D2CE /* TimeZone+print.swift in Sources */,
 				03D633A6243616C200F8D2CE /* Model.xcdatamodeld in Sources */,
