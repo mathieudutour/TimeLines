@@ -18,6 +18,30 @@ enum AlertType {
   case upsell
 }
 
+extension UIApplication {
+  func endEditing(_ force: Bool) {
+    self.windows
+      .filter{$0.isKeyWindow}
+      .first?
+      .endEditing(force)
+  }
+}
+
+struct ResignKeyboardOnDragGesture: ViewModifier {
+  var gesture = DragGesture().onChanged{_ in
+    UIApplication.shared.endEditing(true)
+  }
+  func body(content: Content) -> some View {
+    content.gesture(gesture)
+  }
+}
+
+extension View {
+  func resignKeyboardOnDragGesture() -> some View {
+    return modifier(ResignKeyboardOnDragGesture())
+  }
+}
+
 struct ContentView: View {
   @Environment(\.managedObjectContext) var context
   @Environment(\.inAppPurchaseContext) var iapManager
@@ -33,6 +57,11 @@ struct ContentView: View {
   @State private var alertType: AlertType?
   @State private var showEmptyEdit = false
   @State private var errorMessage: String?
+  @State private var search = ""
+  @State private var searchTokens: [String] = []
+
+  private let currentTimeZone = TimeZone.autoupdatingCurrent
+  private let roughLocation = TimeZone.autoupdatingCurrent.roughLocation
 
   var addNewContact: some View {
     Button(action: {
@@ -51,38 +80,43 @@ struct ContentView: View {
 
   var body: some View {
     NavigationView {
-      List {
-        addNewContact.foregroundColor(Color(UIColor.secondaryLabel))
-        ContactRow(
-          name: "Me",
-          timezone: TimeZone.current,
-          coordinate: TimeZone.current.roughLocation
-        ).padding(.trailing, 15)
-        ForEach(contacts, id: \.self) { (contact: Contact) in
-          NavigationLink(destination: ContactDetails(contact: contact, editView: {
-            NavigationLink(destination: ContactEdition(contact: contact)) {
-              Text("Edit")
-            }
-            .padding(.init(top: 5, leading: 10, bottom: 5, trailing: 10))
-            .background(Color(UIColor.systemBackground))
-            .cornerRadius(5)
-          })) {
-            ContactRow(
-              name: contact.name ?? "",
-              timezone: contact.timeZone,
-              coordinate: contact.location,
-              startTime: contact.startTime,
-              endTime: contact.endTime
-            )
-          }.onAppear(perform: {
-            contact.refreshTimeZone()
-          })
-        }
-        .onDelete(perform: self.deleteContact)
-        .onMove(perform: self.moveContact)
+      ZStack {
         NavigationLink(destination: ContactEdition(contact: nil), isActive: $showEmptyEdit) {
           EmptyView()
         }
+        List {
+          SearchBar(search: $search, tokens: $searchTokens, existingTokens: [])
+          if search.count == 0 {
+            addNewContact.foregroundColor(Color(UIColor.secondaryLabel))
+          }
+          ContactRow(
+            name: "Me",
+            timezone: currentTimeZone,
+            coordinate: roughLocation
+          ).padding(.trailing, 15)
+          ForEach(contacts.filter { filterContact($0) }, id: \Contact.name) { (contact: Contact) in
+            NavigationLink(destination: ContactDetails(contact: contact, editView: {
+              NavigationLink(destination: ContactEdition(contact: contact)) {
+                Text("Edit")
+              }
+              .padding(.init(top: 5, leading: 10, bottom: 5, trailing: 10))
+              .background(Color(UIColor.systemBackground))
+              .cornerRadius(5)
+            })) {
+              ContactRow(
+                name: contact.name ?? "",
+                timezone: contact.timeZone,
+                coordinate: contact.location,
+                startTime: contact.startTime,
+                endTime: contact.endTime
+              )
+            }.onAppear(perform: {
+              contact.refreshTimeZone()
+            })
+          }
+          .onDelete(perform: self.deleteContact)
+          .onMove(perform: self.moveContact)
+        }.resignKeyboardOnDragGesture()
       }
       .navigationBarTitle(Text("Contacts"))
       .navigationBarItems(leading: contacts.count > 0 ? EditButton() : nil, trailing: Button(action: {
@@ -149,6 +183,26 @@ struct ContentView: View {
           addNewContact.padding(.trailing, 20).foregroundColor(Color.accentColor).border(Color.accentColor)
         }
       }
+    }
+
+  }
+
+  private func filterContact(_ contact: Contact) -> Bool {
+    guard search.count == 0 || NSPredicate(format: "name contains[c] %@", argumentArray: [search]).evaluate(with: contact) else {
+      return false
+    }
+
+    if searchTokens.count == 0 {
+      return true
+    }
+
+    return searchTokens.allSatisfy { token in
+      contact.tags?.first(where: { tag in
+        guard let tag = tag as? Tag else {
+          return false
+        }
+        return tag.name?.lowercased() == token.lowercased()
+      }) != nil
     }
 
   }
