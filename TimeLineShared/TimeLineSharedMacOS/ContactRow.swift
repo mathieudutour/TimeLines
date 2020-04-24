@@ -38,7 +38,8 @@ public struct ContactRow: View {
       Spacer()
 
       Line(coordinate: coordinate, timezone: timezone, startTime: startTime, endTime: endTime)
-        .frame(width: 220, height: 80, alignment: .trailing)
+      .frame(width: 220, height: 80, alignment: .trailing)
+      .offset(y: 10)
     }
   }
 }

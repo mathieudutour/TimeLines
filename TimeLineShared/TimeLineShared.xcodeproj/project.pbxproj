@@ -10,6 +10,9 @@
 		035977AB245319890056732F /* Contact+tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035977AA245319890056732F /* Contact+tags.swift */; };
 		035977AC24531B4A0056732F /* Contact+tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035977AA245319890056732F /* Contact+tags.swift */; };
 		035977AD24531B4B0056732F /* Contact+tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035977AA245319890056732F /* Contact+tags.swift */; };
+		035977AF245333A20056732F /* Tag+image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035977AE245333A20056732F /* Tag+image.swift */; };
+		035977B0245333F00056732F /* Tag+image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035977AE245333A20056732F /* Tag+image.swift */; };
+		035977B12453386C0056732F /* Tag+image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035977AE245333A20056732F /* Tag+image.swift */; };
 		037918C32445A24100715C81 /* CurrentTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037918C22445A24100715C81 /* CurrentTime.swift */; };
 		037918C42445A6F100715C81 /* CurrentTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037918C22445A24100715C81 /* CurrentTime.swift */; };
 		037918C52445A6F100715C81 /* CurrentTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037918C22445A24100715C81 /* CurrentTime.swift */; };
@@ -59,6 +62,7 @@
 
 /* Begin PBXFileReference section */
 		035977AA245319890056732F /* Contact+tags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Contact+tags.swift"; sourceTree = "<group>"; };
+		035977AE245333A20056732F /* Tag+image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tag+image.swift"; sourceTree = "<group>"; };
 		037918C22445A24100715C81 /* CurrentTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentTime.swift; sourceTree = "<group>"; };
 		03B8BF9524437AF70009E084 /* TimeLineSharedWatchOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TimeLineSharedWatchOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		03B8BF9724437AF70009E084 /* TimeLineSharedWatchOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeLineSharedWatchOS.h; sourceTree = "<group>"; };
@@ -184,6 +188,7 @@
 				03D633A72436182000F8D2CE /* CoreDataManager.swift */,
 				03D633B42436259B00F8D2CE /* Contact+location.swift */,
 				035977AA245319890056732F /* Contact+tags.swift */,
+				035977AE245333A20056732F /* Tag+image.swift */,
 				037918C22445A24100715C81 /* CurrentTime.swift */,
 				03D5A668243A3CAA004AC5EB /* InAppPurchases.swift */,
 				03D5A671243B6A0D004AC5EB /* Utils.swift */,
@@ -360,6 +365,7 @@
 				03B8BFA424437B340009E084 /* CoreDataManager.swift in Sources */,
 				03B8BFA624437B340009E084 /* Solar.swift in Sources */,
 				03B8BFA724437B340009E084 /* Contact+location.swift in Sources */,
+				035977B0245333F00056732F /* Tag+image.swift in Sources */,
 				03B8BFA824437B340009E084 /* Line.swift in Sources */,
 				03CD2B9B24446B7700DFCD04 /* ContactRow.swift in Sources */,
 				03DCC2C92451DC4D000D0B94 /* Date+timezone.swift in Sources */,
@@ -375,6 +381,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				03D5A67B243C7EEA004AC5EB /* MapView.swift in Sources */,
+				035977B12453386C0056732F /* Tag+image.swift in Sources */,
 				03D5A678243C7DF3004AC5EB /* ContactDetails.swift in Sources */,
 				03D5A673243B6A32004AC5EB /* Utils.swift in Sources */,
 				035977AC24531B4A0056732F /* Contact+tags.swift in Sources */,
@@ -401,6 +408,7 @@
 				03D5A677243C7DD5004AC5EB /* ContactDetails.swift in Sources */,
 				03DCC2BA2451C0FE000D0B94 /* TimeZone+location.swift in Sources */,
 				03D633A82436182000F8D2CE /* CoreDataManager.swift in Sources */,
+				035977AF245333A20056732F /* Tag+image.swift in Sources */,
 				03D5A67A243C7E9B004AC5EB /* MapView.swift in Sources */,
 				03D5A672243B6A0D004AC5EB /* Utils.swift in Sources */,
 				03DCC2C72451DBC0000D0B94 /* Date+timezone.swift in Sources */,

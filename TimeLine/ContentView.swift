@@ -42,9 +42,29 @@ extension View {
   }
 }
 
+struct MeRow: View {
+  @Environment(\.editMode) var editMode
+
+  private let currentTimeZone = TimeZone.autoupdatingCurrent
+  private let roughLocation = TimeZone.autoupdatingCurrent.roughLocation
+
+  var body: some View {
+    Group {
+      if editMode?.wrappedValue == EditMode.inactive {
+        ContactRow(
+          name: "Me",
+          timezone: currentTimeZone,
+          coordinate: roughLocation
+        ).padding(.trailing, 15)
+      }
+    }
+  }
+}
+
 struct ContentView: View {
   @Environment(\.managedObjectContext) var context
   @Environment(\.inAppPurchaseContext) var iapManager
+  @Environment(\.editMode) var editMode
 
   @FetchRequest(
       entity: Contact.entity(),
@@ -59,9 +79,6 @@ struct ContentView: View {
   @State private var errorMessage: String?
   @State private var search = ""
   @State private var searchTokens: [Tag] = []
-
-  private let currentTimeZone = TimeZone.autoupdatingCurrent
-  private let roughLocation = TimeZone.autoupdatingCurrent.roughLocation
 
   var addNewContact: some View {
     Button(action: {
@@ -86,16 +103,19 @@ struct ContentView: View {
         }
         List {
           SearchBar(search: $search, tokens: $searchTokens)
+
           if search.count == 0 {
             addNewContact.foregroundColor(Color(UIColor.secondaryLabel))
           }
-          ContactRow(
-            name: "Me",
-            timezone: currentTimeZone,
-            coordinate: roughLocation
-          ).padding(.trailing, 15)
+
+          MeRow()
+
           ForEach(contacts.filter { filterContact($0) }, id: \Contact.name) { (contact: Contact) in
-            NavigationLink(destination: ContactDetails(contact: contact, editView: {
+            NavigationLink(destination: ContactDetails(contact: contact, onSelectTag: { tag, presentationMode in
+              self.searchTokens = [tag]
+              self.search = ""
+              presentationMode.dismiss()
+            }, editView: {
               NavigationLink(destination: ContactEdition(contact: contact)) {
                 Text("Edit")
               }

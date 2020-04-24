@@ -39,7 +39,7 @@ public struct ContactRow: View {
       Spacer()
 
       Line(coordinate: coordinate, timezone: timezone, startTime: startTime, endTime: endTime)
-        .frame(height: 80)
+      .frame(height: 80)
     }
   }
 }

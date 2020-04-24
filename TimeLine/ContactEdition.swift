@@ -68,67 +68,68 @@ struct ContactEdition: View {
   }
 
   var body: some View {
-    ScrollView {
-      VStack(alignment: .leading) {
-        HStack {
-          Text("Name")
-            .font(.title)
-          TextField("Jane Doe", text: $contactName)
-            .font(.title)
-            .multilineTextAlignment(.trailing)
-            .frame(alignment: .trailing)
-        }
-
-        HStack {
-          Text("Location")
-            .font(.title)
-          Spacer()
-          Button(action: {
-              self.showModal = true
-          }) {
-            Text(locationText == "" ? "San Francisco" : locationText)
-              .font(.title)
-              .foregroundColor(Color(locationText == "" ? UIColor.placeholderText : UIColor.label))
+    NavigationView {
+      List {
+        Section {
+          HStack {
+            Text("Name")
+            TextField("Jane Doe", text: $contactName)
+              .multilineTextAlignment(.trailing)
               .frame(alignment: .trailing)
-          }.sheet(isPresented: self.$showModal) {
-            LocationSearchController(searchBarPlaceholder: "Search for a place") { mapItem in
-              Button(action: {
-                self.locationCompletion = mapItem
-                self.locationText = mapItem.title
-                self.showModal = false
-              }) {
-                Text(mapItem.title)
+          }
+
+          HStack {
+            Text("Location")
+            Spacer()
+            Button(action: {
+                self.showModal = true
+            }) {
+              Text(locationText == "" ? "San Francisco" : locationText)
+                .foregroundColor(Color(locationText == "" ? UIColor.placeholderText : UIColor.label))
+                .frame(alignment: .trailing)
+            }.sheet(isPresented: self.$showModal) {
+              LocationSearchController(searchBarPlaceholder: "Search for a place") { mapItem in
+                Button(action: {
+                  self.locationCompletion = mapItem
+                  self.locationText = mapItem.title
+                  self.showModal = false
+                }) {
+                  Text(mapItem.title)
+                }
               }
             }
           }
         }
-        HStack {
-          Text("Tags")
-          SearchBar(placeholder: "Add tags...", search: $search, tokens: $tags, allowCreatingTokens: true)
-        }
-        Text("A time line will show the sunrise and sunset times at the location of the contact by default. You can customize those times if you'd like to show working hours for example.")
-          .padding(.top, 50)
-          .foregroundColor(Color.secondary)
-        CustomTimePicker(text: "Customize rise time", custom: $customStartTime, time: $startTime)
-        CustomTimePicker(text: "Customize set time", custom: $customEndTime, time: $endTime)
-      }
-      .padding()
 
-      Spacer()
+        Section(footer: Text("You can add different tags to a contact to easily search for it in the list.")) {
+          HStack {
+            Text("Tags")
+            SearchBar(placeholder: "Add tags...", search: $search, tokens: $tags, allowCreatingTokens: true)
+          }
+        }
+
+        Section(footer: Text("A time line will show the sunrise and sunset times at the location of the contact by default. You can customize those times if you'd like to show working hours for example.")) {
+          CustomTimePicker(text: "Customize rise time", custom: $customStartTime, time: $startTime)
+          CustomTimePicker(text: "Customize set time", custom: $customEndTime, time: $endTime)
+        }
+      }
+      .listStyle(GroupedListStyle())
+      .resignKeyboardOnDragGesture()
     }
-    .resignKeyboardOnDragGesture()
+    .navigationBarTitle(Text(contact == nil ? "New Contact" : "Edit Contact"))
     .navigationBarItems(trailing: Button(action: {
-      if !self.saving {
-        self.save()
+        if !self.saving {
+          self.save()
+        }
+      }) {
+        if self.saving {
+          ActivityIndicator(isAnimating: true)
+        } else {
+          Text("Save")
+        }
       }
-    }) {
-      if self.saving {
-        ActivityIndicator(isAnimating: true)
-      } else {
-        Text("Save")
-      }
-    }
-    .disabled(!didUpdateUser()))
+      .disabled(!didUpdateUser())
+    )
   }
 
   func didChangeTime(_ previousTime: Date?, _ custom: Bool, _ newTime: Date) -> Bool {

@@ -39,12 +39,7 @@ struct SearchBar: UIViewRepresentable {
     uiView.searchTextField.allowsDeletingTokens = true
     uiView.searchTextField.tokens = tokens.map { token in
       let res = UISearchToken(
-        icon: UIImage(systemName: "circle.fill")?.withTintColor(UIColor(
-          red: CGFloat(token.red),
-          green: CGFloat(token.green),
-          blue: CGFloat(token.blue),
-          alpha: 1
-        ), renderingMode: .alwaysOriginal),
+        icon: token.image,
         text: token.name ?? ""
       )
       res.representedObject = token

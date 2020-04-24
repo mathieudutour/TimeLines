@@ -8,9 +8,27 @@
 
 import SwiftUI
 
+struct TagView: View {
+  @ObservedObject var tag: Tag
+
+  var body: some View {
+    HStack {
+      tag.swiftCircle
+        .frame(width: 15, height: 15)
+        .padding(.leading, 4)
+      Text(tag.name ?? "").font(.subheadline).foregroundColor(Color.white)
+        .padding(.init(top: 2, leading: 0, bottom: 2, trailing: 4))
+    }.background(Color.gray)
+    .cornerRadius(3)
+  }
+}
+
 struct Main: View {
+  @Environment(\.presentationMode) var presentationMode
   @ObservedObject var contact: Contact
   @ObservedObject var currentTime = CurrentTime.shared
+
+  var onSelectTag: (_ tag: Tag, _ presentationMode: inout PresentationMode) -> Void
 
   var body: some View {
     VStack(alignment: .leading) {
@@ -29,6 +47,17 @@ struct Main: View {
         Text(contact.timeZone?.prettyPrintTime(currentTime.now) ?? "")
           .font(.subheadline)
       }
+      ScrollView(.horizontal) {
+        HStack(spacing: 10) {
+          ForEach(contact.arrayTags, id: \Tag.name) { tag in
+            Button(action: {
+              self.onSelectTag(tag, &self.presentationMode.wrappedValue)
+            }) {
+              TagView(tag: tag)
+            }
+          }
+        }
+      }
       Line(coordinate: contact.location, timezone: contact.timeZone, startTime: contact.startTime, endTime: contact.endTime)
         .frame(height: 80)
         .padding()
@@ -40,6 +69,7 @@ struct Main: View {
 public struct ContactDetails<EditView>: View where EditView: View {
   @ObservedObject var contact: Contact
   var editView: () -> EditView
+  var onSelectTag: (_ tag: Tag, _ presentationMode: inout PresentationMode) -> Void
 
   private var dateFormatter: DateFormatter {
     let formatter = DateFormatter()
@@ -48,9 +78,10 @@ public struct ContactDetails<EditView>: View where EditView: View {
     return formatter
   }
 
-  public init(contact: Contact, @ViewBuilder editView: @escaping () -> EditView) {
+  public init(contact: Contact, onSelectTag: @escaping (_ tag: Tag, _ presentationMode: inout PresentationMode) -> Void = { _, _ in }, @ViewBuilder editView: @escaping () -> EditView) {
     self.contact = contact
     self.editView = editView
+    self.onSelectTag = onSelectTag
   }
 
   #if os(iOS) || os(tvOS) || os(watchOS)
@@ -60,7 +91,7 @@ public struct ContactDetails<EditView>: View where EditView: View {
       .edgesIgnoringSafeArea(.top)
       .frame(height: 300)
 
-      Main(contact: contact)
+      Main(contact: contact, onSelectTag: onSelectTag)
 
       Spacer()
     }
@@ -75,7 +106,7 @@ public struct ContactDetails<EditView>: View where EditView: View {
       }
       .frame(height: 300)
 
-      Main(contact: contact)
+      Main(contact: contact, onSelectTag: onSelectTag)
 
       Spacer()
     }

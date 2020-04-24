@@ -10,6 +10,8 @@ import SwiftUI
 import CoreLocation
 
 public struct ContactRow: View {
+  @Environment(\.editMode) var editMode
+
   public var name: String
   public var timezone: TimeZone?
   public var coordinate: CLLocationCoordinate2D?
@@ -37,8 +39,11 @@ public struct ContactRow: View {
 
       Spacer()
 
-      Line(coordinate: coordinate, timezone: timezone, startTime: startTime, endTime: endTime)
+      if editMode?.wrappedValue == EditMode.inactive {
+        Line(coordinate: coordinate, timezone: timezone, startTime: startTime, endTime: endTime)
         .frame(width: 220, height: 80, alignment: .trailing)
+        .offset(y: 10)
+      }
     }
   }
 }
