@@ -260,7 +260,8 @@ public struct Line: View {
         TapGesture()
         .onEnded { value in
           self.currentTime.releaseCustomTime()
-        }
+        },
+        including: self.currentTime.customTime ? .all : .subviews
       )
     }
   }

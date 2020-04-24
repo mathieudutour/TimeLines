@@ -24,9 +24,9 @@ public class CurrentTime: NSObject, ObservableObject {
   public static let shared = CurrentTime()
 
   @Published public var now: Date = Date()
+  @Published public var customTime = false
 
   private var timer: Timer?
-  private var customTime = false
 
   private override init() {
     super.init()
