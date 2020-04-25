@@ -118,7 +118,11 @@ struct ContactEdition: View {
       .listStyle(GroupedListStyle())
       .resignKeyboardOnDragGesture()
       .navigationBarTitle(Text(contact == nil ? "New Contact" : "Edit Contact"))
-      .navigationBarItems(trailing: Button(action: {
+      .navigationBarItems(leading: Button(action: {
+          self.presentationMode.wrappedValue.dismiss()
+        }) {
+          Text("Cancel")
+        }, trailing: Button(action: {
           if !self.saving {
             self.save()
           }
