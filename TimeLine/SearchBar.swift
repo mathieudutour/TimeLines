@@ -66,11 +66,9 @@ struct SearchBar: UIViewRepresentable {
     return scroll
   }()
 
-  let accessory: UIView = {
-    let accessoryView = UIView(frame: .zero)
-    accessoryView.backgroundColor = .secondarySystemBackground
+  let accessory: UIInputView = {
+    let accessoryView = UIInputView(frame: .zero, inputViewStyle: .keyboard)
     accessoryView.translatesAutoresizingMaskIntoConstraints = false
-
     return accessoryView
   }()
 
