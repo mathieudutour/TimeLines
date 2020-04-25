@@ -208,8 +208,8 @@ struct ContactEdition: View {
       contact.longitude = location?.longitude ?? 0
       contact.locationName = locationText
       contact.timezone = Int16(timezone?.secondsFromGMT() ?? 0)
-      contact.startTime = customStartTime ? startTime : nil
-      contact.endTime = customEndTime ? endTime : nil
+      contact.startTime = customStartTime ? startTime.addingTimeInterval(TimeInterval(TimeZone.autoupdatingCurrent.secondsFromGMT())) : nil
+      contact.endTime = customEndTime ? endTime.addingTimeInterval(TimeInterval(TimeZone.autoupdatingCurrent.secondsFromGMT())) : nil
       contact.tags = NSSet(array: tags)
       CoreDataManager.shared.saveContext()
     } else {
