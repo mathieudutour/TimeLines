@@ -241,8 +241,8 @@ public struct Line: View {
   public var body: some View {
     let solar = coordinate != nil ? Solar(coordinate: coordinate!) : nil
 
-    let start = startTime?.inTodaysTime().addingTimeInterval(-TimeInterval(timezone?.secondsFromGMT() ?? 0)) ?? solar?.civilSunrise
-    let end = endTime?.inTodaysTime().addingTimeInterval(-TimeInterval(timezone?.secondsFromGMT() ?? 0)) ?? solar?.civilSunset
+    let start = startTime?.staticTime(timezone) ?? solar?.civilSunrise
+    let end = endTime?.staticTime(timezone) ?? solar?.civilSunset
 
     let diff = Double(timezone?.diffInSecond() ?? 0) / (24 * 3600)
 

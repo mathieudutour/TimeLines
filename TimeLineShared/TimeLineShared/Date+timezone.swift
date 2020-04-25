@@ -22,4 +22,8 @@ public extension Date {
   static func fractionOfToday(_ fraction: Double) -> Date {
     return cal.startOfDay(for: Date()).addingTimeInterval(24 * 3600 * fraction.remainder(dividingBy: 1))
   }
+
+  func staticTime(_ timezone: TimeZone?) -> Date {
+    return self.inTodaysTime().addingTimeInterval(-TimeInterval(timezone?.secondsFromGMT() ?? 0))
+  }
 }

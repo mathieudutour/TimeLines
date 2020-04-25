@@ -14,10 +14,12 @@ import TimeLineShared
 class AppDelegate: UIResponder, UIApplicationDelegate {
   var iapManager: IAPManager?
   var container: NSManagedObjectContext?
+  var state: RouteState?
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     iapManager = IAPManager.shared
     IAPManager.shared.startObserving()
+    state = RouteState.shared
     container = CoreDataManager.shared.viewContext
     return true
   }

@@ -63,12 +63,11 @@ struct MeRow: View {
 
 struct BindedContactRow: View {
   @Environment(\.editMode) var editMode
+  @EnvironmentObject var routeState: RouteState
 
   var contact: Contact
   @Binding var search: String
   @Binding var searchTokens: [Tag]
-  @Binding var showingContactEdit: Bool
-  @Binding var contactBeingEdited: Contact?
 
   var body: some View {
     NavigationLink(destination: ContactDetails(contact: contact, onSelectTag: { tag, presentationMode in
@@ -77,12 +76,11 @@ struct BindedContactRow: View {
       presentationMode.dismiss()
     }, editView: {
       Button(action: {
-        self.contactBeingEdited = self.contact
-        self.showingContactEdit = true
+        self.routeState.navigate(.editContact(contact: self.contact))
       }) {
         Text("Edit")
       }
-      .padding(.init(top: 5, leading: 10, bottom: 5, trailing: 10))
+      .padding(.init(top: 10, leading: 15, bottom: 10, trailing: 15))
       .background(Color(UIColor.systemBackground))
       .cornerRadius(5)
     })) {
@@ -103,6 +101,7 @@ struct BindedContactRow: View {
 struct ContentView: View {
   @Environment(\.managedObjectContext) var context
   @Environment(\.inAppPurchaseContext) var iapManager
+  @EnvironmentObject var routeState: RouteState
 
   @FetchRequest(
       entity: Contact.entity(),
@@ -117,16 +116,12 @@ struct ContentView: View {
   @State private var search = ""
   @State private var searchTokens: [Tag] = []
 
-  @State private var showingContactEdit = false
-  @State private var contactBeingEdited: Contact?
-
   var addNewContact: some View {
     Button(action: {
-      self.contactBeingEdited = nil
       if (!self.iapManager.hasAlreadyPurchasedUnlimitedContacts && self.contacts.count >= self.iapManager.contactsLimit) {
         self.showAlert(.upsell)
       } else {
-        self.showingContactEdit = true
+        self.routeState.navigate(.editContact(contact: nil))
       }
     }) {
       HStack {
@@ -138,23 +133,22 @@ struct ContentView: View {
 
   var body: some View {
     NavigationView {
-      ZStack {
-        List {
-          SearchBar(search: $search, tokens: $searchTokens)
+      List {
+        SearchBar(search: $search, tokens: $searchTokens)
 
-          if search.count == 0 {
-            addNewContact.foregroundColor(Color(UIColor.secondaryLabel))
-          }
+        if search.count == 0 {
+          addNewContact.foregroundColor(Color(UIColor.secondaryLabel))
+        }
 
-          MeRow()
+        MeRow()
 
-          ForEach(contacts.filter { filterContact($0) }, id: \Contact.name) { (contact: Contact) in
-            BindedContactRow(contact: contact, search: self.$search, searchTokens: self.$searchTokens, showingContactEdit: self.$showingContactEdit, contactBeingEdited: self.$contactBeingEdited)
-          }
-          .onDelete(perform: self.deleteContact)
-          .onMove(perform: self.moveContact)
-        }.resignKeyboardOnDragGesture()
+        ForEach(contacts.filter { filterContact($0) }, id: \Contact.name) { (contact: Contact) in
+          BindedContactRow(contact: contact, search: self.$search, searchTokens: self.$searchTokens)
+        }
+        .onDelete(perform: self.deleteContact)
+        .onMove(perform: self.moveContact)
       }
+      .resignKeyboardOnDragGesture()
       .navigationBarTitle(Text("Contacts"))
       .navigationBarItems(leading: contacts.count > 0 ? EditButton() : nil, trailing: Button(action: {
         self.showingSheet = true
@@ -170,9 +164,6 @@ struct ContentView: View {
           .cancel()
         ])
       })
-      .sheet(isPresented: $showingContactEdit) {
-        ContactEdition(contact: self.contactBeingEdited).environment(\.managedObjectContext, self.context)
-      }
       .alert(isPresented: $showingAlert) {
         switch self.alertType {
         case .noProducts:
@@ -212,10 +203,12 @@ struct ContentView: View {
       // default view on iPad
       if contacts.count > 0 {
         ContactDetails(contact: contacts[0]) {
-          NavigationLink(destination: ContactEdition(contact: self.contacts[0])) {
+          Button(action: {
+            self.routeState.navigate(.editContact(contact: self.contacts[0]))
+          }) {
             Text("Edit")
           }
-          .padding(.init(top: 5, leading: 10, bottom: 5, trailing: 10))
+          .padding(.init(top: 10, leading: 15, bottom: 10, trailing: 15))
           .background(Color(UIColor.systemBackground))
           .cornerRadius(5)
         }
@@ -225,6 +218,8 @@ struct ContentView: View {
           addNewContact.padding(.trailing, 20).foregroundColor(Color.accentColor).border(Color.accentColor)
         }
       }
+    }.sheet(isPresented: self.$routeState.isEditing) {
+      ContactEdition().environment(\.managedObjectContext, self.context)
     }
 
   }
@@ -299,7 +294,7 @@ struct ContentView: View {
         self.iapManager.buy(product: unlimitedContactsProduct) { result in
           switch result {
           case .success(_):
-            self.showingContactEdit = true
+            self.routeState.navigate(.editContact(contact: nil))
             break
           case .failure(let error):
             print(error)

@@ -14,8 +14,9 @@ struct WidgetView : View {
   @Environment(\.managedObjectContext) var context
 
   @FetchRequest(
-      entity: Contact.entity(),
-      sortDescriptors: [NSSortDescriptor(keyPath: \Contact.index, ascending: true)]
+    entity: Contact.entity(),
+    sortDescriptors: [NSSortDescriptor(keyPath: \Contact.index, ascending: true)],
+    predicate: NSPredicate(format: "favorite == YES", argumentArray: [])
   ) var contacts: FetchedResults<Contact>
 
   var extensionContext: NSExtensionContext?

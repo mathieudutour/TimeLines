@@ -61,6 +61,7 @@ struct ContactEdition: View {
   @State private var customEndTime = false
   @State private var startTime: Date
   @State private var endTime: Date
+  @State private var favorite = true
 
   @State private var locationCompletion: MKLocalSearchCompletion?
 
@@ -75,8 +76,9 @@ struct ContactEdition: View {
     _timezone = State(initialValue: contact.wrappedValue?.timeZone)
     _customStartTime = State(initialValue: contact.wrappedValue?.startTime != nil)
     _customEndTime = State(initialValue: contact.wrappedValue?.endTime != nil)
-    _startTime = State(initialValue: contact.wrappedValue?.startTime?.inTodaysTime() ?? today.addingTimeInterval(3600 * 9))
-    _endTime = State(initialValue: contact.wrappedValue?.endTime?.inTodaysTime() ?? today.addingTimeInterval(3600 * 18))
+    _startTime = State(initialValue: contact.wrappedValue?.startTime?.inTodaysTime().addingTimeInterval(-TimeInterval(TimeZone.autoupdatingCurrent.secondsFromGMT())) ?? today.addingTimeInterval(3600 * 9))
+    _endTime = State(initialValue: contact.wrappedValue?.endTime?.inTodaysTime().addingTimeInterval(-TimeInterval(TimeZone.autoupdatingCurrent.secondsFromGMT())) ?? today.addingTimeInterval(3600 * 18))
+    _favorite = State(initialValue: contact.wrappedValue?.favorite ?? true)
   }
 
   var body: some View {
@@ -124,6 +126,16 @@ struct ContactEdition: View {
 
         }
 
+        Text("Your favorite contacts will show up in the main popover.")
+          .padding(.top, 50)
+          .foregroundColor(Color.secondary)
+        HStack {
+          Toggle(isOn: $favorite) {
+            Text("Favorite")
+          }
+          Spacer()
+        }
+
         Text("A time line will show the sunrise and sunset times at the location of the contact by default. You can customize those times if you'd like to show working hours for example.")
           .padding(.top, 50)
           .foregroundColor(Color.secondary)
@@ -149,11 +161,42 @@ struct ContactEdition: View {
   }
 
   func didChangeTime(_ previousTime: Date?, _ custom: Bool, _ newTime: Date) -> Bool {
-    return (previousTime == nil && custom) || (previousTime != nil && !custom) || (previousTime != nil && previousTime?.inTodaysTime() != newTime)
+    return (previousTime == nil && custom) || (previousTime != nil && !custom) || (previousTime != nil && previousTime?.inTodaysTime().addingTimeInterval(-TimeInterval(TimeZone.autoupdatingCurrent.secondsFromGMT())) != newTime)
+  }
+
+  func didChangeLocation() -> Bool {
+    return locationCompletion != nil && locationCompletion?.title != contact?.locationName
+  }
+
+  func didChangeName() -> Bool {
+    return contactName.count > 0 && contactName != contact?.name
+  }
+
+//  func didChangeTags() -> Bool {
+//    if let previousTags = contact?.arrayTags {
+//      return tags != previousTags
+//    } else {
+//      return tags.count > 0
+//    }
+//  }
+
+  func didChangeFavorite() -> Bool {
+    if let previous = contact?.favorite {
+      return previous != favorite
+    }
+    return false
+  }
+
+  func didUpdateUser() -> Bool {
+    return didChangeLocation() || didChangeName() || didChangeTime(contact?.startTime, customStartTime, startTime) || didChangeTime(contact?.endTime, customEndTime, endTime) || didChangeFavorite() // || didChangeTags()
+  }
+
+  func valid() -> Bool {
+    return (locationCompletion != nil || contact?.locationName != nil) && contactName.count > 0
   }
 
   func save() {
-    if let locationCompletion = locationCompletion, locationCompletion.title != contact?.locationName {
+    if let locationCompletion = locationCompletion, didChangeLocation() {
       // need to fetch the new location
       let request = MKLocalSearch.Request(completion: locationCompletion)
       request.resultTypes = .address
@@ -166,7 +209,7 @@ struct ContactEdition: View {
         self.location = mapItem.placemark.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)
         self.updateContact()
       }
-    } else if contactName != contact?.name || didChangeTime(contact?.startTime, customStartTime, startTime) || didChangeTime(contact?.endTime, customEndTime, endTime) {
+    } else if didUpdateUser() {
       self.updateContact()
     }
   }
@@ -180,6 +223,7 @@ struct ContactEdition: View {
       contact.timezone = Int16(timezone?.secondsFromGMT() ?? 0)
       contact.startTime = customStartTime ? startTime : nil
       contact.endTime = customEndTime ? endTime : nil
+      contact.favorite = favorite
       CoreDataManager.shared.saveContext()
     } else {
       contact = CoreDataManager.shared.createContact(
@@ -190,7 +234,8 @@ struct ContactEdition: View {
         timezone: Int16(timezone?.secondsFromGMT() ?? 0),
         startTime: customStartTime ? startTime : nil,
         endTime: customEndTime ? endTime : nil,
-        tags: NSSet()
+        tags: NSSet(),
+        favorite: favorite
       )
     }
     showingEdit = false

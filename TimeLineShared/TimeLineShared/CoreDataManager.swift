@@ -76,7 +76,7 @@ public class CoreDataManager {
   }
 
   @discardableResult
-  public func createContact(name: String, latitude: Double, longitude: Double, locationName: String, timezone: Int16, startTime: Date?, endTime: Date?, tags: NSSet?) -> Contact? {
+  public func createContact(name: String, latitude: Double, longitude: Double, locationName: String, timezone: Int16, startTime: Date?, endTime: Date?, tags: NSSet?, favorite: Bool) -> Contact? {
     let index = self.count()
     let context = persistentContainer.viewContext
     let contact = NSEntityDescription.insertNewObject(forEntityName: "Contact", into: context) as! Contact
@@ -90,6 +90,7 @@ public class CoreDataManager {
     contact.startTime = startTime
     contact.endTime = endTime
     contact.tags = tags
+    contact.favorite = favorite
 
     do {
       try context.save()

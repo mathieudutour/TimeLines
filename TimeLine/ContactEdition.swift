@@ -31,9 +31,7 @@ struct CustomTimePicker: View {
 }
 
 struct ContactEdition: View {
-  @Environment(\.presentationMode) var presentationMode
-
-  var contact: Contact?
+  private var contact: Contact?
 
   @State private var contactName: String
   @State private var locationText = ""
@@ -46,13 +44,14 @@ struct ContactEdition: View {
   @State private var endTime: Date
   @State private var search = ""
   @State private var tags: [Tag]
+  @State private var favorite = true
 
   @State private var timezone: TimeZone?
 
   @State private var locationCompletion: MKLocalSearchCompletion?
 
-  init(contact: Contact?) {
-    self.contact = contact
+  init() {
+    self.contact = RouteState.shared.editingContact
 
     let today = Calendar.current.startOfDay(for: Date())
 
@@ -62,9 +61,10 @@ struct ContactEdition: View {
     _timezone = State(initialValue: contact?.timeZone)
     _customStartTime = State(initialValue: contact?.startTime != nil)
     _customEndTime = State(initialValue: contact?.endTime != nil)
-    _startTime = State(initialValue: contact?.startTime?.inTodaysTime() ?? today.addingTimeInterval(3600 * 9))
-    _endTime = State(initialValue: contact?.endTime?.inTodaysTime() ?? today.addingTimeInterval(3600 * 18))
+    _startTime = State(initialValue: contact?.startTime?.inTodaysTime().addingTimeInterval(-TimeInterval(TimeZone.autoupdatingCurrent.secondsFromGMT())) ?? today.addingTimeInterval(3600 * 9))
+    _endTime = State(initialValue: contact?.endTime?.inTodaysTime().addingTimeInterval(-TimeInterval(TimeZone.autoupdatingCurrent.secondsFromGMT())) ?? today.addingTimeInterval(3600 * 18))
     _tags = State(initialValue: contact?.tags?.map({ $0 as! Tag }) ?? [])
+    _favorite = State(initialValue: contact?.favorite ?? true)
   }
 
   var body: some View {
@@ -103,6 +103,12 @@ struct ContactEdition: View {
           }
         }
 
+        Section(footer: Text("Your favorite contacts will show up in the Today Widget.")) {
+          Toggle(isOn: $favorite) {
+            Text("Favorite")
+          }
+        }
+
         Section(footer: Text("You can add different tags to a contact to easily search for it in the list.")) {
           HStack {
             Text("Tags")
@@ -118,9 +124,7 @@ struct ContactEdition: View {
       .listStyle(GroupedListStyle())
       .resignKeyboardOnDragGesture()
       .navigationBarTitle(Text(contact == nil ? "New Contact" : "Edit Contact"))
-      .navigationBarItems(leading: Button(action: {
-          self.presentationMode.wrappedValue.dismiss()
-        }) {
+      .navigationBarItems(leading: Button(action: back) {
           Text("Cancel")
         }, trailing: Button(action: {
           if !self.saving {
@@ -138,8 +142,16 @@ struct ContactEdition: View {
     }
   }
 
+  func back() {
+    if let contact = contact {
+      RouteState.shared.navigate(.contact(contact: contact))
+    } else {
+      RouteState.shared.navigate(.list)
+    }
+  }
+
   func didChangeTime(_ previousTime: Date?, _ custom: Bool, _ newTime: Date) -> Bool {
-    return (previousTime == nil && custom) || (previousTime != nil && !custom) || (previousTime != nil && previousTime?.inTodaysTime() != newTime)
+    return (previousTime == nil && custom) || (previousTime != nil && !custom) || (previousTime != nil && previousTime?.inTodaysTime().addingTimeInterval(-TimeInterval(TimeZone.autoupdatingCurrent.secondsFromGMT())) != newTime)
   }
 
   func didChangeLocation() -> Bool {
@@ -158,8 +170,15 @@ struct ContactEdition: View {
     }
   }
 
+  func didChangeFavorite() -> Bool {
+    if let previous = contact?.favorite {
+      return previous != favorite
+    }
+    return false
+  }
+
   func didUpdateUser() -> Bool {
-    return didChangeLocation() || didChangeName() || didChangeTime(contact?.startTime, customStartTime, startTime) || didChangeTime(contact?.endTime, customEndTime, endTime) || didChangeTags()
+    return didChangeLocation() || didChangeName() || didChangeTime(contact?.startTime, customStartTime, startTime) || didChangeTime(contact?.endTime, customEndTime, endTime) || didChangeTags() || didChangeFavorite()
   }
 
   func valid() -> Bool {
@@ -192,12 +211,12 @@ struct ContactEdition: View {
         self.timezone = mapItem.timeZone
         self.location = mapItem.placemark.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)
         self.updateContact()
-        self.presentationMode.wrappedValue.dismiss()
+        self.back()
       }
     } else if didUpdateUser() {
       saving = true
       self.updateContact()
-      self.presentationMode.wrappedValue.dismiss()
+      back()
     }
   }
 
@@ -211,6 +230,7 @@ struct ContactEdition: View {
       contact.startTime = customStartTime ? startTime.addingTimeInterval(TimeInterval(TimeZone.autoupdatingCurrent.secondsFromGMT())) : nil
       contact.endTime = customEndTime ? endTime.addingTimeInterval(TimeInterval(TimeZone.autoupdatingCurrent.secondsFromGMT())) : nil
       contact.tags = NSSet(array: tags)
+      contact.favorite = favorite
       CoreDataManager.shared.saveContext()
     } else {
       CoreDataManager.shared.createContact(
@@ -221,7 +241,8 @@ struct ContactEdition: View {
         timezone: Int16(timezone?.secondsFromGMT() ?? 0),
         startTime: customStartTime ? startTime : nil,
         endTime: customEndTime ? endTime : nil,
-        tags: NSSet(array: tags)
+        tags: NSSet(array: tags),
+        favorite: favorite
       )
     }
     saving = false
@@ -230,6 +251,6 @@ struct ContactEdition: View {
 
 struct ContactEdition_Previews: PreviewProvider {
   static var previews: some View {
-    return ContactEdition(contact: nil)
+    return ContactEdition()
   }
 }

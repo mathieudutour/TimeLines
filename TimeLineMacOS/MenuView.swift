@@ -16,7 +16,8 @@ struct MenuView: View {
 
   @FetchRequest(
       entity: Contact.entity(),
-      sortDescriptors: [NSSortDescriptor(keyPath: \Contact.index, ascending: true)]
+      sortDescriptors: [NSSortDescriptor(keyPath: \Contact.index, ascending: true)],
+      predicate: NSPredicate(format: "favorite == YES", argumentArray: [])
   ) var contacts: FetchedResults<Contact>
 
   var body: some View {
