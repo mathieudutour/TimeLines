@@ -33,7 +33,7 @@ struct AccessoryView : View {
   }
 
   var body: some View {
-    ScrollView(.horizontal) {
+    ScrollView(.horizontal, showsIndicators: false) {
       HStack(spacing: 5) {
         ForEach(existingTokens.filter { filterTag($0) }, id: \Tag.name) { tag in
           TagView(tag: tag, onSelectTag: { tag, _ in
