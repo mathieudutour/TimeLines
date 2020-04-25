@@ -61,6 +61,40 @@ struct MeRow: View {
   }
 }
 
+struct BindedContactRow: View {
+  @Environment(\.editMode) var editMode
+
+  var contact: Contact
+  @Binding var search: String
+  @Binding var searchTokens: [Tag]
+
+  var body: some View {
+    NavigationLink(destination: ContactDetails(contact: contact, onSelectTag: { tag, presentationMode in
+      self.searchTokens = [tag]
+      self.search = ""
+      presentationMode.dismiss()
+    }, editView: {
+      NavigationLink(destination: ContactEdition(contact: self.contact)) {
+        Text("Edit")
+      }
+      .padding(.init(top: 5, leading: 10, bottom: 5, trailing: 10))
+      .background(Color(UIColor.systemBackground))
+      .cornerRadius(5)
+    })) {
+      ContactRow(
+        name: contact.name ?? "",
+        timezone: contact.timeZone,
+        coordinate: contact.location,
+        startTime: contact.startTime,
+        endTime: contact.endTime,
+        hideLine: editMode?.wrappedValue == .active
+      )
+    }.onAppear(perform: {
+      self.contact.refreshTimeZone()
+    })
+  }
+}
+
 struct ContentView: View {
   @Environment(\.managedObjectContext) var context
   @Environment(\.inAppPurchaseContext) var iapManager
@@ -111,28 +145,7 @@ struct ContentView: View {
           MeRow()
 
           ForEach(contacts.filter { filterContact($0) }, id: \Contact.name) { (contact: Contact) in
-            NavigationLink(destination: ContactDetails(contact: contact, onSelectTag: { tag, presentationMode in
-              self.searchTokens = [tag]
-              self.search = ""
-              presentationMode.dismiss()
-            }, editView: {
-              NavigationLink(destination: ContactEdition(contact: contact)) {
-                Text("Edit")
-              }
-              .padding(.init(top: 5, leading: 10, bottom: 5, trailing: 10))
-              .background(Color(UIColor.systemBackground))
-              .cornerRadius(5)
-            })) {
-              ContactRow(
-                name: contact.name ?? "",
-                timezone: contact.timeZone,
-                coordinate: contact.location,
-                startTime: contact.startTime,
-                endTime: contact.endTime
-              )
-            }.onAppear(perform: {
-              contact.refreshTimeZone()
-            })
+            BindedContactRow(contact: contact, search: self.$search, searchTokens: self.$searchTokens)
           }
           .onDelete(perform: self.deleteContact)
           .onMove(perform: self.moveContact)

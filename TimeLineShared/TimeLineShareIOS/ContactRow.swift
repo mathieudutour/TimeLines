@@ -10,20 +10,20 @@ import SwiftUI
 import CoreLocation
 
 public struct ContactRow: View {
-  @Environment(\.editMode) var editMode
-
   public var name: String
   public var timezone: TimeZone?
   public var coordinate: CLLocationCoordinate2D?
   public var startTime: Date?
   public var endTime: Date?
+  public var hideLine: Bool
 
-  public init(name: String, timezone: TimeZone?, coordinate: CLLocationCoordinate2D?, startTime: Date? = nil, endTime: Date? = nil) {
+  public init(name: String, timezone: TimeZone?, coordinate: CLLocationCoordinate2D?, startTime: Date? = nil, endTime: Date? = nil, hideLine: Bool = false) {
     self.name = name
     self.timezone = timezone
     self.coordinate = coordinate
     self.startTime = startTime
     self.endTime = endTime
+    self.hideLine = hideLine
   }
 
   public var body: some View {
@@ -39,7 +39,7 @@ public struct ContactRow: View {
 
       Spacer()
 
-      if editMode?.wrappedValue == EditMode.inactive {
+      if !hideLine {
         Line(coordinate: coordinate, timezone: timezone, startTime: startTime, endTime: endTime)
         .frame(width: 220, height: 80, alignment: .trailing)
         .offset(y: 10)
