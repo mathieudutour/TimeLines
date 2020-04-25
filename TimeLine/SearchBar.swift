@@ -82,13 +82,6 @@ struct SearchBar: UIViewRepresentable {
 
     accessory.frame = CGRect(x: 0, y: 0, width: 100, height: 45)
 
-    let child = UIHostingController(rootView: AccessoryView(delegate: context.coordinator, search: $search, tokens: $tokens).environment(\.managedObjectContext, self.context))
-    child.view.translatesAutoresizingMaskIntoConstraints = false
-    child.view.frame = accessory.bounds
-    child.view.backgroundColor = .clear
-
-    accessory.addSubview(child.view)
-
     bar.inputAccessoryView = accessory
 
     return bar
@@ -122,6 +115,20 @@ class SearchBarCoordinator: NSObject, UISearchBarDelegate, TagPickerDelegate {
   func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
     parent.search = ""
     parent.tokens = []
+  }
+
+  func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+    let child = UIHostingController(rootView: AccessoryView(delegate: self, search: parent.$search, tokens: parent.$tokens).environment(\.managedObjectContext, parent.context))
+    child.view.translatesAutoresizingMaskIntoConstraints = false
+    child.view.frame = parent.accessory.bounds
+    child.view.backgroundColor = .clear
+
+    parent.accessory.addSubview(child.view)
+  }
+
+  func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+    // remove the UIHostingController
+    parent.accessory.subviews.last?.removeFromSuperview()
   }
 
   func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
