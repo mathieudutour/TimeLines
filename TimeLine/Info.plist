@@ -16,6 +16,19 @@
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>me.dutour.mathieu.TimeLine</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>timelines</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>11</string>
 	<key>LSRequiresIPhoneOS</key>

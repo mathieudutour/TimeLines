@@ -36,7 +36,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 
     // Create the SwiftUI view and set the context as the value for the managedObjectContext environment keyPath.
     // Add `@Environment(\.managedObjectContext)` in the views that will need the context.
-    let contentView = WidgetView()
+    let contentView = WidgetView(extensionContext: extensionContext)
       .environment(\.managedObjectContext, context)
       .background(Color.clear)
 

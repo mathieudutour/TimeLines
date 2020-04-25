@@ -103,7 +103,6 @@ struct BindedContactRow: View {
 struct ContentView: View {
   @Environment(\.managedObjectContext) var context
   @Environment(\.inAppPurchaseContext) var iapManager
-  @Environment(\.editMode) var editMode
 
   @FetchRequest(
       entity: Contact.entity(),

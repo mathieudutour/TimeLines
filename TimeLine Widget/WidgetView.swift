@@ -18,18 +18,27 @@ struct WidgetView : View {
       sortDescriptors: [NSSortDescriptor(keyPath: \Contact.index, ascending: true)]
   ) var contacts: FetchedResults<Contact>
 
+  var extensionContext: NSExtensionContext?
+
   var body: some View {
     List {
       ForEach(contacts, id: \.self) { (contact: Contact) in
-        ContactRow(
-          name: contact.name ?? "",
-          timezone: contact.timeZone,
-          coordinate: contact.location,
-          startTime: contact.startTime,
-          endTime: contact.endTime
-        ).onAppear(perform: {
-          contact.refreshTimeZone()
-        })
+        Button(action: {
+          guard let url = URL(string: "timelines://contact/\(contact.name ?? "")") else {
+            return
+          }
+          self.extensionContext?.open(url)
+        }) {
+          ContactRow(
+            name: contact.name ?? "",
+            timezone: contact.timeZone,
+            coordinate: contact.location,
+            startTime: contact.startTime,
+            endTime: contact.endTime
+          ).onAppear(perform: {
+            contact.refreshTimeZone()
+          })
+        }
       }
     }
   }
