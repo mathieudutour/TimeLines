@@ -160,12 +160,15 @@ struct CurrentTimeText: View {
   var startTime: Date?
   var endTime: Date?
 
+  private let font = CPFont.systemFont(ofSize: 18)
+
   func getPosition(_ frame: CGRect, _ text: String?) -> CGRect {
     guard let string = text else {
       return .zero
     }
+
     let pos = circlePosition(frame: frame, time: now, timezone: timezone, startTime: startTime, endTime: endTime)
-    let size = NSString(string: string).size(withAttributes: [NSAttributedString.Key.font: CPFont.systemFont(ofSize: 15)])
+    let size = NSString(string: string).size(withAttributes: [NSAttributedString.Key.font: font])
 
     var x = pos.x
 
@@ -174,7 +177,7 @@ struct CurrentTimeText: View {
     }
 
     return CGRect(
-      x: max(min(x, frame.width - size.width), 0),
+      x: max(min(x, frame.width - size.width + 7), 0),
       y: pos.y - 25,
       width: size.width + 5,
       height: size.height + 5
@@ -187,6 +190,7 @@ struct CurrentTimeText: View {
       VStack {
         HStack {
           Text(string)
+            .font(Font(self.font as CTFont))
             .offset(x: self.getPosition(p, string).origin.x, y: self.getPosition(p, string).origin.y)
           Spacer()
         }
