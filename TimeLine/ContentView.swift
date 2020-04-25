@@ -67,6 +67,8 @@ struct BindedContactRow: View {
   var contact: Contact
   @Binding var search: String
   @Binding var searchTokens: [Tag]
+  @Binding var showingContactEdit: Bool
+  @Binding var contactBeingEdited: Contact?
 
   var body: some View {
     NavigationLink(destination: ContactDetails(contact: contact, onSelectTag: { tag, presentationMode in
@@ -74,7 +76,10 @@ struct BindedContactRow: View {
       self.search = ""
       presentationMode.dismiss()
     }, editView: {
-      NavigationLink(destination: ContactEdition(contact: self.contact)) {
+      Button(action: {
+        self.contactBeingEdited = self.contact
+        self.showingContactEdit = true
+      }) {
         Text("Edit")
       }
       .padding(.init(top: 5, leading: 10, bottom: 5, trailing: 10))
@@ -109,17 +114,20 @@ struct ContentView: View {
   @State private var showingRestoreAlert = false
   @State private var showingAlert = false
   @State private var alertType: AlertType?
-  @State private var showEmptyEdit = false
   @State private var errorMessage: String?
   @State private var search = ""
   @State private var searchTokens: [Tag] = []
 
+  @State private var showingContactEdit = false
+  @State private var contactBeingEdited: Contact?
+
   var addNewContact: some View {
     Button(action: {
+      self.contactBeingEdited = nil
       if (!self.iapManager.hasAlreadyPurchasedUnlimitedContacts && self.contacts.count >= self.iapManager.contactsLimit) {
         self.showAlert(.upsell)
       } else {
-        self.showEmptyEdit = true
+        self.showingContactEdit = true
       }
     }) {
       HStack {
@@ -132,9 +140,6 @@ struct ContentView: View {
   var body: some View {
     NavigationView {
       ZStack {
-        NavigationLink(destination: ContactEdition(contact: nil), isActive: $showEmptyEdit) {
-          EmptyView()
-        }
         List {
           SearchBar(search: $search, tokens: $searchTokens)
 
@@ -145,7 +150,7 @@ struct ContentView: View {
           MeRow()
 
           ForEach(contacts.filter { filterContact($0) }, id: \Contact.name) { (contact: Contact) in
-            BindedContactRow(contact: contact, search: self.$search, searchTokens: self.$searchTokens)
+            BindedContactRow(contact: contact, search: self.$search, searchTokens: self.$searchTokens, showingContactEdit: self.$showingContactEdit, contactBeingEdited: self.$contactBeingEdited)
           }
           .onDelete(perform: self.deleteContact)
           .onMove(perform: self.moveContact)
@@ -166,6 +171,9 @@ struct ContentView: View {
           .cancel()
         ])
       })
+      .sheet(isPresented: $showingContactEdit) {
+        ContactEdition(contact: self.contactBeingEdited).environment(\.managedObjectContext, self.context)
+      }
       .alert(isPresented: $showingAlert) {
         switch self.alertType {
         case .noProducts:
@@ -201,6 +209,8 @@ struct ContentView: View {
           return Alert(title: Text("Unknown Error"), dismissButton: .default(Text("OK")))
         }
       }
+
+      // default view on iPad
       if contacts.count > 0 {
         ContactDetails(contact: contacts[0]) {
           NavigationLink(destination: ContactEdition(contact: self.contacts[0])) {
@@ -290,7 +300,7 @@ struct ContentView: View {
         self.iapManager.buy(product: unlimitedContactsProduct) { result in
           switch result {
           case .success(_):
-            self.showEmptyEdit = true
+            self.showingContactEdit = true
             break
           case .failure(let error):
             print(error)

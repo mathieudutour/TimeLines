@@ -16,10 +16,16 @@ import MapKit
 
 class MapViewDelegate: NSObject, MKMapViewDelegate {}
 
-struct MapView {
-  var coordinate: CLLocationCoordinate2D
+public struct MapView {
+  public var coordinate: CLLocationCoordinate2D
+  public var span: Double
 
   private let delegate = MapViewDelegate()
+
+  public init(coordinate: CLLocationCoordinate2D, span: Double = 0.02) {
+    self.coordinate = coordinate
+    self.span = span
+  }
 
   func makeMapView() -> MKMapView {
     let view = MKMapView(frame: .zero)
@@ -28,30 +34,30 @@ struct MapView {
   }
 
   func updateMapView(_ uiView: MKMapView) {
-      let span = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
-      let region = MKCoordinateRegion(center: coordinate, span: span)
+      let coordSpan = MKCoordinateSpan(latitudeDelta: span, longitudeDelta: span)
+      let region = MKCoordinateRegion(center: coordinate, span: coordSpan)
       uiView.setRegion(region, animated: true)
   }
 }
 
 #if os(iOS) || os(tvOS) || os(watchOS)
   extension MapView: UIViewRepresentable {
-    func makeUIView(context: Context) -> MKMapView {
+    public func makeUIView(context: Context) -> MKMapView {
       makeMapView()
     }
 
-    func updateUIView(_ uiView: MKMapView, context: Context) {
-        updateMapView(uiView)
+    public func updateUIView(_ uiView: MKMapView, context: Context) {
+      updateMapView(uiView)
     }
   }
 #elseif os(macOS)
   extension MapView: NSViewRepresentable {
-    func makeNSView(context: Context) -> MKMapView {
+    public func makeNSView(context: Context) -> MKMapView {
       makeMapView()
     }
 
-    func updateNSView(_ uiView: MKMapView, context: Context) {
-        updateMapView(uiView)
+    public func updateNSView(_ uiView: MKMapView, context: Context) {
+      updateMapView(uiView)
     }
   }
 #endif

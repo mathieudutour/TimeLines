@@ -37,7 +37,7 @@ struct ContactEdition: View {
 
   @State private var contactName: String
   @State private var locationText = ""
-  @State private var location: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
+  @State private var location: CLLocationCoordinate2D?
   @State private var showModal = false
   @State private var saving = false
   @State private var customStartTime = false
@@ -58,7 +58,7 @@ struct ContactEdition: View {
 
     _contactName = State(initialValue: contact?.name ?? "")
     _locationText = State(initialValue: contact?.locationName ?? "")
-    _location = State(initialValue: contact?.location ?? CLLocationCoordinate2D(latitude: 0, longitude: 0))
+    _location = State(initialValue: contact?.location)
     _timezone = State(initialValue: contact?.timeZone)
     _customStartTime = State(initialValue: contact?.startTime != nil)
     _customEndTime = State(initialValue: contact?.endTime != nil)
@@ -70,7 +70,7 @@ struct ContactEdition: View {
   var body: some View {
     NavigationView {
       List {
-        Section {
+        Section(footer: MapView(coordinate: location ?? CLLocationCoordinate2D(latitude: 0, longitude: 0), span: location == nil ? 45 : 0.02).frame(height: 150).padding(.init(top: -6, leading: -16, bottom: 0, trailing: -16))) {
           HStack {
             Text("Name")
             TextField("Jane Doe", text: $contactName)
@@ -82,7 +82,8 @@ struct ContactEdition: View {
             Text("Location")
             Spacer()
             Button(action: {
-                self.showModal = true
+              UIApplication.shared.endEditing(true)
+              self.showModal = true
             }) {
               Text(locationText == "" ? "San Francisco" : locationText)
                 .foregroundColor(Color(locationText == "" ? UIColor.placeholderText : UIColor.label))
@@ -92,6 +93,7 @@ struct ContactEdition: View {
                 Button(action: {
                   self.locationCompletion = mapItem
                   self.locationText = mapItem.title
+                  self.updateLocation(mapItem)
                   self.showModal = false
                 }) {
                   Text(mapItem.title)
@@ -115,21 +117,21 @@ struct ContactEdition: View {
       }
       .listStyle(GroupedListStyle())
       .resignKeyboardOnDragGesture()
+      .navigationBarTitle(Text(contact == nil ? "New Contact" : "Edit Contact"))
+      .navigationBarItems(trailing: Button(action: {
+          if !self.saving {
+            self.save()
+          }
+        }) {
+          if self.saving {
+            ActivityIndicator(isAnimating: true)
+          } else {
+            Text("Save")
+          }
+        }
+        .disabled(!didUpdateUser() || !valid())
+      )
     }
-    .navigationBarTitle(Text(contact == nil ? "New Contact" : "Edit Contact"))
-    .navigationBarItems(trailing: Button(action: {
-        if !self.saving {
-          self.save()
-        }
-      }) {
-        if self.saving {
-          ActivityIndicator(isAnimating: true)
-        } else {
-          Text("Save")
-        }
-      }
-      .disabled(!didUpdateUser())
-    )
   }
 
   func didChangeTime(_ previousTime: Date?, _ custom: Bool, _ newTime: Date) -> Bool {
@@ -140,8 +142,36 @@ struct ContactEdition: View {
     return locationCompletion != nil && locationCompletion?.title != contact?.locationName
   }
 
+  func didChangeName() -> Bool {
+    return contactName.count > 0 && contactName != contact?.name
+  }
+
+  func didChangeTags() -> Bool {
+    if let previousTags = contact?.arrayTags {
+      return tags != previousTags
+    } else {
+      return tags.count > 0
+    }
+  }
+
   func didUpdateUser() -> Bool {
-    return didChangeLocation() || contactName != contact?.name || didChangeTime(contact?.startTime, customStartTime, startTime) || didChangeTime(contact?.endTime, customEndTime, endTime) || tags != contact?.arrayTags
+    return didChangeLocation() || didChangeName() || didChangeTime(contact?.startTime, customStartTime, startTime) || didChangeTime(contact?.endTime, customEndTime, endTime) || didChangeTags()
+  }
+
+  func valid() -> Bool {
+    return (locationCompletion != nil || contact?.locationName != nil) && contactName.count > 0
+  }
+
+  func updateLocation(_ locationCompletion: MKLocalSearchCompletion) {
+    let request = MKLocalSearch.Request(completion: locationCompletion)
+    request.resultTypes = .address
+    let search = MKLocalSearch(request: request)
+    search.start { response, _ in
+      guard let response = response, let mapItem = response.mapItems.first else {
+        return
+      }
+      self.location = mapItem.placemark.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)
+    }
   }
 
   func save() {
@@ -170,8 +200,8 @@ struct ContactEdition: View {
   func updateContact() {
     if let contact = contact {
       contact.name = contactName
-      contact.latitude = location.latitude
-      contact.longitude = location.longitude
+      contact.latitude = location?.latitude ?? 0
+      contact.longitude = location?.longitude ?? 0
       contact.locationName = locationText
       contact.timezone = Int16(timezone?.secondsFromGMT() ?? 0)
       contact.startTime = customStartTime ? startTime : nil
@@ -181,8 +211,8 @@ struct ContactEdition: View {
     } else {
       CoreDataManager.shared.createContact(
         name: contactName,
-        latitude: location.latitude,
-        longitude: location.longitude,
+        latitude: location?.latitude ?? 0,
+        longitude: location?.longitude ?? 0,
         locationName: locationText,
         timezone: Int16(timezone?.secondsFromGMT() ?? 0),
         startTime: customStartTime ? startTime : nil,
