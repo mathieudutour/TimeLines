@@ -77,7 +77,7 @@ struct TagEdition: View {
         }, trailing: Button(action: {
           self.save()
         }) {
-          Text("Save")
+          Text("Done")
         }
         .disabled(!didUpdateTag() || !valid())
       )

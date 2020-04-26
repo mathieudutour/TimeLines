@@ -147,7 +147,7 @@ struct ContactEdition: View {
           Button(action: {
             self.save()
           }) {
-            Text("Save")
+            Text("Done")
           }
           .padding(.top)
           .disabled(contactName == "" || locationText == "")

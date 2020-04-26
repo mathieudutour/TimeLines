@@ -134,7 +134,7 @@ struct ContactEdition: View {
           if self.saving {
             ActivityIndicator(isAnimating: true)
           } else {
-            Text("Save")
+            Text("Done")
           }
         }
         .disabled(!didUpdateUser() || !valid())
