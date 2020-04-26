@@ -122,6 +122,7 @@ struct ContactEdition: View {
         }
       }
       .listStyle(GroupedListStyle())
+      .keyboardAdaptive()
       .resignKeyboardOnDragGesture()
       .navigationBarTitle(Text(contact == nil ? "New Contact" : "Edit Contact"))
       .navigationBarItems(leading: Button(action: back) {

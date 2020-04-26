@@ -70,6 +70,7 @@ struct TagEdition: View {
         }
       }
       .listStyle(GroupedListStyle())
+      .keyboardAdaptive()
       .resignKeyboardOnDragGesture()
       .navigationBarTitle(Text(tag == nil ? "New Tag" : "Edit Tag"))
       .navigationBarItems(leading: Button(action: back) {

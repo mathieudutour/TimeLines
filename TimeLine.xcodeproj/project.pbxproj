@@ -11,6 +11,7 @@
 		03B82ED92454B36C002DA493 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B82ED82454B36C002DA493 /* State.swift */; };
 		03B82EDB245587C1002DA493 /* Tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B82EDA245587C1002DA493 /* Tags.swift */; };
 		03B82EDD24558EAE002DA493 /* TagEdition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B82EDC24558EAD002DA493 /* TagEdition.swift */; };
+		03B82EDF2455DA27002DA493 /* KeyboardAdaptive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B82EDE2455DA27002DA493 /* KeyboardAdaptive.swift */; };
 		03B8BF22243E2E410009E084 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B8BF21243E2E410009E084 /* SearchController.swift */; };
 		03B8BFBB244463BD0009E084 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 03B8BFB9244463BD0009E084 /* Interface.storyboard */; };
 		03B8BFBD244463C00009E084 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03B8BFBC244463C00009E084 /* Assets.xcassets */; };
@@ -195,6 +196,7 @@
 		03B82ED82454B36C002DA493 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		03B82EDA245587C1002DA493 /* Tags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tags.swift; sourceTree = "<group>"; };
 		03B82EDC24558EAD002DA493 /* TagEdition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagEdition.swift; sourceTree = "<group>"; };
+		03B82EDE2455DA27002DA493 /* KeyboardAdaptive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAdaptive.swift; sourceTree = "<group>"; };
 		03B8BF21243E2E410009E084 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		03B8BF5B24435ED60009E084 /* TimeLineWatchOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = TimeLineWatchOS.app; path = "/Users/mathieudutour/Projects/TimeLine/build/Debug-watchos/TimeLineWatchOS.app"; sourceTree = "<absolute>"; };
 		03B8BFAD24437EF90009E084 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS6.2.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -438,6 +440,7 @@
 				03B82EDA245587C1002DA493 /* Tags.swift */,
 				03B82EDC24558EAD002DA493 /* TagEdition.swift */,
 				035977A82452D2B10056732F /* SearchBar.swift */,
+				03B82EDE2455DA27002DA493 /* KeyboardAdaptive.swift */,
 				03DCC2C12451CE98000D0B94 /* ActivityIndicator.swift */,
 				03D633BF2436343700F8D2CE /* LocationSearchController.swift */,
 				03D633BA2436275E00F8D2CE /* Resources */,
@@ -803,6 +806,7 @@
 			files = (
 				035977A92452D2B10056732F /* SearchBar.swift in Sources */,
 				03D6335D2436149700F8D2CE /* AppDelegate.swift in Sources */,
+				03B82EDF2455DA27002DA493 /* KeyboardAdaptive.swift in Sources */,
 				03D633C02436343700F8D2CE /* LocationSearchController.swift in Sources */,
 				03D633642436149700F8D2CE /* ContentView.swift in Sources */,
 				03D6335F2436149700F8D2CE /* SceneDelegate.swift in Sources */,
