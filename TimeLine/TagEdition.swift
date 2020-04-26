@@ -81,7 +81,7 @@ struct TagEdition: View {
         }
         .disabled(!didUpdateTag() || !valid())
       )
-    }
+    }.navigationViewStyle(StackNavigationViewStyle())
   }
 
   func back() {

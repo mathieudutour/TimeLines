@@ -54,7 +54,7 @@ struct Tags: View {
           Text("Cancel")
         }
       )
-    }
+    }.navigationViewStyle(StackNavigationViewStyle())
 
   }
 

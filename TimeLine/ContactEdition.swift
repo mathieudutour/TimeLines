@@ -139,7 +139,7 @@ struct ContactEdition: View {
         }
         .disabled(!didUpdateUser() || !valid())
       )
-    }
+    }.navigationViewStyle(StackNavigationViewStyle())
   }
 
   func back() {
