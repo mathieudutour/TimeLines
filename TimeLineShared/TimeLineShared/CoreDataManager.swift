@@ -7,6 +7,7 @@
 //
 
 import CoreData
+import SwiftUI
 
 public class CoreDataManager {
 
@@ -103,14 +104,15 @@ public class CoreDataManager {
   }
 
   @discardableResult
-  public func createTag(name: String) -> Tag? {
+  public func createTag(name: String, color: CPColor = Tag.randomColor()) -> Tag? {
     let context = persistentContainer.viewContext
     let tag = NSEntityDescription.insertNewObject(forEntityName: "Tag", into: context) as! Tag
 
     tag.name = name
-    tag.red = Double.random(in: 0 ... 1)
-    tag.green = Double.random(in: 0 ... 1)
-    tag.blue = Double.random(in: 0 ... 1)
+    let components = color.rgba
+    tag.red = Double(components.red)
+    tag.green = Double(components.green)
+    tag.blue = Double(components.blue)
 
     do {
       try context.save()
@@ -131,6 +133,18 @@ public class CoreDataManager {
       print("✅ Contact deleted succesfuly")
     } catch let error {
       print("❌ Failed to delete Contact: \(error.localizedDescription)")
+    }
+  }
+
+  public func deleteTag(_ tag: Tag) {
+    let context = persistentContainer.viewContext
+    context.delete(tag)
+
+    do {
+      try context.save()
+      print("✅ Tag deleted succesfuly")
+    } catch let error {
+      print("❌ Failed to delete Tag: \(error.localizedDescription)")
     }
   }
 

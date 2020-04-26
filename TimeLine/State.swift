@@ -14,6 +14,8 @@ enum Route {
   case list
   case editContact(contact: Contact?)
   case contact(contact: Contact)
+  case tags
+  case editTag(tag: Tag?)
 }
 
 class RouteState: ObservableObject {
@@ -22,6 +24,16 @@ class RouteState: ObservableObject {
   @Published private(set) var route: Route = .list
 
   // derived data
+  @Published var isShowingSheetFromList: Bool = false  {
+     didSet {
+       if !isShowingSheetFromList {
+         if case .list = route {}
+         else {
+          navigate(.list)
+         }
+       }
+     }
+   }
   @Published var isEditing: Bool = false {
     didSet {
       if !isEditing, case let .editContact(contact) = route {
@@ -34,24 +46,52 @@ class RouteState: ObservableObject {
     }
   }
   @Published private(set) var editingContact: Contact? = nil
+  @Published var isShowingTags: Bool = false {
+    didSet {
+      if !isShowingTags, case .tags = route {
+        navigate(.list)
+      }
+    }
+  }
+  @Published var isEditingTag: Bool = false {
+    didSet {
+      if !isEditingTag, case .editTag(_) = route {
+        navigate(.tags)
+      }
+    }
+  }
+  @Published private(set) var editingTag: Tag? = nil
 
   func navigate(_ route: Route) {
     self.route = route
-    if case let Route.editContact(contact) = route {
+    if case let .editContact(contact) = route {
       isEditing = true
       editingContact = contact
+      isEditingTag = false
+      editingTag = nil
+      isShowingTags = false
+      isShowingSheetFromList = true
+    } else if case let .editTag(tag: tag) = route {
+      isEditing = false
+      editingContact = nil
+      isEditingTag = true
+      editingTag = tag
+      isShowingTags = true
+      isShowingSheetFromList = true
+    } else if case .tags = route {
+      isEditing = false
+      editingContact = nil
+      isEditingTag = false
+      editingTag = nil
+      isShowingTags = true
+      isShowingSheetFromList = true
     } else {
       isEditing = false
       editingContact = nil
+      isEditingTag = false
+      editingTag = nil
+      isShowingTags = false
+      isShowingSheetFromList = false
     }
-  }
-
-  func isEditingBinding() -> Binding<Bool> {
-    Binding<Bool>(
-      get: { self.isEditing },
-      set: { if !$0 {
-        self.navigate(.list)
-      }}
-    )
   }
 }

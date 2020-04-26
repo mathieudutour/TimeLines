@@ -157,6 +157,9 @@ struct ContentView: View {
       }
       .actionSheet(isPresented: $showingSheet) {
         ActionSheet(title: Text("Settings"), buttons: [
+          .default(Text("Manage Tags"), action: {
+            self.routeState.navigate(.tags)
+          }),
           .default(Text("Send Feedback"), action: {
             UIApplication.shared.open(App.feedbackPage)
           }),
@@ -218,8 +221,12 @@ struct ContentView: View {
           addNewContact.padding(.trailing, 20).foregroundColor(Color.accentColor).border(Color.accentColor)
         }
       }
-    }.sheet(isPresented: self.$routeState.isEditing) {
-      ContactEdition().environment(\.managedObjectContext, self.context)
+    }.sheet(isPresented: self.$routeState.isShowingSheetFromList) {
+      if self.routeState.isEditing {
+        ContactEdition().environment(\.managedObjectContext, self.context).environmentObject(self.routeState)
+      } else if self.routeState.isShowingTags {
+        Tags().environment(\.managedObjectContext, self.context).environmentObject(self.routeState)
+      }
     }
 
   }
