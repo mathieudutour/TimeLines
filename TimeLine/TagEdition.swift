@@ -110,7 +110,7 @@ struct TagEdition: View {
       let components = color.rgba
       tag.red = Double(components.red)
       tag.green = Double(components.green)
-      tag.red = Double(components.red)
+      tag.blue = Double(components.blue)
       CoreDataManager.shared.saveContext()
     } else {
       CoreDataManager.shared.createTag(
