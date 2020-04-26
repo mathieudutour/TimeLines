@@ -19,7 +19,10 @@ import CoreLocation
 
 fileprivate let cal = Calendar(identifier: .gregorian)
 
-fileprivate func point(_ date: Date, _ timezone: TimeZone?) -> CGFloat {
+fileprivate func pointFraction(_ date: Date?, _ timezone: TimeZone?) -> CGFloat? {
+  guard let date = date else {
+    return nil
+  }
   let inTZ = date.inTimeZone(timezone)
   return CGFloat(inTZ.timeIntervalSince(cal.startOfDay(for: inTZ)) / (3600 * 24))
 }
@@ -27,40 +30,46 @@ fileprivate func point(_ date: Date, _ timezone: TimeZone?) -> CGFloat {
 fileprivate let defaultLineWidth: CGFloat = 2
 fileprivate let defaultMaxHeight: CGFloat = 25
 
-fileprivate func circlePosition(frame: CGRect, time: Date, timezone: TimeZone?, startTime: Date?, endTime: Date?) -> CGPoint {
-
-  let timePoint = point(time, timezone)
-
+fileprivate func pointInFrame(frame: CGRect, point: CGFloat, startPoint: CGFloat?, endPoint: CGFloat?) -> CGPoint {
   guard
-    let startTime = startTime,
-    let endTime = endTime
+    let startPoint = startPoint,
+    let endPoint = endPoint
   else {
     return CGPoint(
-      x: frame.origin.x + frame.width * CGFloat(timePoint),
+      x: frame.origin.x + frame.width * CGFloat(point),
       y: frame.origin.y + frame.height
     )
   }
 
-  let startPoint = point(startTime, timezone)
-  let endPoint = point(endTime, timezone)
-
   var y: CGFloat = frame.origin.y + frame.height
 
-  if timePoint < endPoint && timePoint > startPoint {
+  if point < endPoint && point > startPoint {
     // find the position on the parabola
     let w = frame.width * (endPoint - startPoint)
     let x1 = frame.width * CGFloat(startPoint)
     let c = y
     let b = -4 * frame.height / w
     let a = -b / w
-    let x = frame.width * CGFloat(timePoint) - x1
+    let x = frame.width * CGFloat(point) - x1
     y = a * x * x + b * x + c
   }
 
   return CGPoint(
-    x: frame.origin.x + frame.width * CGFloat(timePoint),
+    x: frame.origin.x + frame.width * CGFloat(point),
     y: y
   )
+}
+
+fileprivate func circlePosition(frame: CGRect, time: Date, timezone: TimeZone?, startTime: Date?, endTime: Date?) -> CGPoint {
+  guard let timePoint = pointFraction(time, timezone) else {
+    // that can't happen
+    return CGPoint(x: 0, y: 0)
+  }
+
+  let startPoint = pointFraction(startTime, timezone)
+  let endPoint = pointFraction(endTime, timezone)
+
+  return pointInFrame(frame: frame, point: timePoint, startPoint: startPoint, endPoint: endPoint)
 }
 
 struct ParabolaLine: Shape {
@@ -77,8 +86,8 @@ struct ParabolaLine: Shape {
     )
 
     guard
-      let startTime = startTime,
-      let endTime = endTime
+      let startPoint = pointFraction(startTime, timezone),
+      let endPoint = pointFraction(endTime, timezone)
     else {
       path.addLine(to: CGPoint(
         x: frame.origin.x + frame.width,
@@ -87,9 +96,6 @@ struct ParabolaLine: Shape {
 
       return path
     }
-
-    let startPoint = point(startTime, timezone)
-    let endPoint = point(endTime, timezone)
 
     path.addLine(to: CGPoint(
       x: frame.origin.x + frame.width * CGFloat(startPoint),
@@ -162,25 +168,61 @@ struct CurrentTimeText: View {
 
   private let font = CPFont.systemFont(ofSize: 18)
 
+  func getSize(_ string: String) -> (height: CGFloat, exact: CGFloat, ceil: CGFloat, floor: CGFloat) {
+    let size = NSString(string: string).size(withAttributes: [NSAttributedString.Key.font: font])
+
+    return (size.height, size.width, ceil(size.width / 10) * 10, floor(size.width / 10) * 10)
+  }
+
   func getPosition(_ frame: CGRect, _ text: String?) -> CGRect {
     guard let string = text else {
       return .zero
     }
 
     let pos = circlePosition(frame: frame, time: now, timezone: timezone, startTime: startTime, endTime: endTime)
-    let size = NSString(string: string).size(withAttributes: [NSAttributedString.Key.font: font])
+    let stringSize = getSize(string)
 
     var x = pos.x
+    var y = pos.y - 25
 
-    if x < frame.width / 2 {
-      x = x - size.width
+    var middle = frame.width / 2
+
+    if
+      let startTime = startTime,
+      let endTime = endTime,
+      let middleFraction = pointFraction(startTime.addingTimeInterval(endTime.timeIntervalSince(startTime) / 2), timezone)
+    {
+      middle = frame.width * middleFraction
+    }
+
+    if x < middle {
+      if x < stringSize.ceil {
+        let rightCorner = stringSize.ceil
+        y = pointInFrame(
+          frame: frame,
+          point: rightCorner / frame.width,
+          startPoint: pointFraction(startTime, timezone),
+          endPoint: pointFraction(endTime, timezone)
+        ).y - 20
+      }
+      x = x - stringSize.exact
+    } else {
+      if x > frame.width - stringSize.floor {
+        let leftCorner = frame.width - stringSize.floor
+        y = pointInFrame(
+          frame: frame,
+          point: leftCorner / frame.width,
+          startPoint: pointFraction(startTime, timezone),
+          endPoint: pointFraction(endTime, timezone)
+        ).y - 20
+      }
     }
 
     return CGRect(
-      x: max(min(x, frame.width - size.width + 7), 0),
-      y: pos.y - 25,
-      width: size.width + 5,
-      height: size.height + 5
+      x: max(min(x, frame.width - stringSize.exact + 5), 0),
+      y: y,
+      width: stringSize.exact + 5,
+      height: stringSize.height + 5
     )
   }
 
