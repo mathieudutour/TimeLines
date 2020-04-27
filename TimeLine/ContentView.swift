@@ -308,7 +308,10 @@ struct ContentView: View {
             self.routeState.navigate(.editContact(contact: nil))
             break
           case .failure(let error):
-            print(error)
+            if let customError = error as? IAPManager.IAPManagerError, customError == .paymentWasCancelled {
+              // don't do anything if it's cancelled
+              return
+            }
             self.showAlert(.cantBuy, withMessage: error.localizedDescription)
           }
         }

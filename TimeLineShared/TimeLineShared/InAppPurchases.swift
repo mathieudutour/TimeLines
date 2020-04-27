@@ -121,10 +121,6 @@ extension IAPManager: SKProductsRequestDelegate {
   public func request(_ request: SKRequest, didFailWithError error: Error) {
     onReceiveProductsHandler?(.failure(.productRequestFailed))
   }
-
-  public func requestDidFinish(_ request: SKRequest) {
-
-  }
 }
 
 extension IAPManager: SKPaymentTransactionObserver {
@@ -148,10 +144,21 @@ extension IAPManager: SKPaymentTransactionObserver {
         totalRestoredPurchases += 1
         SKPaymentQueue.default().finishTransaction(transaction)
       case .failed:
+        #if os(iOS)
+        if let error = transaction.error as? SKError {
+          if error.code != .paymentCancelled {
+            onBuyProductHandler?(.failure(error))
+          } else {
+            onBuyProductHandler?(.failure(IAPManagerError.paymentWasCancelled))
+          }
+          print("IAP Error:", error.localizedDescription)
+        }
+        #else
         if let error = transaction.error {
           onBuyProductHandler?(.failure(error))
           print("IAP Error:", error.localizedDescription)
         }
+        #endif
         SKPaymentQueue.default().finishTransaction(transaction)
       case .deferred, .purchasing: break
       @unknown default: break
