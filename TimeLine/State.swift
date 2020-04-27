@@ -24,18 +24,41 @@ class RouteState: ObservableObject {
   @Published private(set) var route: Route = .list
 
   // derived data
-  @Published var isShowingSheetFromList: Bool = false  {
-     didSet {
-       if !isShowingSheetFromList {
-         if case .list = route {}
-         else {
+  @Published var isShowingSheetFromList: Bool = false {
+    didSet {
+      if isShowingSheetFromList == oldValue {
+        return
+      }
+      if !isShowingSheetFromList {
+        if case .list = route {}
+        else {
           navigate(.list)
-         }
-       }
-     }
-   }
+        }
+      }
+    }
+  }
+  @Published var contactDetailed: Contact? = nil {
+    didSet {
+      if contactDetailed == oldValue {
+        return
+      }
+      if let contact = contactDetailed {
+        if case .contact(_) = route {}
+        else {
+          navigate(.contact(contact: contact))
+        }
+      } else {
+        if case .contact(_) = route {
+          navigate(.list)
+        }
+      }
+    }
+  }
   @Published var isEditing: Bool = false {
     didSet {
+      if isEditing == oldValue {
+        return
+      }
       if !isEditing, case let .editContact(contact) = route {
         if let contactUnwrap = contact {
           navigate(.contact(contact: contactUnwrap))
@@ -48,6 +71,9 @@ class RouteState: ObservableObject {
   @Published private(set) var editingContact: Contact? = nil
   @Published var isShowingTags: Bool = false {
     didSet {
+      if isShowingTags == oldValue {
+        return
+      }
       if !isShowingTags, case .tags = route {
         navigate(.list)
       }
@@ -55,6 +81,9 @@ class RouteState: ObservableObject {
   }
   @Published var isEditingTag: Bool = false {
     didSet {
+      if isEditingTag == oldValue {
+        return
+      }
       if !isEditingTag, case .editTag(_) = route {
         navigate(.tags)
       }
@@ -71,6 +100,15 @@ class RouteState: ObservableObject {
       editingTag = nil
       isShowingTags = false
       isShowingSheetFromList = true
+      contactDetailed = contact
+    } else if case let .contact(contact: contact) = route {
+      isEditing = false
+      editingContact = nil
+      isEditingTag = false
+      editingTag = nil
+      isShowingTags = false
+      isShowingSheetFromList = false
+      contactDetailed = contact
     } else if case let .editTag(tag: tag) = route {
       isEditing = false
       editingContact = nil
@@ -78,6 +116,7 @@ class RouteState: ObservableObject {
       editingTag = tag
       isShowingTags = true
       isShowingSheetFromList = true
+      contactDetailed = nil
     } else if case .tags = route {
       isEditing = false
       editingContact = nil
@@ -85,6 +124,7 @@ class RouteState: ObservableObject {
       editingTag = nil
       isShowingTags = true
       isShowingSheetFromList = true
+      contactDetailed = nil
     } else {
       isEditing = false
       editingContact = nil

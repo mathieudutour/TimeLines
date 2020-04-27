@@ -76,6 +76,16 @@ public class CoreDataManager {
     }
   }
 
+  public func findContact(_ uriRepresentation: String) -> Contact? {
+    guard
+      let url = URL(string: uriRepresentation),
+      let objectID = persistentContainer.persistentStoreCoordinator.managedObjectID(forURIRepresentation: url)
+    else {
+      return nil
+    }
+    return viewContext.object(with: objectID) as? Contact
+  }
+
   @discardableResult
   public func createContact(name: String, latitude: Double, longitude: Double, locationName: String, timezone: Int16, startTime: Date?, endTime: Date?, tags: NSSet?, favorite: Bool) -> Contact? {
     let index = self.count()

@@ -25,7 +25,7 @@ struct WidgetView : View {
     List {
       ForEach(contacts, id: \.self) { (contact: Contact) in
         Button(action: {
-          guard let url = URL(string: "timelines://contact/\(contact.name ?? "")") else {
+          guard let url = URL(string: "timelines://contact/\(contact.objectID.uriRepresentation())") else {
             return
           }
           self.extensionContext?.open(url)

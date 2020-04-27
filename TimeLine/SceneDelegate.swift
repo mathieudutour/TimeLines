@@ -9,6 +9,7 @@
 import UIKit
 import SwiftUI
 import TimeLineShared
+import CoreData
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -34,7 +35,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   }
 
   func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-    // TODO: navigate to contact when receiving timelines://contact/CONTACT_NAME
+    URLContexts.forEach { urlContext in
+      switch urlContext.url.host {
+      case "contact":
+        let objectIDString = urlContext.url.path.replacingOccurrences(of: "/", with: "", options: .anchored)
+
+        if let contact = CoreDataManager.shared.findContact(objectIDString) {
+          RouteState.shared.navigate(.contact(contact: contact))
+        } else {
+          RouteState.shared.navigate(.list)
+        }
+        break
+      default: break
+      }
+    }
   }
 
   func sceneDidDisconnect(_ scene: UIScene) {

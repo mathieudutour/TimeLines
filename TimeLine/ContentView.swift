@@ -69,8 +69,8 @@ struct BindedContactRow: View {
   @Binding var search: String
   @Binding var searchTokens: [Tag]
 
-  var body: some View {
-    NavigationLink(destination: ContactDetails(contact: contact, onSelectTag: { tag, presentationMode in
+  var destination: some View {
+    ContactDetails(contact: contact, onSelectTag: { tag, presentationMode in
       self.searchTokens = [tag]
       self.search = ""
       presentationMode.dismiss()
@@ -83,7 +83,11 @@ struct BindedContactRow: View {
       .padding(.init(top: 10, leading: 15, bottom: 10, trailing: 15))
       .background(Color(UIColor.systemBackground))
       .cornerRadius(5)
-    })) {
+    })
+  }
+
+  var body: some View {
+    NavigationLink(destination: destination, tag: contact, selection: $routeState.contactDetailed) {
       ContactRow(
         name: contact.name ?? "",
         timezone: contact.timeZone,
