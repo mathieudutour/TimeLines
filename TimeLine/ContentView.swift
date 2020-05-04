@@ -45,12 +45,14 @@ extension View {
 struct MeRow: View {
   @Environment(\.editMode) var editMode
 
+  var contacts: FetchedResults<Contact>
+
   private let currentTimeZone = TimeZone.autoupdatingCurrent
   private let roughLocation = TimeZone.autoupdatingCurrent.roughLocation
 
   var body: some View {
     Group {
-      if editMode?.wrappedValue == EditMode.inactive {
+      if editMode?.wrappedValue == EditMode.inactive || contacts.count == 0 {
         ContactRow(
           name: "Me",
           timezone: currentTimeZone,
@@ -71,9 +73,10 @@ struct BindedContactRow: View {
 
   var destination: some View {
     ContactDetails(contact: contact, onSelectTag: { tag, presentationMode in
+      self.routeState.navigate(.list)
+      presentationMode.dismiss()
       self.searchTokens = [tag]
       self.search = ""
-      presentationMode.dismiss()
     }, editView: {
       Button(action: {
         self.routeState.navigate(.editContact(contact: self.contact))
@@ -144,7 +147,7 @@ struct ContentView: View {
           addNewContact.foregroundColor(Color(UIColor.secondaryLabel))
         }
 
-        MeRow()
+        MeRow(contacts: contacts)
 
         ForEach(contacts.filter { filterContact($0) }, id: \Contact.name) { (contact: Contact) in
           BindedContactRow(contact: contact, search: self.$search, searchTokens: self.$searchTokens)

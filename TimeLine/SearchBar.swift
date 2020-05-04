@@ -80,7 +80,7 @@ struct SearchBar: UIViewRepresentable {
     bar.returnKeyType = .next
     bar.searchBarStyle = .minimal
 
-    accessory.frame = CGRect(x: 0, y: 0, width: 100, height: 45)
+    accessory.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 45)
 
     bar.inputAccessoryView = accessory
 
