@@ -227,7 +227,7 @@ struct ContactEdition: View {
       contact.latitude = location?.latitude ?? 0
       contact.longitude = location?.longitude ?? 0
       contact.locationName = locationText
-      contact.timezone = Int16(timezone?.secondsFromGMT() ?? 0)
+      contact.timezone = Int32(timezone?.secondsFromGMT() ?? 0)
       contact.startTime = customStartTime ? startTime.addingTimeInterval(TimeInterval(TimeZone.autoupdatingCurrent.secondsFromGMT())) : nil
       contact.endTime = customEndTime ? endTime.addingTimeInterval(TimeInterval(TimeZone.autoupdatingCurrent.secondsFromGMT())) : nil
       contact.tags = NSSet(array: tags)
@@ -239,7 +239,7 @@ struct ContactEdition: View {
         latitude: location?.latitude ?? 0,
         longitude: location?.longitude ?? 0,
         locationName: locationText,
-        timezone: Int16(timezone?.secondsFromGMT() ?? 0),
+        timezone: Int32(timezone?.secondsFromGMT() ?? 0),
         startTime: customStartTime ? startTime : nil,
         endTime: customEndTime ? endTime : nil,
         tags: NSSet(array: tags),

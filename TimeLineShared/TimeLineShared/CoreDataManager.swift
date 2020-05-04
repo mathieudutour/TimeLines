@@ -87,7 +87,7 @@ public class CoreDataManager {
   }
 
   @discardableResult
-  public func createContact(name: String, latitude: Double, longitude: Double, locationName: String, timezone: Int16, startTime: Date?, endTime: Date?, tags: NSSet?, favorite: Bool) -> Contact? {
+  public func createContact(name: String, latitude: Double, longitude: Double, locationName: String, timezone: Int32, startTime: Date?, endTime: Date?, tags: NSSet?, favorite: Bool) -> Contact? {
     let index = self.count()
     let context = persistentContainer.viewContext
     let contact = NSEntityDescription.insertNewObject(forEntityName: "Contact", into: context) as! Contact

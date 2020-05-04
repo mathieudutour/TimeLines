@@ -29,7 +29,7 @@ public extension Contact {
         let timezone = placemarks[0].timeZone,
         timezone.secondsFromGMT() != Int(self.timezone)
       {
-        self.timezone = Int16(timezone.secondsFromGMT())
+        self.timezone = Int32(timezone.secondsFromGMT())
       }
     }
   }
