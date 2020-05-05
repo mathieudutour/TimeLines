@@ -12,6 +12,7 @@ import MapKit
 
 struct AutoFocusTextField: NSViewRepresentable {
   var placeholder: String?
+  @Binding var error: String?
   @Binding var text: String
   @Binding var matchingItems: [MKLocalSearchCompletion]
 
@@ -51,17 +52,24 @@ struct AutoFocusTextField: NSViewRepresentable {
 
     // MARK: - MKLocalSearchCompleterDelegate
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
+      parent.error = nil
       parent.matchingItems = completer.results
     }
     func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
       print(error)
+      parent.error = error.localizedDescription
     }
 
     // MARK: - NSTextFieldDelegate
     func controlTextDidChange(_ notification: Notification) {
       if let textField = notification.object as? NSTextField {
         parent.text = textField.stringValue
-        searchCompleter.queryFragment = textField.stringValue
+        if textField.stringValue.count > 0 {
+          searchCompleter.queryFragment = textField.stringValue
+        } else {
+          parent.error = nil
+          parent.matchingItems = []
+        }
       }
     }
   }

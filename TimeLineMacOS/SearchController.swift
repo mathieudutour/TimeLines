@@ -61,6 +61,7 @@ struct SearchController<Result>: View where Result: View {
 
   @ObservedObject var matchingItems: ObservableArray<MKLocalSearchCompletion> = ObservableArray(array: [])
   @State private var searchText = ""
+  @State private var error: String? = "error"
 
   var body: some View {
     VStack {
@@ -68,7 +69,7 @@ struct SearchController<Result>: View where Result: View {
       HStack {
         ZStack(alignment: .leading) {
 
-          AutoFocusTextField(placeholder: "Location", text: $searchText, matchingItems: $matchingItems.array)
+          AutoFocusTextField(placeholder: "Location", error: $error, text: $searchText, matchingItems: $matchingItems.array)
           .foregroundColor(.primary)
           .padding(.leading, 18)
 
@@ -100,6 +101,13 @@ struct SearchController<Result>: View where Result: View {
       GeometryReader { p in
         ScrollView(.vertical, showsIndicators: false) {
           VStack() {
+            if self.error != nil {
+              HStack {
+                Text(self.error ?? "").padding().foregroundColor(.red)
+                Spacer()
+              }
+              Divider()
+            }
             ForEach(self.matchingItems.array, id:\.self) {
               searchText in
               VStack {

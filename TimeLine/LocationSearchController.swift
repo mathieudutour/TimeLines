@@ -10,12 +10,13 @@ import MapKit
 
 struct LocationSearchController: UIViewControllerRepresentable {
   @State var matchingItems: [MKLocalSearchCompletion] = []
+  @State var error: String? = nil
 
   var searchBarPlaceholder: String
   var resultView: (_ mapItem: MKLocalSearchCompletion) -> Button<Text>
 
   func makeUIViewController(context: Context) -> UINavigationController {
-    let contentViewController = UIHostingController(rootView: LocationSearchResultView(result: $matchingItems, content: resultView))
+    let contentViewController = UIHostingController(rootView: LocationSearchResultView(result: $matchingItems, error: $error, content: resultView))
     let navigationController = UINavigationController(rootViewController: contentViewController)
 
     let searchController = UISearchController(searchResultsController: nil)
@@ -58,16 +59,23 @@ class LocationSearchControllerCoordinator: NSObject, UISearchResultsUpdating, UI
 
   // MARK: - UISearchResultsUpdating
   func updateSearchResults(for searchController: UISearchController) {
-    searchCompleter.queryFragment = searchController.searchBar.text ?? ""
+    guard let text = searchController.searchBar.text, text.count > 0 else {
+      self.parent.error = nil
+      self.parent.matchingItems = []
+      return
+    }
+    searchCompleter.queryFragment = text
   }
 
   // MARK: - UISearchBarDelegate
   func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-    searchCompleter.queryFragment = ""
+    self.parent.error = nil
+    self.parent.matchingItems = []
   }
 
   func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-    searchCompleter.queryFragment = ""
+    self.parent.error = nil
+    self.parent.matchingItems = []
     return true
   }
 
@@ -80,7 +88,12 @@ class LocationSearchControllerCoordinator: NSObject, UISearchResultsUpdating, UI
 
   // MARK: - MKLocalSearchCompleterDelegate
   func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
+    self.parent.error = nil
     self.parent.matchingItems = completer.results
+  }
+
+  func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
+    self.parent.error = error.localizedDescription
   }
 }
 
@@ -93,15 +106,20 @@ extension LocationSearchController {
 // "nofity" the result content about the searchText
 struct LocationSearchResultView<Content: View>: View {
   @Binding var matchingItems: [MKLocalSearchCompletion]
+  @Binding var error: String?
   private var content: (_ mapItem: MKLocalSearchCompletion) -> Content
 
-  init(result matchingItems: Binding<[MKLocalSearchCompletion]>, @ViewBuilder content: @escaping (_ mapItem: MKLocalSearchCompletion) -> Content) {
+  init(result matchingItems: Binding<[MKLocalSearchCompletion]>, error: Binding<String?>, @ViewBuilder content: @escaping (_ mapItem: MKLocalSearchCompletion) -> Content) {
     self._matchingItems = matchingItems
+    self._error = error
     self.content = content
   }
 
   var body: some View {
     List {
+      if error != nil {
+        Text(error ?? "").foregroundColor(.red)
+      }
       ForEach(matchingItems, id: \.self) { (item: MKLocalSearchCompletion) in
         self.content(item)
       }
