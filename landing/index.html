@@ -54,6 +54,7 @@
         justify-content: center;
         align-items: center;
         flex-flow: row-reverse;
+        min-height: 100vh;
       }
 
       .illustration {
@@ -121,7 +122,7 @@
       .app_screen {
         width: 300px;
         height: 568px;
-        background: black;
+        background: #ff2d00;
         border-radius: 16px;
         box-shadow: 64px 64px 144px rgba(0, 0, 0, 0.2);
       }
@@ -176,6 +177,32 @@
         box-shadow: 32px 32px 96px rgba(0, 0, 0, 0.1);
         cursor: pointer;
         margin-top: 20px;
+      }
+
+      .features {
+        display: flex;
+        max-width: 900px;
+        margin: auto;
+        flex-wrap: wrap;
+      }
+
+      .feature {
+        margin: 100px 20px;
+        padding: 20px;
+        flex: 1 1 0px;
+        background: white;
+        border-radius: 16px;
+        box-shadow: 32px 32px 96px rgba(0, 0, 0, 0.1);
+      }
+
+      .feature img {
+        width: 100px;
+        display: block;
+        margin: auto;
+      }
+
+      .feature h2 {
+        text-align: center;
       }
 
       @media (max-width: 1024px) {
@@ -462,6 +489,29 @@
         </svg>
       </div>
     </main>
+    <section class="features">
+      <div class="feature">
+        <img src="innovative view.svg" alt="Innovative View" />
+        <h2>Innovative quick glance overview</h2>
+        <p>Know what time of the day it is anywhere in the world.</p>
+      </div>
+      <div class="feature">
+        <img src="sync.svg" alt="Sync with iCloud" />
+        <h2>Sync across all your devices</h2>
+        <p>
+          Seamless synchronisation between your phone, laptop, and watch using
+          iCloud.
+        </p>
+      </div>
+      <div class="feature">
+        <img src="no spy.svg" alt="100% tracking-free" />
+        <h2>100%<br />tracking-free</h2>
+        <p>
+          Your data are yours only. If you use and enjoy the app, tell us, we
+          won't know otherwise!
+        </p>
+      </div>
+    </section>
     <footer>
       <div>
         Made with ♡ by
