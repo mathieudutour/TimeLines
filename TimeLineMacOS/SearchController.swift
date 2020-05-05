@@ -61,7 +61,7 @@ struct SearchController<Result>: View where Result: View {
 
   @ObservedObject var matchingItems: ObservableArray<MKLocalSearchCompletion> = ObservableArray(array: [])
   @State private var searchText = ""
-  @State private var error: String? = "error"
+  @State private var error: String? = nil
 
   var body: some View {
     VStack {
