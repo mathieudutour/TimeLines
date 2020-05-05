@@ -10,7 +10,7 @@ Time Lines is a practical app to know <strong><em>when</em></strong> all your fr
 - Completely private - your data are yours only
 - Innovative line overview of the day, aligned with the sunrise and sunset
 
-[![Download on the App Store](./assets/as-button.png)](https://testflight.apple.com/join/bE2a0E8C)
+[![Download on the App Store](./assets/as-button.png)](https://apps.apple.com/app/time-lines-world-clock/id1506203873)
 [![Download on the Mac App Store](./assets/mas-button.png)](https://apps.apple.com/app/time-lines-world-clock/id1506203873)
 
 ## Inspiration
