@@ -211,6 +211,8 @@ struct ContactEdition: View {
       }
     } else if didUpdateUser() {
       self.updateContact()
+    } else {
+      showingEdit = false
     }
   }
 
@@ -221,8 +223,8 @@ struct ContactEdition: View {
       contact.longitude = location.longitude
       contact.locationName = locationText
       contact.timezone = Int32(timezone?.secondsFromGMT() ?? 0)
-      contact.startTime = customStartTime ? startTime : nil
-      contact.endTime = customEndTime ? endTime : nil
+      contact.startTime = customStartTime ? startTime.addingTimeInterval(TimeInterval(TimeZone.autoupdatingCurrent.secondsFromGMT())) : nil
+      contact.endTime = customEndTime ? endTime.addingTimeInterval(TimeInterval(TimeZone.autoupdatingCurrent.secondsFromGMT())) : nil
       contact.favorite = favorite
       CoreDataManager.shared.saveContext()
     } else {
