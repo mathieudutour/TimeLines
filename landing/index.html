@@ -190,7 +190,9 @@
       .feature {
         margin: 100px 20px;
         padding: 20px;
-        flex: 1 1 0px;
+        flex: 1;
+        flex-grow: 0;
+        max-width: 300px;
         background: white;
         border-radius: 16px;
         box-shadow: 32px 32px 96px rgba(0, 0, 0, 0.1);
@@ -227,6 +229,25 @@
         .watch_screen {
           box-shadow: 48px 48px 96px rgba(0, 0, 0, 0.1);
           right: -20px;
+        }
+      }
+
+      @media (max-width: 856px) {
+        .features {
+          flex-direction: column;
+        }
+
+        .feature {
+          margin-top: 0px;
+          margin-bottom: 0px;
+        }
+
+        .feature + .feature {
+          margin-top: 30px;
+        }
+
+        footer {
+          margin-top: 50px;
         }
       }
 
