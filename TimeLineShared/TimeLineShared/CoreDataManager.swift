@@ -9,6 +9,8 @@
 import CoreData
 import SwiftUI
 
+public let NO_VALUE = "__no_value__"
+
 public class CoreDataManager {
 
   public static let shared = CoreDataManager()
@@ -84,6 +86,54 @@ public class CoreDataManager {
       return nil
     }
     return viewContext.object(with: objectID) as? Contact
+  }
+
+  public func findContact(withName name: String) -> Contact? {
+    let context = persistentContainer.viewContext
+    let fetchRequest = NSFetchRequest<Contact>(entityName: "Contact")
+    fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \Contact.index, ascending: true)]
+    fetchRequest.predicate = NSPredicate(format: "name == %@", name)
+
+    do {
+      let contacts = try context.fetch(fetchRequest)
+
+      return contacts.first
+    } catch let fetchErr {
+      print("❌ Failed to fetch Contact:", fetchErr)
+      return nil
+    }
+  }
+
+  public func findTag(_ name: String) -> Tag? {
+    let context = persistentContainer.viewContext
+    let fetchRequest = NSFetchRequest<Tag>(entityName: "Tag")
+    fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \Tag.name, ascending: true)]
+    fetchRequest.predicate = NSPredicate(format: "name == %@", name)
+
+    do {
+      let tags = try context.fetch(fetchRequest)
+
+      return tags.first
+    } catch let fetchErr {
+      print("❌ Failed to fetch Tag:", fetchErr)
+      return nil
+    }
+  }
+
+  public func findTags(_ names: [String]) -> [Tag] {
+    let context = persistentContainer.viewContext
+    let fetchRequest = NSFetchRequest<Tag>(entityName: "Tag")
+    fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \Tag.name, ascending: true)]
+    fetchRequest.predicate = NSPredicate(format: "name IN %@", names)
+
+    do {
+      let tags = try context.fetch(fetchRequest)
+
+      return tags
+    } catch let fetchErr {
+      print("❌ Failed to fetch Tags:", fetchErr)
+      return []
+    }
   }
 
   @discardableResult
@@ -207,7 +257,22 @@ public class CoreDataManager {
 
       return contacts
     } catch let fetchErr {
-      print("❌ Failed to fetch Contact:",fetchErr)
+      print("❌ Failed to fetch Contacts:", fetchErr)
+      return []
+    }
+  }
+
+  public func fetchTags() -> [Tag] {
+    let context = persistentContainer.viewContext
+    let fetchRequest = NSFetchRequest<Tag>(entityName: "Tag")
+    fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \Tag.name, ascending: true)]
+
+    do {
+      let tags = try context.fetch(fetchRequest)
+
+      return tags
+    } catch let fetchErr {
+      print("❌ Failed to fetch Tags:", fetchErr)
       return []
     }
   }

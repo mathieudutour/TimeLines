@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		035977A92452D2B10056732F /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035977A82452D2B10056732F /* SearchBar.swift */; };
+		03A0C4B224692D63008B5A64 /* WatchHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A0C4B124692D63008B5A64 /* WatchHandler.swift */; };
 		03B82ED92454B36C002DA493 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B82ED82454B36C002DA493 /* State.swift */; };
 		03B82EDB245587C1002DA493 /* Tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B82EDA245587C1002DA493 /* Tags.swift */; };
 		03B82EDD24558EAE002DA493 /* TagEdition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B82EDC24558EAD002DA493 /* TagEdition.swift */; };
@@ -193,6 +194,7 @@
 
 /* Begin PBXFileReference section */
 		035977A82452D2B10056732F /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		03A0C4B124692D63008B5A64 /* WatchHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchHandler.swift; sourceTree = "<group>"; };
 		03B82ED82454B36C002DA493 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		03B82EDA245587C1002DA493 /* Tags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tags.swift; sourceTree = "<group>"; };
 		03B82EDC24558EAD002DA493 /* TagEdition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagEdition.swift; sourceTree = "<group>"; };
@@ -434,6 +436,7 @@
 				03D633AF24361C5D00F8D2CE /* TimeLine.entitlements */,
 				03D6335C2436149700F8D2CE /* AppDelegate.swift */,
 				03D6335E2436149700F8D2CE /* SceneDelegate.swift */,
+				03A0C4B124692D63008B5A64 /* WatchHandler.swift */,
 				03B82ED82454B36C002DA493 /* State.swift */,
 				03D633632436149700F8D2CE /* ContentView.swift */,
 				03D633BD24362B8900F8D2CE /* ContactEdition.swift */,
@@ -810,6 +813,7 @@
 				03D633C02436343700F8D2CE /* LocationSearchController.swift in Sources */,
 				03D633642436149700F8D2CE /* ContentView.swift in Sources */,
 				03D6335F2436149700F8D2CE /* SceneDelegate.swift in Sources */,
+				03A0C4B224692D63008B5A64 /* WatchHandler.swift in Sources */,
 				03B82EDB245587C1002DA493 /* Tags.swift in Sources */,
 				03DCC2C22451CE98000D0B94 /* ActivityIndicator.swift in Sources */,
 				03B82EDD24558EAE002DA493 /* TagEdition.swift in Sources */,

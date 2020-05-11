@@ -14,6 +14,7 @@ import TimeLineShared
 class AppDelegate: UIResponder, UIApplicationDelegate {
   var iapManager: IAPManager?
   var container: NSManagedObjectContext?
+  var watchHandler: WatchHandler?
   var state: RouteState?
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -21,6 +22,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     IAPManager.shared.startObserving()
     state = RouteState.shared
     container = CoreDataManager.shared.viewContext
+    watchHandler = WatchHandler.shared
+
+    if !(watchHandler?.isSuported() ?? false) {
+      print("WCSession not supported (f.e. on iPad).")
+    }
+
     return true
   }
 
