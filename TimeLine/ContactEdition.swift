@@ -116,7 +116,7 @@ struct ContactEdition: View {
           }
         }
 
-        Section(footer: Text("A time line will show the sunrise and sunset times at the location of the contact by default. You can customize those times if you'd like to show working hours for example.")) {
+        Section(footer: Text("A time line will show the dawn and twilight times at the location of the contact by default. You can customize those times if you'd like to show working hours for example.")) {
           CustomTimePicker(text: "Customize rise time", custom: $customStartTime, time: $startTime)
           CustomTimePicker(text: "Customize set time", custom: $customEndTime, time: $endTime)
         }

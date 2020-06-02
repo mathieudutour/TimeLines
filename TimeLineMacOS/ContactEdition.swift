@@ -136,7 +136,7 @@ struct ContactEdition: View {
           Spacer()
         }
 
-        Text("A time line will show the sunrise and sunset times at the location of the contact by default. You can customize those times if you'd like to show working hours for example.")
+        Text("A time line will show the dawn and twilight times at the location of the contact by default. You can customize those times if you'd like to show working hours for example.")
           .padding(.top, 50)
           .foregroundColor(Color.secondary)
         CustomTimePicker(text: "Customize rise time", custom: $customStartTime, time: $startTime)
