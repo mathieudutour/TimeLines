@@ -350,30 +350,38 @@ struct CurrentTimeText: View {
 
     if x < middle {
       if x < stringSize.ceil {
-        let rightCorner = stringSize.ceil
-        y = pointInFrame(
-          frame: frame,
-          point: rightCorner / frame.width,
-          timezone: timezone,
-          startTime: startTime,
-          endTime: endTime,
-          preSunset: preSunset,
-          postSunrise: postSunrise
-        ).y - 20
+        if preSunset != nil || (startTime != nil && !cal.isDateInToday(startTime!)) {
+          y = frame.origin.y - 25
+        } else {
+          let rightCorner = stringSize.ceil
+          y = pointInFrame(
+            frame: frame,
+            point: rightCorner / frame.width,
+            timezone: timezone,
+            startTime: startTime,
+            endTime: endTime,
+            preSunset: preSunset,
+            postSunrise: postSunrise
+          ).y - 20
+        }
       }
       x = x - stringSize.exact
     } else {
       if x > frame.width - stringSize.floor {
-        let leftCorner = frame.width - stringSize.floor
-        y = pointInFrame(
-          frame: frame,
-          point: leftCorner / frame.width,
-          timezone: timezone,
-          startTime: startTime,
-          endTime: endTime,
-          preSunset: preSunset,
-          postSunrise: postSunrise
-        ).y - 20
+        if postSunrise != nil || (endTime != nil && !cal.isDateInToday(endTime!)) {
+          y = frame.origin.y - 25
+        } else {
+          let leftCorner = frame.width - stringSize.floor
+          y = pointInFrame(
+            frame: frame,
+            point: leftCorner / frame.width,
+            timezone: timezone,
+            startTime: startTime,
+            endTime: endTime,
+            preSunset: preSunset,
+            postSunrise: postSunrise
+          ).y - 20
+        }
       }
     }
 

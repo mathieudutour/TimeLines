@@ -57,30 +57,6 @@ class HostingController: WKHostingController<WrapperView> {
       print("iPhone is not reachable!!")
       return
     }
-
-//    let serializedContacts = contacts.map({ contact in
-//      [
-//        "latitude": contact.latitude,
-//        "longitude": contact.longitude,
-//        "timezone": contact.timezone,
-//        "name": contact.name ?? "__no_value__",
-//        "locationName": contact.locationName ?? "__no_value__",
-//        "startTime": contact.startTime ?? "__no_value__",
-//        "endTime": contact.endTime ?? "__no_value__",
-//        "favorite": contact.favorite,
-//        "index": contact.index,
-//        "tags": ((contact.tags?.allObjects ?? []) as [Tag]).map { $0.name ?? "__no_value__" }
-//      ]
-//    })
-//    let serializedTags = tags.map({ tag in
-//      [
-//        "name": tag.name ?? "__no_value__",
-//        "red": tag.red,
-//        "green": tag.green,
-//        "blue": tag.blue,
-//      ]
-//    })
-
     
     session.sendMessage(["request" : "contacts"], replyHandler: { (response) in
       if let tags = response["tags"] as? [[String: Any]] {

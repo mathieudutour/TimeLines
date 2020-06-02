@@ -28,7 +28,7 @@ public struct ContactRow: View {
     VStack {
       HStack {
         Text(name)
-          .font(.system(size: 28))
+          .font(.system(size: 20))
           .lineLimit(1)
         Spacer()
         Text(timezone?.prettyPrintTimeDiff() ?? "")
