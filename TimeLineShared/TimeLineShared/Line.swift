@@ -42,10 +42,10 @@ fileprivate func pointInFrame(frame: CGRect, point: CGFloat, timezone: TimeZone?
     )
   }
 
-  if !cal.isDateInToday(startTime!) {
+  if !startTime!.isToday(timezone) {
     startPoint -= 1
   }
-  if !cal.isDateInToday(endTime!) {
+  if !endTime!.isToday(timezone) {
     endPoint += 1
   }
 
@@ -133,10 +133,10 @@ struct ParabolaLine: Shape {
       return path
     }
 
-    if !cal.isDateInToday(startTime!) {
+    if !startTime!.isToday(timezone) {
       startPoint -= 1
     }
-    if !cal.isDateInToday(endTime!) {
+    if !endTime!.isToday(timezone) {
       endPoint += 1
     }
 
@@ -350,7 +350,7 @@ struct CurrentTimeText: View {
 
     if x < middle {
       if x < stringSize.ceil {
-        if preSunset != nil || (startTime != nil && !cal.isDateInToday(startTime!)) {
+        if preSunset != nil || (startTime != nil && !startTime!.isToday(timezone)) {
           y = frame.origin.y - 25
         } else {
           let rightCorner = stringSize.ceil
@@ -368,7 +368,7 @@ struct CurrentTimeText: View {
       x = x - stringSize.exact
     } else {
       if x > frame.width - stringSize.floor {
-        if postSunrise != nil || (endTime != nil && !cal.isDateInToday(endTime!)) {
+        if postSunrise != nil || (endTime != nil && !endTime!.isToday(timezone)) {
           y = frame.origin.y - 25
         } else {
           let leftCorner = frame.width - stringSize.floor
@@ -456,7 +456,7 @@ public struct Line: View {
     var postSunrise: Date? = nil
     var preSunset: Date? = nil
 
-    if start != nil && !cal.isDateInToday(start!) {
+    if start != nil && !start!.isToday(timezone) {
       // that means the sunrise was yesterday, and that there will be another one
       // sometimes tonight
       // so we try to get the sunrise of tomorrow which should be the one of tonight
@@ -465,7 +465,7 @@ public struct Line: View {
       postSunrise = tomorrowSolar?.civilSunrise
     }
 
-    if end != nil && !cal.isDateInToday(end!) {
+    if end != nil && !end!.isToday(timezone) {
       // that means the sunset is tomorrow, and that there was be another one
       // sometimes this morning
       // so we try to get the sunset of yesterday which should be the one of this morning

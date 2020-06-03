@@ -26,4 +26,11 @@ public extension Date {
   func staticTime(_ timezone: TimeZone?) -> Date {
     return self.inTodaysTime().addingTimeInterval(-TimeInterval(timezone?.secondsFromGMT() ?? 0))
   }
+
+  func isToday(_ timezone: TimeZone?) -> Bool {
+    return cal.isDateInToday(self
+      .addingTimeInterval(TimeInterval(timezone?.secondsFromGMT() ?? 0))
+      .addingTimeInterval(-TimeInterval(TimeZone.current.secondsFromGMT()))
+    )
+  }
 }
