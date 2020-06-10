@@ -155,8 +155,39 @@ struct KeyboardAvoiderModifier: ViewModifier {
   }
 }
 
+extension UIApplication {
+  func endEditing(_ force: Bool) {
+    self.windows
+      .filter{$0.isKeyWindow}
+      .first?
+      .endEditing(force)
+  }
+}
+
+struct ResignKeyboardOnDragGesture: ViewModifier {
+  @Environment(\.editMode) var editMode
+
+  var gesture = DragGesture().onChanged{_ in
+    UIApplication.shared.endEditing(true)
+  }
+
+  func body(content: Content) -> some View {
+    Group {
+      if editMode?.wrappedValue == EditMode.inactive {
+        content.gesture(gesture)
+      } else {
+        content
+      }
+    }
+  }
+}
+
 extension View {
   func keyboardAdaptive() -> some View {
     self.modifier(KeyboardAvoiderModifier())
+  }
+
+  func resignKeyboardOnDragGesture() -> some View {
+    return modifier(ResignKeyboardOnDragGesture())
   }
 }

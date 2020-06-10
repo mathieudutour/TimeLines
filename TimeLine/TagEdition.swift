@@ -66,7 +66,6 @@ struct TagEdition: View {
                 })
               )
           }
-
         }
       }
       .listStyle(GroupedListStyle())
