@@ -86,6 +86,13 @@ public struct App {
   }()
 
   public static var feedbackPage: URL = {
+    #if os(iOS)
+      let osName = "iOS"
+    #elseif os(watchOS)
+      let osName = "watchOS"
+    #else
+      let osName = "macOS"
+    #endif
     let metadata =
       """
 
@@ -93,8 +100,9 @@ public struct App {
 
       ---
       \(App.name) \(App.versionWithBuild) - \(App.id)
-      macOS \(System.osVersion)
+      \(osName) \(System.osVersion)
       \(System.hardwareModel)
+      Timezone \(TimeZone.autoupdatingCurrent.identifier)
       """
 
     let query: [String: String] = [

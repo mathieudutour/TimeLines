@@ -517,13 +517,19 @@ public struct Line: View {
 }
 
 public struct Line_Previews: PreviewProvider {
+
   public static var previews: some View {
-    Group {
+    let customDate = Date().addingTimeInterval(9 * 3600)
+    CurrentTime.shared.customTime(customDate)
+    return Group {
       Line(coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0), timezone: TimeZone(secondsFromGMT: 0), startTime: Date(timeIntervalSince1970: 16000))
       Line(coordinate: CLLocationCoordinate2D(latitude: 10, longitude: 10), timezone: TimeZone(secondsFromGMT: 3600))
       Line(coordinate: CLLocationCoordinate2D(latitude: 45, longitude: 45), timezone: TimeZone(secondsFromGMT: 9200))
       Line(coordinate: CLLocationCoordinate2D(latitude: 45, longitude: -70), timezone: TimeZone(secondsFromGMT: -14000))
       Line(coordinate: CLLocationCoordinate2D(latitude: 80, longitude: 80), timezone: TimeZone(secondsFromGMT: -8000))
+
+      // https://github.com/mathieudutour/TimeLines/issues/39
+      Line(coordinate: CLLocationCoordinate2D(latitude: 43.05, longitude: -87.95), timezone: TimeZone(secondsFromGMT: -5 * 3600))
     }
     .previewLayout(.fixed(width: 300, height: 80))
   }
