@@ -448,7 +448,7 @@ public struct Line: View {
   }
 
   public var body: some View {
-    let solar = startTime == nil && endTime == nil && coordinate != nil ? Solar(coordinate: coordinate!) : nil
+    let solar = (startTime == nil || endTime == nil) && coordinate != nil ? Solar(coordinate: coordinate!) : nil
 
     var start = startTime?.staticTime(timezone) ?? solar?.civilSunrise
     var end = endTime?.staticTime(timezone) ?? solar?.civilSunset
