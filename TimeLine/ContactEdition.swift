@@ -222,14 +222,16 @@ struct ContactEdition: View {
   }
 
   func updateContact() {
+    let resolvedStartTime = customStartTime ? startTime.addingTimeInterval(TimeInterval(TimeZone.autoupdatingCurrent.secondsFromGMT())) : nil
+    let resolvedEndTime = customEndTime ? endTime.addingTimeInterval(TimeInterval(TimeZone.autoupdatingCurrent.secondsFromGMT())) : nil
     if let contact = contact {
       contact.name = contactName
       contact.latitude = location?.latitude ?? 0
       contact.longitude = location?.longitude ?? 0
       contact.locationName = locationText
       contact.timezone = Int32(timezone?.secondsFromGMT() ?? 0)
-      contact.startTime = customStartTime ? startTime.addingTimeInterval(TimeInterval(TimeZone.autoupdatingCurrent.secondsFromGMT())) : nil
-      contact.endTime = customEndTime ? endTime.addingTimeInterval(TimeInterval(TimeZone.autoupdatingCurrent.secondsFromGMT())) : nil
+      contact.startTime = resolvedStartTime
+      contact.endTime = resolvedEndTime
       contact.tags = NSSet(array: tags)
       contact.favorite = favorite
       CoreDataManager.shared.saveContext()
@@ -240,8 +242,8 @@ struct ContactEdition: View {
         longitude: location?.longitude ?? 0,
         locationName: locationText,
         timezone: Int32(timezone?.secondsFromGMT() ?? 0),
-        startTime: customStartTime ? startTime : nil,
-        endTime: customEndTime ? endTime : nil,
+        startTime: resolvedStartTime,
+        endTime: resolvedEndTime,
         tags: NSSet(array: tags),
         favorite: favorite
       )

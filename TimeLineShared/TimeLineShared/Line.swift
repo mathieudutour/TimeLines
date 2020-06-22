@@ -17,21 +17,20 @@ import CoreLocation
   public typealias CPFont = NSFont
 #endif
 
-fileprivate let cal = Calendar(identifier: .gregorian)
-
 fileprivate func pointFraction(_ date: Date?, _ timezone: TimeZone?) -> CGFloat? {
   guard let date = date else {
     return nil
   }
-  let inTZ = date.inTimeZone(timezone)
-  return CGFloat(inTZ.timeIntervalSince(cal.startOfDay(for: inTZ)) / (3600 * 24))
+  return CGFloat(date.fractionOfToday(timezone))
 }
 
 fileprivate let defaultLineWidth: CGFloat = 2
 fileprivate let defaultMaxHeight: CGFloat = 25
 
-fileprivate func pointInFrame(frame: CGRect, point: CGFloat, timezone: TimeZone?, startTime: Date?, endTime: Date?, preSunset: Date?, postSunrise: Date?) -> CGPoint {
+fileprivate func pointInFrame(frame: CGRect, point: CGFloat, now: Date, timezone: TimeZone?, startTime: Date?, endTime: Date?, preSunset: Date?, postSunrise: Date?) -> CGPoint {
   guard
+    let startTime = startTime,
+    let endTime = endTime,
     var startPoint = pointFraction(startTime, timezone),
     var endPoint = pointFraction(endTime, timezone)
   else {
@@ -42,10 +41,10 @@ fileprivate func pointInFrame(frame: CGRect, point: CGFloat, timezone: TimeZone?
     )
   }
 
-  if !startTime!.isToday(timezone) {
+  if !startTime.isSameDay(now, timezone) {
     startPoint -= 1
   }
-  if !endTime!.isToday(timezone) {
+  if !endTime.isSameDay(now, timezone) {
     endPoint += 1
   }
 
@@ -102,10 +101,11 @@ fileprivate func circlePosition(frame: CGRect, time: Date, timezone: TimeZone?, 
     return CGPoint(x: 0, y: 0)
   }
 
-  return pointInFrame(frame: frame, point: timePoint, timezone: timezone, startTime: startTime, endTime: endTime, preSunset: preSunset, postSunrise: postSunrise)
+  return pointInFrame(frame: frame, point: timePoint, now: time, timezone: timezone, startTime: startTime, endTime: endTime, preSunset: preSunset, postSunrise: postSunrise)
 }
 
 struct ParabolaLine: Shape {
+  var now: Date
   var timezone: TimeZone?
   var startTime: Date?
   var endTime: Date?
@@ -116,6 +116,8 @@ struct ParabolaLine: Shape {
     var path = Path()
 
     guard
+      let startTime = startTime,
+      let endTime = endTime,
       var startPoint = pointFraction(startTime, timezone),
       var endPoint = pointFraction(endTime, timezone)
     else {
@@ -133,10 +135,10 @@ struct ParabolaLine: Shape {
       return path
     }
 
-    if !startTime!.isToday(timezone) {
+    if !startTime.isSameDay(now, timezone) {
       startPoint -= 1
     }
-    if !endTime!.isToday(timezone) {
+    if !endTime.isSameDay(now, timezone) {
       endPoint += 1
     }
 
@@ -350,13 +352,14 @@ struct CurrentTimeText: View {
 
     if x < middle {
       if x < stringSize.ceil {
-        if preSunset != nil || (startTime != nil && !startTime!.isToday(timezone)) {
+        if preSunset != nil || (startTime != nil && !startTime!.isSameDay(now, timezone)) {
           y = frame.origin.y - 25
         } else {
           let rightCorner = stringSize.ceil
           y = pointInFrame(
             frame: frame,
             point: rightCorner / frame.width,
+            now: now,
             timezone: timezone,
             startTime: startTime,
             endTime: endTime,
@@ -368,13 +371,14 @@ struct CurrentTimeText: View {
       x = x - stringSize.exact
     } else {
       if x > frame.width - stringSize.floor {
-        if postSunrise != nil || (endTime != nil && !endTime!.isToday(timezone)) {
+        if postSunrise != nil || (endTime != nil && !endTime!.isSameDay(now, timezone)) {
           y = frame.origin.y - 25
         } else {
           let leftCorner = frame.width - stringSize.floor
           y = pointInFrame(
             frame: frame,
             point: leftCorner / frame.width,
+            now: now,
             timezone: timezone,
             startTime: startTime,
             endTime: endTime,
@@ -448,30 +452,34 @@ public struct Line: View {
   }
 
   public var body: some View {
-    let solar = (startTime == nil || endTime == nil) && coordinate != nil ? Solar(coordinate: coordinate!) : nil
+    let solar = (startTime == nil || endTime == nil) && coordinate != nil ? Solar(for: currentTime.now.inTimeZone(timezone), coordinate: coordinate!) : nil
 
-    var start = startTime?.staticTime(timezone) ?? solar?.civilSunrise
-    var end = endTime?.staticTime(timezone) ?? solar?.civilSunset
+    var start = startTime?.staticTime(currentTime.now, timezone) ?? solar?.sunrise
+    var end = endTime?.staticTime(currentTime.now, timezone) ?? solar?.sunset
 
     var postSunrise: Date? = nil
     var preSunset: Date? = nil
 
-    if start != nil && !start!.isToday(timezone) {
+    if start != nil && !start!.isSameDay(currentTime.now, timezone) {
       // that means the sunrise was yesterday, and that there will be another one
       // sometimes tonight
       // so we try to get the sunrise of tomorrow which should be the one of tonight
-      let tomorrow = Date().addingTimeInterval(24 * 3600)
+      let tomorrow = currentTime.now.inTimeZone(timezone).addingTimeInterval(24 * 3600)
       let tomorrowSolar = coordinate != nil ? Solar(for: tomorrow, coordinate: coordinate!) : nil
-      postSunrise = tomorrowSolar?.civilSunrise
+      if tomorrowSolar?.sunrise?.isSameDay(currentTime.now, timezone) ?? false {
+        postSunrise = tomorrowSolar?.sunrise
+      }
     }
 
-    if end != nil && !end!.isToday(timezone) {
+    if end != nil && !end!.isSameDay(currentTime.now, timezone) {
       // that means the sunset is tomorrow, and that there was be another one
       // sometimes this morning
       // so we try to get the sunset of yesterday which should be the one of this morning
-      let yesterday = Date().addingTimeInterval(-24 * 3600)
+      let yesterday = currentTime.now.inTimeZone(timezone).addingTimeInterval(-24 * 3600)
       let yesterdaySolar = coordinate != nil ? Solar(for: yesterday, coordinate: coordinate!) : nil
-      preSunset = yesterdaySolar?.civilSunset
+      if yesterdaySolar?.sunset?.isSameDay(currentTime.now, timezone) ?? false {
+        preSunset = yesterdaySolar?.sunset
+      }
     }
 
     if start == nil, end == nil {
@@ -489,11 +497,11 @@ public struct Line: View {
       }
     }
 
-    let diff = Double(timezone?.diffInSecond() ?? 0) / (24 * 3600)
+    let diff = Double(timezone?.secondsFromGMT() ?? 0) / (24 * 3600)
 
     return LineGeometryReader { p in
       ZStack(alignment: .topLeading) {
-        ParabolaLine(timezone: self.timezone, startTime: start, endTime: end, preSunset: preSunset, postSunrise: postSunrise)
+        ParabolaLine(now: self.currentTime.now, timezone: self.timezone, startTime: start, endTime: end, preSunset: preSunset, postSunrise: postSunrise)
           .stroke(style: StrokeStyle(lineWidth: self.lineWidth ?? defaultLineWidth, lineCap: .round, lineJoin: .round))
         CurrentTimeCircle(now: self.currentTime.now, timezone: self.timezone, startTime: start, endTime: end, preSunset: preSunset, postSunrise: postSunrise)
         CurrentTimeText(now: self.currentTime.now, timezone: self.timezone, startTime: start, endTime: end, preSunset: preSunset, postSunrise: postSunrise)
@@ -529,7 +537,7 @@ public struct Line_Previews: PreviewProvider {
       Line(coordinate: CLLocationCoordinate2D(latitude: 80, longitude: 80), timezone: TimeZone(secondsFromGMT: -8000))
 
       // https://github.com/mathieudutour/TimeLines/issues/39
-      Line(coordinate: CLLocationCoordinate2D(latitude: 43.05, longitude: -87.95), timezone: TimeZone(secondsFromGMT: -5 * 3600))
+      Line(coordinate: CLLocationCoordinate2D(latitude: 41.85, longitude: -87.65), timezone: TimeZone(secondsFromGMT: -5 * 3600))
     }
     .previewLayout(.fixed(width: 300, height: 80))
   }
