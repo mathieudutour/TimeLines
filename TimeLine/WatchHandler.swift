@@ -19,7 +19,7 @@ class WatchHandler : NSObject, WCSessionDelegate {
   override init() {
     super.init()
 
-    if isSuported() {
+    if WCSession.isSupported() {
       session.delegate = self
       session.activate()
     }
@@ -27,24 +27,15 @@ class WatchHandler : NSObject, WCSessionDelegate {
     print("isPaired?: \(session.isPaired), isWatchAppInstalled?: \(session.isWatchAppInstalled)")
   }
 
-  func isSuported() -> Bool {
-    return WCSession.isSupported()
-  }
-
-
   // MARK: - WCSessionDelegate
 
   func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
     print("activationDidCompleteWith activationState:\(activationState) error:\(String(describing: error))")
   }
 
-  func sessionDidBecomeInactive(_ session: WCSession) {
-    print("sessionDidBecomeInactive: \(session)")
-  }
+  func sessionDidBecomeInactive(_ session: WCSession) {}
 
   func sessionDidDeactivate(_ session: WCSession) {
-    print("sessionDidDeactivate: \(session)")
-    // Reactivate session
     /**
      * This is to re-activate the session on the phone when the user has switched from one
      * paired watch to second paired one. Calling it like this assumes that you have no other
@@ -60,38 +51,40 @@ class WatchHandler : NSObject, WCSessionDelegate {
   ///   - message: message received
   ///   - replyHandler: response handler
   func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
-    if message["request"] as? String == "contacts" {
-      let contacts = CoreDataManager.shared.fetch()
-      let tags = CoreDataManager.shared.fetchTags()
-
-      let serializedContacts = contacts.map({ contact in
-        [
-          "latitude": contact.latitude,
-          "longitude": contact.longitude,
-          "timezone": contact.timezone,
-          "name": contact.name ?? NO_VALUE,
-          "locationName": contact.locationName ?? NO_VALUE,
-          "startTime": contact.startTime ?? NO_VALUE,
-          "endTime": contact.endTime ?? NO_VALUE,
-          "favorite": contact.favorite,
-          "index": contact.index,
-          "tags": ((contact.tags?.allObjects ?? []) as [Tag]).map { $0.name ?? NO_VALUE }
-        ]
-      })
-      let serializedTags = tags.map({ tag in
-        [
-          "name": tag.name ?? NO_VALUE,
-          "red": tag.red,
-          "green": tag.green,
-          "blue": tag.blue,
-        ]
-      })
-
-      replyHandler([
-        "contacts" : serializedContacts,
-        "tags" : serializedTags
-      ])
+    if message["request"] as? String != "contacts" {
+      return replyHandler([:])
     }
+
+    let contacts = CoreDataManager.shared.fetch()
+    let tags = CoreDataManager.shared.fetchTags()
+
+    let serializedContacts = contacts.map({ contact in
+      [
+        "latitude": contact.latitude,
+        "longitude": contact.longitude,
+        "timezone": contact.timezone,
+        "name": contact.name ?? NO_VALUE,
+        "locationName": contact.locationName ?? NO_VALUE,
+        "startTime": contact.startTime?.timeIntervalSince1970 ?? NO_VALUE,
+        "endTime": contact.endTime?.timeIntervalSince1970 ?? NO_VALUE,
+        "favorite": contact.favorite,
+        "index": contact.index,
+        "tags": ((contact.tags?.allObjects ?? []) as [Tag]).map { $0.name ?? NO_VALUE }
+      ]
+    })
+    let serializedTags = tags.map({ tag in
+      [
+        "name": tag.name ?? NO_VALUE,
+        "red": tag.red,
+        "green": tag.green,
+        "blue": tag.blue,
+      ]
+    })
+
+    replyHandler([
+      "contacts" : serializedContacts,
+      "tags" : serializedTags
+    ])
   }
 
 }

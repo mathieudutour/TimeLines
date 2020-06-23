@@ -33,18 +33,10 @@ class HostingController: WKHostingController<WrapperView> {
     super.willActivate()
 
     // 2: Initialization of session and set as delegate this InterfaceController if it's supported
-    if isSuported() {
+    if WCSession.isSupported() {
       session.delegate = self
       session.activate()
     }
-  }
-
-  private func isSuported() -> Bool {
-    return WCSession.isSupported()
-  }
-
-  private func isReachable() -> Bool {
-    return session.isReachable
   }
 
   func sendMessage() {
@@ -53,7 +45,7 @@ class HostingController: WKHostingController<WrapperView> {
      *  foreground, or is running with a high priority in the background (for example, during a workout session
      *  or when a complication is loading its initial timeline data).
      */
-    guard isReachable() else {
+    guard session.isReachable else {
       print("iPhone is not reachable!!")
       return
     }
@@ -101,6 +93,8 @@ class HostingController: WKHostingController<WrapperView> {
             return
           }
           let fetchedTags = CoreDataManager.shared.findTags(tags)
+          let resolvedStartTime = (startTime as? String == NO_VALUE || startTime as? Double == nil) ? nil : Date(timeIntervalSince1970: startTime as! Double)
+          let resolvedEndTime = (endTime as? String == NO_VALUE || endTime as? Double == nil) ? nil : Date(timeIntervalSince1970: endTime as! Double)
 
           if let existingContact = CoreDataManager.shared.findContact(withName: name) {
             existingContact.latitude = latitude
@@ -109,12 +103,11 @@ class HostingController: WKHostingController<WrapperView> {
               existingContact.locationName = locationName
             }
             existingContact.timezone = timezone
-            existingContact.startTime = (startTime as? String == NO_VALUE) ? nil : startTime as? Date
-            existingContact.endTime = (endTime as? String == NO_VALUE) ? nil : endTime as? Date
+            existingContact.startTime = resolvedStartTime
+            existingContact.endTime = resolvedEndTime
             existingContact.tags = NSSet(array: fetchedTags)
             existingContact.favorite = favorite
             existingContact.index = index
-            CoreDataManager.shared.saveContext()
           } else {
             let existingContact = CoreDataManager.shared.createContact(
               name: name,
@@ -122,8 +115,8 @@ class HostingController: WKHostingController<WrapperView> {
               longitude: longitude,
               locationName: locationName != NO_VALUE ? locationName : "",
               timezone: timezone,
-              startTime: (startTime as? String == NO_VALUE) ? nil : startTime as? Date,
-              endTime: (endTime as? String == NO_VALUE) ? nil : endTime as? Date,
+              startTime: resolvedStartTime,
+              endTime: resolvedEndTime,
               tags: NSSet(array: fetchedTags),
               favorite: favorite
             )
