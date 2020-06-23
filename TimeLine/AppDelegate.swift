@@ -24,10 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     container = CoreDataManager.shared.viewContext
     watchHandler = WatchHandler.shared
 
-    if !(watchHandler?.isSuported() ?? false) {
-      print("WCSession not supported (f.e. on iPad).")
-    }
-
     return true
   }
 
