@@ -69,7 +69,7 @@ class WatchHandler : NSObject, WCSessionDelegate {
         "endTime": contact.endTime?.timeIntervalSince1970 ?? NO_VALUE,
         "favorite": contact.favorite,
         "index": contact.index,
-        "tags": ((contact.tags?.allObjects ?? []) as [Tag]).map { $0.name ?? NO_VALUE }
+        "tags": ((contact.tags?.allObjects ?? []) as! [Tag]).map { $0.name ?? NO_VALUE }
       ]
     })
     let serializedTags = tags.map({ tag in
