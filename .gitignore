@@ -10,6 +10,7 @@ config.*.yml
 
 *.xcodeproj/xcuserdata
 **/*.xcodeproj/xcuserdata
+**/*.xcworkspace/xcuserdata
 .env.sh
 screenshots
 Time Lines.app.dSYM.zip
