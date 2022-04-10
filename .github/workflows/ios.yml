@@ -42,11 +42,6 @@ jobs:
           bundle install
         env:
           CI: "true"
-      - name: Generate build number
-        id: buildnumber
-        uses: einaregilsson/build-number@v1
-        with:
-          token: ${{secrets.github_token}}
       - name: build	and beta release
         run: bundle exec fastlane ios beta
         env:
@@ -56,5 +51,5 @@ jobs:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           GITHUB_PASSWORD: ${{ secrets.GH_PASSWORD }}
           GITHUB_USERNAME: ${{ secrets.GH_USERNAME }}
-          BUILD_NUMBER: ${{ steps.buildnumber.outputs.build_number }}
+          BUILD_NUMBER: ${{ env.GITHUB_RUN_NUMBER }}
           DEVELOPER_DIR: "/Applications/Xcode_11.2.1.app"
