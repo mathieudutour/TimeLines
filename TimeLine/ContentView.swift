@@ -81,7 +81,7 @@ struct BindedContactRow: View {
   }
 }
 
-struct ContentView: View {
+struct ContentView: View, ContactPickerDelegate {
   @Environment(\.managedObjectContext) var context
   @Environment(\.inAppPurchaseContext) var iapManager
   @EnvironmentObject var routeState: RouteState
@@ -92,6 +92,7 @@ struct ContentView: View {
   ) var contacts: FetchedResults<Contact>
 
   @State private var showingSheet = false
+  @State private var showingOptions = false
   @State private var showingRestoreAlert = false
   @State private var showingAlert = false
   @State private var alertType: AlertType?
@@ -104,13 +105,29 @@ struct ContentView: View {
       if (!self.iapManager.hasAlreadyPurchasedUnlimitedContacts && self.contacts.count >= self.iapManager.contactsLimit) {
         self.showAlert(.upsell)
       } else {
-        self.routeState.navigate(.editContact(contact: nil))
+        showingOptions = true
       }
     }) {
       HStack {
         Image(systemName: "plus").padding()
         Text("Add a new contact")
       }
+      .actionSheet(isPresented: $showingOptions) {
+           ActionSheet(
+               title: Text("How do you want to add a new contact?"),
+               buttons: [
+                   .default(Text("Create a new contact")) {
+                       routeState.navigate(.editContact(contact: nil))
+                   },
+                   .default(Text("Import from contacts")) {
+                       routeState.navigate(.importContact)
+                   },
+                   .cancel {
+                       showingOptions = false
+                   }
+               ]
+           )
+       }
     }.disabled(!iapManager.hasAlreadyPurchasedUnlimitedContacts && !iapManager.canBuy())
   }
 
@@ -209,10 +226,17 @@ struct ContentView: View {
         ContactEdition().environment(\.managedObjectContext, self.context).environmentObject(self.routeState)
       } else if self.routeState.isShowingTags {
         Tags().environment(\.managedObjectContext, self.context).environmentObject(self.routeState)
+      } else if self.routeState.isImportingContact {
+        ContactPicker(delegate: self)
       }
     }
 
   }
+
+    func hasReceivedContact(contact: Contact?) {
+      self.routeState.isShowingSheetFromList = false
+      self.routeState.navigate(.editContact(contact: contact))
+    }
 
   private func filterContact(_ contact: Contact) -> Bool {
     guard search.count == 0 || NSPredicate(format: "name contains[c] %@", argumentArray: [search]).evaluate(with: contact) || contact.tags?.first(where: { tag in

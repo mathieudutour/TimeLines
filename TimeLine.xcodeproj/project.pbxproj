@@ -66,6 +66,13 @@
 		03D633C02436343700F8D2CE /* LocationSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D633BF2436343700F8D2CE /* LocationSearchController.swift */; };
 		03DCC2C22451CE98000D0B94 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DCC2C12451CE98000D0B94 /* ActivityIndicator.swift */; };
 		03F04B35244DF32000931FB0 /* AutoFocusTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F04B34244DF32000931FB0 /* AutoFocusTextField.swift */; };
+		D213CFF02917DE9F006C6D94 /* TLDCountries.swift in Sources */ = {isa = PBXBuildFile; fileRef = D213CFEF2917DE9F006C6D94 /* TLDCountries.swift */; };
+		D213CFF22917DEB3006C6D94 /* TLDCountry.swift in Sources */ = {isa = PBXBuildFile; fileRef = D213CFF12917DEB3006C6D94 /* TLDCountry.swift */; };
+		D2151563291016D10061E637 /* ContactPickerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2151562291016D10061E637 /* ContactPickerHelper.swift */; };
+		D2653F9D290EC5120048B8D1 /* PhoneNumberKit in Frameworks */ = {isa = PBXBuildFile; productRef = D2653F9C290EC5120048B8D1 /* PhoneNumberKit */; };
+		D2C0510828FE92E700485273 /* ContactPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C0510728FE92E700485273 /* ContactPickerViewController.swift */; };
+		D2C0510D28FE930200485273 /* ContactPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C0510C28FE930200485273 /* ContactPicker.swift */; };
+		D2E410392914024B004F2B4C /* TLDCountries.json in Resources */ = {isa = PBXBuildFile; fileRef = D2E410332912B857004F2B4C /* TLDCountries.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -260,6 +267,12 @@
 		03D633BF2436343700F8D2CE /* LocationSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchController.swift; sourceTree = "<group>"; };
 		03DCC2C12451CE98000D0B94 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		03F04B34244DF32000931FB0 /* AutoFocusTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoFocusTextField.swift; sourceTree = "<group>"; };
+		D213CFEF2917DE9F006C6D94 /* TLDCountries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TLDCountries.swift; sourceTree = "<group>"; };
+		D213CFF12917DEB3006C6D94 /* TLDCountry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TLDCountry.swift; sourceTree = "<group>"; };
+		D2151562291016D10061E637 /* ContactPickerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactPickerHelper.swift; sourceTree = "<group>"; };
+		D2C0510728FE92E700485273 /* ContactPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactPickerViewController.swift; sourceTree = "<group>"; };
+		D2C0510C28FE930200485273 /* ContactPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactPicker.swift; sourceTree = "<group>"; };
+		D2E410332912B857004F2B4C /* TLDCountries.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = TLDCountries.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -294,6 +307,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				03D633AC243619AF00F8D2CE /* TimeLineShared.framework in Frameworks */,
+				D2653F9D290EC5120048B8D1 /* PhoneNumberKit in Frameworks */,
 				03D633B124361C6A00F8D2CE /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -433,6 +447,7 @@
 		03D6335B2436149700F8D2CE /* TimeLine */ = {
 			isa = PBXGroup;
 			children = (
+				D2151561291014F80061E637 /* ContactPicker */,
 				03D633AF24361C5D00F8D2CE /* TimeLine.entitlements */,
 				03D6335C2436149700F8D2CE /* AppDelegate.swift */,
 				03D6335E2436149700F8D2CE /* SceneDelegate.swift */,
@@ -502,8 +517,29 @@
 		03D633BA2436275E00F8D2CE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D2E410332912B857004F2B4C /* TLDCountries.json */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		D2151561291014F80061E637 /* ContactPicker */ = {
+			isa = PBXGroup;
+			children = (
+				D2E410362913D503004F2B4C /* TLDCountries */,
+				D2C0510728FE92E700485273 /* ContactPickerViewController.swift */,
+				D2C0510C28FE930200485273 /* ContactPicker.swift */,
+				D2151562291016D10061E637 /* ContactPickerHelper.swift */,
+			);
+			path = ContactPicker;
+			sourceTree = "<group>";
+		};
+		D2E410362913D503004F2B4C /* TLDCountries */ = {
+			isa = PBXGroup;
+			children = (
+				D213CFF12917DEB3006C6D94 /* TLDCountry.swift */,
+				D213CFEF2917DE9F006C6D94 /* TLDCountries.swift */,
+			);
+			path = TLDCountries;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -601,6 +637,7 @@
 			);
 			name = TimeLine;
 			packageProductDependencies = (
+				D2653F9C290EC5120048B8D1 /* PhoneNumberKit */,
 			);
 			productName = TimeLine;
 			productReference = 03D633592436149700F8D2CE /* Time Lines.app */;
@@ -663,6 +700,7 @@
 			);
 			mainGroup = 03D633502436149700F8D2CE;
 			packageReferences = (
+				D2653F9B290EC5120048B8D1 /* XCRemoteSwiftPackageReference "PhoneNumberKit" */,
 			);
 			productRefGroup = 03D6335A2436149700F8D2CE /* Products */;
 			projectDirPath = "";
@@ -750,6 +788,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2E410392914024B004F2B4C /* TLDCountries.json in Resources */,
 				03D6336C2436149C00F8D2CE /* LaunchScreen.storyboard in Resources */,
 				03D633692436149C00F8D2CE /* Preview Assets.xcassets in Resources */,
 				03D633662436149C00F8D2CE /* Assets.xcassets in Resources */,
@@ -808,17 +847,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				035977A92452D2B10056732F /* SearchBar.swift in Sources */,
+				D2151563291016D10061E637 /* ContactPickerHelper.swift in Sources */,
 				03D6335D2436149700F8D2CE /* AppDelegate.swift in Sources */,
 				03B82EDF2455DA27002DA493 /* KeyboardAdaptive.swift in Sources */,
 				03D633C02436343700F8D2CE /* LocationSearchController.swift in Sources */,
+				D213CFF02917DE9F006C6D94 /* TLDCountries.swift in Sources */,
 				03D633642436149700F8D2CE /* ContentView.swift in Sources */,
 				03D6335F2436149700F8D2CE /* SceneDelegate.swift in Sources */,
 				03A0C4B224692D63008B5A64 /* WatchHandler.swift in Sources */,
 				03B82EDB245587C1002DA493 /* Tags.swift in Sources */,
 				03DCC2C22451CE98000D0B94 /* ActivityIndicator.swift in Sources */,
 				03B82EDD24558EAE002DA493 /* TagEdition.swift in Sources */,
+				D213CFF22917DEB3006C6D94 /* TLDCountry.swift in Sources */,
+				D2C0510D28FE930200485273 /* ContactPicker.swift in Sources */,
 				03D633BE24362B8900F8D2CE /* ContactEdition.swift in Sources */,
 				03B82ED92454B36C002DA493 /* State.swift in Sources */,
+				D2C0510828FE92E700485273 /* ContactPickerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1410,6 +1454,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D2653F9B290EC5120048B8D1 /* XCRemoteSwiftPackageReference "PhoneNumberKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/marmelroy/PhoneNumberKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D2653F9C290EC5120048B8D1 /* PhoneNumberKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D2653F9B290EC5120048B8D1 /* XCRemoteSwiftPackageReference "PhoneNumberKit" */;
+			productName = PhoneNumberKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 03D633512436149700F8D2CE /* Project object */;
 }
