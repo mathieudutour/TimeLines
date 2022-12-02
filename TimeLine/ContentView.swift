@@ -178,7 +178,6 @@ struct ContentView: View, ContactPickerDelegate {
         ContactPicker(delegate: self)
       }
     }
-
   }
 
     func hasReceivedContact(contact: Contact?) {
