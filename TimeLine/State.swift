@@ -13,6 +13,7 @@ import TimeLineShared
 enum Route {
   case list
   case editContact(contact: Contact?)
+  case importContact
   case contact(contact: Contact)
   case tags
   case editTag(tag: Tag?)
@@ -67,6 +68,20 @@ class RouteState: ObservableObject {
         }
       }
     }
+  }
+  @Published var isImportingContact: Bool = false {
+      didSet {
+          if isImportingContact == oldValue {
+            return
+          }
+          if !isImportingContact, case let .editContact(contact) = route {
+            if let contactUnwrap = contact {
+              navigate(.contact(contact: contactUnwrap))
+            } else {
+              navigate(.list)
+            }
+          }
+      }
   }
   @Published private(set) var editingContact: Contact? = nil
   @Published var isShowingTags: Bool = false {
@@ -123,6 +138,15 @@ class RouteState: ObservableObject {
       isEditingTag = false
       editingTag = nil
       isShowingTags = true
+      isShowingSheetFromList = true
+      contactDetailed = nil
+    } else if case .importContact = route {
+      isEditing = false
+      isImportingContact = true
+      editingContact = nil
+      isEditingTag = false
+      editingTag = nil
+      isShowingTags = false
       isShowingSheetFromList = true
       contactDetailed = nil
     } else {
