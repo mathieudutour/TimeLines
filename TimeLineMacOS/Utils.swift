@@ -98,7 +98,7 @@ extension NSAlert {
 extension Timer {
   /// Creates a repeating timer that runs for the given `duration`.
   @discardableResult
-  open class func scheduledRepeatingTimer(
+  public class func scheduledRepeatingTimer(
     withTimeInterval interval: TimeInterval,
     duration: TimeInterval,
     onRepeat: @escaping (Timer) -> Void,

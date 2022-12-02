@@ -13,7 +13,6 @@ import CoreData
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-  var iapManager: IAPManager?
   var context: NSManagedObjectContext?
 
   var popover = NSPopover()
@@ -27,15 +26,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   var statusBar: StatusBarController?
 
   func applicationDidFinishLaunching(_ aNotification: Notification) {
-    iapManager = IAPManager.shared
-    IAPManager.shared.startObserving()
-
     context = CoreDataManager.shared.viewContext
 
     let contentView = MenuView()
       .background(Color.clear)
       .environment(\.managedObjectContext, context!)
-      .environment(\.inAppPurchaseContext, iapManager!)
 
     let vc = NSHostingController(rootView: contentView)
     popover.contentViewController = vc
@@ -43,7 +38,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let manageView = ManageContacts()
       .background(Color.clear)
       .environment(\.managedObjectContext, context!)
-      .environment(\.inAppPurchaseContext, iapManager!)
 
     if let window = windowController.window {
       window.delegate = self
@@ -65,8 +59,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     guard App.isFirstLaunch else {
       return
     }
-
-    LaunchAtLogin.isEnabled = false
 
     NSApp.activate(ignoringOtherApps: true)
     NSAlert.showModal(

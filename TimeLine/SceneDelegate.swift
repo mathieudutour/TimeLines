@@ -22,7 +22,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     let contentView = ContentView()
       .environment(\.managedObjectContext, CoreDataManager.shared.viewContext)
-      .environment(\.inAppPurchaseContext, IAPManager.shared)
       .environmentObject(RouteState.shared)
 
     // Use a UIHostingController as window root view controller.

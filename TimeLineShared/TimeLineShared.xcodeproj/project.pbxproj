@@ -34,8 +34,6 @@
 		03D5A5D02438B6C3004AC5EB /* TimeZone+print.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D633C324364BF000F8D2CE /* TimeZone+print.swift */; };
 		03D5A5D12438B6CB004AC5EB /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 03D633A4243616C200F8D2CE /* Model.xcdatamodeld */; };
 		03D5A5E52438C2A2004AC5EB /* ContactRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D5A5E42438C2A2004AC5EB /* ContactRow.swift */; };
-		03D5A669243A3CAA004AC5EB /* InAppPurchases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D5A668243A3CAA004AC5EB /* InAppPurchases.swift */; };
-		03D5A66D243A41F9004AC5EB /* InAppPurchases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D5A668243A3CAA004AC5EB /* InAppPurchases.swift */; };
 		03D5A672243B6A0D004AC5EB /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D5A671243B6A0D004AC5EB /* Utils.swift */; };
 		03D5A673243B6A32004AC5EB /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D5A671243B6A0D004AC5EB /* Utils.swift */; };
 		03D5A677243C7DD5004AC5EB /* ContactDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D5A676243C7DD5004AC5EB /* ContactDetails.swift */; };
@@ -75,7 +73,6 @@
 		03D5A5C62438B68D004AC5EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		03D5A5E42438C2A2004AC5EB /* ContactRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactRow.swift; sourceTree = "<group>"; };
 		03D5A5E92438C453004AC5EB /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/SwiftUI.framework; sourceTree = DEVELOPER_DIR; };
-		03D5A668243A3CAA004AC5EB /* InAppPurchases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppPurchases.swift; sourceTree = "<group>"; };
 		03D5A66A243A3FE0004AC5EB /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
 		03D5A671243B6A0D004AC5EB /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		03D5A676243C7DD5004AC5EB /* ContactDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetails.swift; sourceTree = "<group>"; };
@@ -190,7 +187,6 @@
 				035977AA245319890056732F /* Contact+tags.swift */,
 				035977AE245333A20056732F /* Tag+image.swift */,
 				037918C22445A24100715C81 /* CurrentTime.swift */,
-				03D5A668243A3CAA004AC5EB /* InAppPurchases.swift */,
 				03D5A671243B6A0D004AC5EB /* Utils.swift */,
 				03D633C5243653AB00F8D2CE /* Solar.swift */,
 				03D5A679243C7E9B004AC5EB /* MapView.swift */,
@@ -294,7 +290,7 @@
 		03D6338A2436165100F8D2CE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1330;
+				LastUpgradeCheck = 1410;
 				ORGANIZATIONNAME = "Mathieu Dutour";
 				TargetAttributes = {
 					03B8BF9424437AF70009E084 = {
@@ -385,7 +381,6 @@
 				03D5A678243C7DF3004AC5EB /* ContactDetails.swift in Sources */,
 				03D5A673243B6A32004AC5EB /* Utils.swift in Sources */,
 				035977AC24531B4A0056732F /* Contact+tags.swift in Sources */,
-				03D5A66D243A41F9004AC5EB /* InAppPurchases.swift in Sources */,
 				03D5A5D12438B6CB004AC5EB /* Model.xcdatamodeld in Sources */,
 				03D5A680243CA078004AC5EB /* VisualEffectView.swift in Sources */,
 				03D5A5CB2438B6C3004AC5EB /* CoreDataManager.swift in Sources */,
@@ -417,7 +412,6 @@
 				037918C32445A24100715C81 /* CurrentTime.swift in Sources */,
 				03D633C424364BF000F8D2CE /* TimeZone+print.swift in Sources */,
 				03D633A6243616C200F8D2CE /* Model.xcdatamodeld in Sources */,
-				03D5A669243A3CAA004AC5EB /* InAppPurchases.swift in Sources */,
 				03D5A53A24373FC6004AC5EB /* Line.swift in Sources */,
 				03D5A53824373FB3004AC5EB /* ContactRow.swift in Sources */,
 			);
@@ -484,6 +478,7 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -510,6 +505,7 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;

@@ -42,7 +42,7 @@ public struct ContactRow: View {
       if !hideLine {
         Line(coordinate: coordinate, timezone: timezone, startTime: startTime, endTime: endTime)
         .frame(width: 220, height: 80, alignment: .trailing)
-        .offset(y: 10)
+        .offset(y: 30)
       }
     }
   }
@@ -53,7 +53,7 @@ public struct ContactRow_Previews: PreviewProvider {
     Group {
       ContactRow(name: "Mathieu", timezone: TimeZone(secondsFromGMT: 0), coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0))
       ContactRow(name: "Paul", timezone: TimeZone(secondsFromGMT: -3600), coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0))
-      ContactRow(name: "Paul", timezone: TimeZone(secondsFromGMT: +7800), coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0))
+      ContactRow(name: "Jacques", timezone: TimeZone(secondsFromGMT: +7800), coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0))
     }
     .previewLayout(.fixed(width: 300, height: 90))
   }

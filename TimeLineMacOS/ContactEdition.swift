@@ -40,7 +40,7 @@ struct ButtonThatLookLikeTextFieldStyle: ButtonStyle {
       .padding(10)
       .foregroundColor(Color(self.locationText == "" ? NSColor.placeholderTextColor : NSColor.labelColor))
       .background(Color(NSColor.controlBackgroundColor))
-      .border(Color(NSColor.controlShadowColor), width: 0.5)
+      .border(Color(NSColor.separatorColor), width: 0.5)
   }
 }
 

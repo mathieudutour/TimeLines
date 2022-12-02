@@ -12,23 +12,16 @@ import TimeLineShared
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-  var iapManager: IAPManager?
   var container: NSManagedObjectContext?
   var watchHandler: WatchHandler?
   var state: RouteState?
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-    iapManager = IAPManager.shared
-    IAPManager.shared.startObserving()
     state = RouteState.shared
     container = CoreDataManager.shared.viewContext
     watchHandler = WatchHandler.shared
 
     return true
-  }
-
-  func applicationWillTerminate(_ application: UIApplication) {
-    IAPManager.shared.stopObserving()
   }
 
   // MARK: UISceneSession Lifecycle
@@ -44,6 +37,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
     // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
   }
-
 }
-

@@ -10,14 +10,6 @@ import SwiftUI
 import TimeLineShared
 import CoreLocation
 
-enum AlertType {
-  case noProducts
-  case cantBuy
-  case cantRestore
-  case didRestore
-  case upsell
-}
-
 struct MeRow: View {
   @Environment(\.editMode) var editMode
 
@@ -83,7 +75,6 @@ struct BindedContactRow: View {
 
 struct ContentView: View, ContactPickerDelegate {
   @Environment(\.managedObjectContext) var context
-  @Environment(\.inAppPurchaseContext) var iapManager
   @EnvironmentObject var routeState: RouteState
 
   @FetchRequest(
@@ -92,43 +83,36 @@ struct ContentView: View, ContactPickerDelegate {
   ) var contacts: FetchedResults<Contact>
 
   @State private var showingSheet = false
-  @State private var showingOptions = false
-  @State private var showingRestoreAlert = false
-  @State private var showingAlert = false
-  @State private var alertType: AlertType?
+  @State private var showingNewContactOptions = false
   @State private var errorMessage: String?
   @State private var search = ""
   @State private var searchTokens: [Tag] = []
 
   var addNewContact: some View {
     Button(action: {
-      if (!self.iapManager.hasAlreadyPurchasedUnlimitedContacts && self.contacts.count >= self.iapManager.contactsLimit) {
-        self.showAlert(.upsell)
-      } else {
-        showingOptions = true
-      }
+      showingNewContactOptions = true
     }) {
       HStack {
         Image(systemName: "plus").padding()
         Text("Add a new contact")
       }
-      .actionSheet(isPresented: $showingOptions) {
-           ActionSheet(
-               title: Text("How do you want to add a new contact?"),
-               buttons: [
-                   .default(Text("Create a new contact")) {
-                       routeState.navigate(.editContact(contact: nil))
-                   },
-                   .default(Text("Import from contacts")) {
-                       routeState.navigate(.importContact)
-                   },
-                   .cancel {
-                       showingOptions = false
-                   }
-               ]
-           )
+      .actionSheet(isPresented: $showingNewContactOptions) {
+         ActionSheet(
+           title: Text("How do you want to add a new contact?"),
+           buttons: [
+             .default(Text("Create a new contact")) {
+               routeState.navigate(.editContact(contact: nil))
+             },
+             .default(Text("Import from contacts")) {
+               routeState.navigate(.importContact)
+             },
+             .cancel {
+               showingNewContactOptions = false
+             }
+           ]
+         )
        }
-    }.disabled(!iapManager.hasAlreadyPurchasedUnlimitedContacts && !iapManager.canBuy())
+    }
   }
 
   var body: some View {
@@ -163,45 +147,9 @@ struct ContentView: View, ContactPickerDelegate {
           .default(Text("Send Feedback"), action: {
             UIApplication.shared.open(App.feedbackPage)
           }),
-          .default(Text("Restore Purchases"), action: tryAgainRestore),
           .cancel()
         ])
       })
-      .alert(isPresented: $showingAlert) {
-        switch self.alertType {
-        case .noProducts:
-          return Alert(
-            title: Text("Error while trying to get the In App Purchases"),
-            message: Text(self.errorMessage ?? "Seems like there was an issue with the Apple's servers."),
-            primaryButton: .cancel(Text("Cancel"), action: self.dismissAlert),
-            secondaryButton: .default(Text("Try Again"), action: self.tryAgainBuyWithNoProduct)
-          )
-        case .cantBuy:
-          return Alert(
-            title: Text("Error while trying to purchase the product"),
-            message: Text(self.errorMessage ?? "Seems like there was an issue with the Apple's servers."),
-            primaryButton: .cancel(Text("Cancel"), action: self.dismissAlert),
-            secondaryButton: .default(Text("Try Again"), action: self.tryAgainBuy)
-          )
-        case .cantRestore:
-          return Alert(
-            title: Text(self.errorMessage ?? "Error while trying to restore the purchases"),
-            primaryButton: .cancel(Text("Cancel"), action: self.dismissAlert),
-            secondaryButton: .default(Text("Try Again"), action: self.tryAgainRestore)
-          )
-        case .didRestore:
-          return Alert(title: Text("Purchases restored successfully!"), dismissButton: .default(Text("OK")))
-        case .upsell:
-          return Alert(
-            title: Text("You've reached the limit of the free Time Lines version"),
-            message: Text("Unlock the full version to add an unlimited number of contacts."),
-            primaryButton: .default(Text("Unlock Full Version"), action: self.tryAgainBuy),
-            secondaryButton: .cancel(Text("Cancel"), action: self.dismissAlert)
-          )
-        case nil:
-          return Alert(title: Text("Unknown Error"), dismissButton: .default(Text("OK")))
-        }
-      }
 
       // default view on iPad
       if contacts.count > 0 {
@@ -272,71 +220,6 @@ struct ContentView: View, ContactPickerDelegate {
   private func moveContact(from source: IndexSet, to destination: Int) {
     for index in source {
       CoreDataManager.shared.moveContact(from: index, to: destination)
-    }
-  }
-
-  private func showAlert(_ type: AlertType, withMessage message: String? = nil) {
-    self.alertType = type
-    self.errorMessage = message
-    self.showingAlert = true
-  }
-
-  private func dismissAlert() {
-    self.showingAlert = false
-    self.alertType = nil
-    self.errorMessage = nil
-  }
-
-  private func tryAgainBuyWithNoProduct() {
-    dismissAlert()
-    self.iapManager.getProducts(withHandler: { result in
-      switch result {
-      case .success(_):
-        self.tryAgainBuy()
-        break
-      case .failure(let error):
-        self.showAlert(.noProducts, withMessage: error.localizedDescription)
-        break
-      }
-    })
-  }
-
-  private func tryAgainBuy() {
-    dismissAlert()
-    DispatchQueue.main.async {
-      if let unlimitedContactsProduct = self.iapManager.unlimitedContactsProduct {
-        self.iapManager.buy(product: unlimitedContactsProduct) { result in
-          switch result {
-          case .success(_):
-            self.routeState.navigate(.editContact(contact: nil))
-            break
-          case .failure(let error):
-            if let customError = error as? IAPManager.IAPManagerError, customError == .paymentWasCancelled {
-              // don't do anything if it's cancelled
-              return
-            }
-            self.showAlert(.cantBuy, withMessage: error.localizedDescription)
-          }
-        }
-      } else {
-        self.showAlert(.noProducts)
-      }
-    }
-  }
-
-  private func tryAgainRestore() {
-    dismissAlert()
-    DispatchQueue.main.async {
-      self.iapManager.restorePurchases() { res in
-        switch res {
-        case .success(_):
-          self.showAlert(.didRestore)
-          break
-        case .failure(let error):
-          print(error)
-          self.showAlert(.cantRestore, withMessage: error.localizedDescription)
-        }
-      }
     }
   }
 }

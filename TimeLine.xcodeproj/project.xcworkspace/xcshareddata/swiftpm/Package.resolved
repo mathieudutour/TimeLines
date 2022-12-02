@@ -1,0 +1,23 @@
+{
+  "pins" : [
+    {
+      "identity" : "launchatlogin-modern",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sindresorhus/LaunchAtLogin-Modern",
+      "state" : {
+        "branch" : "main",
+        "revision" : "9c41991631605c8ccfe0347bbcb5c659169f2ec5"
+      }
+    },
+    {
+      "identity" : "phonenumberkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/marmelroy/PhoneNumberKit.git",
+      "state" : {
+        "revision" : "143ea15033dc6fede5ec73d96d9296a54dad8fef",
+        "version" : "3.5.1"
+      }
+    }
+  ],
+  "version" : 2
+}

@@ -9,6 +9,7 @@
 import AppKit
 import SwiftUI
 import TimeLineSharedMacOS
+import LaunchAtLogin
 
 class StatusBarController: NSObject {
   private var statusItem: NSStatusItem
@@ -148,10 +149,6 @@ extension StatusBarController: NSMenuDelegate {
 
     menu.addCallbackItem("Manage Contacts…", key: ",") { _ in
       self.contentView.showWindow(self)
-    }
-
-    menu.addCallbackItem("Restore Purchases") { _ in
-      IAPManager.shared.restorePurchases() { _ in }
     }
 
     let item = menu.addCallbackItem("Start at Login") { menuItem in

@@ -17,7 +17,7 @@ struct ButtonThatLookLikeRowStyle: ButtonStyle {
       .padding(10)
       .foregroundColor(Color(NSColor.labelColor))
       .background(Color(NSColor.controlBackgroundColor))
-      .border(Color(NSColor.controlShadowColor), width: 0)
+      .border(Color(NSColor.separatorColor), width: 0)
   }
 }
 
@@ -28,7 +28,7 @@ struct ButtonThatLookLikeNothingStyle: ButtonStyle {
       .padding(.trailing, 3)
       .foregroundColor(Color(NSColor.secondaryLabelColor))
       .background(Color(NSColor.clear))
-      .border(Color(NSColor.controlShadowColor), width: 0)
+      .border(Color(NSColor.separatorColor), width: 0)
   }
 }
 

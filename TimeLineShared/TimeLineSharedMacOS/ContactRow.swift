@@ -39,7 +39,7 @@ public struct ContactRow: View {
 
       Line(coordinate: coordinate, timezone: timezone, startTime: startTime, endTime: endTime)
       .frame(width: 220, height: 80, alignment: .trailing)
-      .offset(y: 10)
+      .offset(y: 30)
     }
   }
 }
