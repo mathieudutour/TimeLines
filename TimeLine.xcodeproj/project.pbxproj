@@ -859,7 +859,7 @@
 				CODE_SIGN_ENTITLEMENTS = "TimeLineWatchOS Extension/TimeLineWatchOS Extension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 56;
+				CURRENT_PROJECT_VERSION = 61;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 8SEPFSC7S3;
 				ENABLE_PREVIEWS = YES;
@@ -869,7 +869,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.9;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = me.dutour.mathieu.TimeLine.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development me.dutour.mathieu.TimeLine.watchkitapp.watchkitextension";
@@ -888,7 +888,7 @@
 				CODE_SIGN_ENTITLEMENTS = "TimeLineWatchOS Extension/TimeLineWatchOS Extension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 56;
+				CURRENT_PROJECT_VERSION = 61;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 8SEPFSC7S3;
 				ENABLE_PREVIEWS = YES;
@@ -898,7 +898,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.9;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = me.dutour.mathieu.TimeLine.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore me.dutour.mathieu.TimeLine.watchkitapp.watchkitextension";
@@ -918,7 +918,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 60;
+				CURRENT_PROJECT_VERSION = 61;
 				DEVELOPMENT_TEAM = 8SEPFSC7S3;
 				IBSC_MODULE = TimeLineWatchOS_Extension;
 				INFOPLIST_FILE = TimeLineWatchOS/Info.plist;
@@ -941,7 +941,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 60;
+				CURRENT_PROJECT_VERSION = 61;
 				DEVELOPMENT_TEAM = 8SEPFSC7S3;
 				IBSC_MODULE = TimeLineWatchOS_Extension;
 				INFOPLIST_FILE = TimeLineWatchOS/Info.plist;
@@ -965,7 +965,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 60;
+				CURRENT_PROJECT_VERSION = 61;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 8SEPFSC7S3;
@@ -998,7 +998,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 60;
+				CURRENT_PROJECT_VERSION = 61;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = 8SEPFSC7S3;
@@ -1150,7 +1150,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 60;
+				CURRENT_PROJECT_VERSION = 61;
 				DEVELOPMENT_ASSET_PATHS = "\"TimeLine/Preview Content\"";
 				DEVELOPMENT_TEAM = 8SEPFSC7S3;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
@@ -1182,7 +1182,7 @@
 				CODE_SIGN_ENTITLEMENTS = TimeLine/TimeLine.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 60;
+				CURRENT_PROJECT_VERSION = 61;
 				DEVELOPMENT_ASSET_PATHS = "\"TimeLine/Preview Content\"";
 				DEVELOPMENT_TEAM = 8SEPFSC7S3;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
@@ -1211,7 +1211,7 @@
 				CODE_SIGN_ENTITLEMENTS = "TimeLine Widget/TimeLine Widget.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 56;
+				CURRENT_PROJECT_VERSION = 61;
 				DEVELOPMENT_TEAM = 8SEPFSC7S3;
 				INFOPLIST_FILE = "TimeLine Widget/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1220,7 +1220,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.9;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "me.dutour.mathieu.TimeLine.TimeLine-Widget";
 				PRODUCT_NAME = "Time Lines Widget";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development me.dutour.mathieu.TimeLine.TimeLine-Widget";
@@ -1237,7 +1237,7 @@
 				CODE_SIGN_ENTITLEMENTS = "TimeLine Widget/TimeLine Widget.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 56;
+				CURRENT_PROJECT_VERSION = 61;
 				DEVELOPMENT_TEAM = 8SEPFSC7S3;
 				INFOPLIST_FILE = "TimeLine Widget/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1246,7 +1246,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.9;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "me.dutour.mathieu.TimeLine.TimeLine-Widget";
 				PRODUCT_NAME = "Time Lines Widget";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore me.dutour.mathieu.TimeLine.TimeLine-Widget";
