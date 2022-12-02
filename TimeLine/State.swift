@@ -23,7 +23,6 @@ class RouteState: ObservableObject {
   static let shared = RouteState()
 
   @Published private(set) var route: Route = .list
-
   // derived data
   @Published var isShowingSheetFromList: Bool = false {
     didSet {
