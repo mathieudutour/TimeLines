@@ -27,6 +27,8 @@
 	</array>
 	<key>WKCompanionAppBundleIdentifier</key>
 	<string>me.dutour.mathieu.TimeLine</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>WKWatchKitApp</key>
 	<true/>
 </dict>

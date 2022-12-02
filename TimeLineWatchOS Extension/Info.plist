@@ -36,6 +36,8 @@
 	</array>
 	<key>WKExtensionDelegateClassName</key>
 	<string>$(PRODUCT_MODULE_NAME).ExtensionDelegate</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>WKRunsIndependentlyOfCompanionApp</key>
 	<true/>
 </dict>
