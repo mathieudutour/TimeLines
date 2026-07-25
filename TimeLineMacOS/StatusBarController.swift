@@ -101,7 +101,7 @@ extension StatusBarController {
 
     // show the manage window when we don't have any contact
     if contacts == 0 {
-      self.contentView.showWindow(self)
+      showManageContactsWindow()
       return
     }
 
@@ -118,6 +118,15 @@ extension StatusBarController {
   func hidePopover(_ sender: AnyObject) {
     popover.performClose(sender)
     eventMonitor?.stop()
+  }
+
+  func showManageContactsWindow() {
+    // the app is an LSUIElement (menu bar) app so it is never the active
+    // application; without activating it first the window would appear
+    // behind other apps' windows, without focus
+    NSApp.activate(ignoringOtherApps: true)
+    contentView.showWindow(self)
+    contentView.window?.makeKeyAndOrderFront(self)
   }
 
   func mouseEventHandler(_ event: NSEvent?) {
@@ -148,7 +157,7 @@ extension StatusBarController: NSMenuDelegate {
     menu.removeAllItems()
 
     menu.addCallbackItem("Manage Contacts…", key: ",") { _ in
-      self.contentView.showWindow(self)
+      self.showManageContactsWindow()
     }
 
     let item = menu.addCallbackItem("Start at Login") { menuItem in
