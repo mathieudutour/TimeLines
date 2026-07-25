@@ -440,44 +440,52 @@ public struct Line: View {
   var timezone: TimeZone?
   var startTime: Date?
   var endTime: Date?
+  var time: Date?
 
   var lineWidth: CGFloat?
   var maxHeight: CGFloat?
 
-  public init(coordinate: CLLocationCoordinate2D?, timezone: TimeZone?, startTime: Date? = nil, endTime: Date? = nil) {
+  public init(coordinate: CLLocationCoordinate2D?, timezone: TimeZone?, startTime: Date? = nil, endTime: Date? = nil, time: Date? = nil) {
     self.coordinate = coordinate
     self.timezone = timezone
     self.startTime = startTime
     self.endTime = endTime
+    self.time = time
+  }
+
+  // when a fixed time is provided (e.g. by the widget, which renders static
+  // snapshots for specific dates), use it instead of the ticking current time
+  private var now: Date {
+    time ?? currentTime.now
   }
 
   public var body: some View {
-    let solar = (startTime == nil || endTime == nil) && coordinate != nil ? Solar(for: currentTime.now.inTimeZone(timezone), coordinate: coordinate!) : nil
+    let solar = (startTime == nil || endTime == nil) && coordinate != nil ? Solar(for: now.inTimeZone(timezone), coordinate: coordinate!) : nil
 
-    var start = startTime?.staticTime(currentTime.now, timezone) ?? solar?.sunrise
-    var end = endTime?.staticTime(currentTime.now, timezone) ?? solar?.sunset
+    var start = startTime?.staticTime(now, timezone) ?? solar?.sunrise
+    var end = endTime?.staticTime(now, timezone) ?? solar?.sunset
 
     var postSunrise: Date? = nil
     var preSunset: Date? = nil
 
-    if start != nil && !start!.isSameDay(currentTime.now, timezone) {
+    if start != nil && !start!.isSameDay(now, timezone) {
       // that means the sunrise was yesterday, and that there will be another one
       // sometimes tonight
       // so we try to get the sunrise of tomorrow which should be the one of tonight
-      let tomorrow = currentTime.now.inTimeZone(timezone).addingTimeInterval(24 * 3600)
+      let tomorrow = now.inTimeZone(timezone).addingTimeInterval(24 * 3600)
       let tomorrowSolar = coordinate != nil ? Solar(for: tomorrow, coordinate: coordinate!) : nil
-      if tomorrowSolar?.sunrise?.isSameDay(currentTime.now, timezone) ?? false {
+      if tomorrowSolar?.sunrise?.isSameDay(now, timezone) ?? false {
         postSunrise = tomorrowSolar?.sunrise
       }
     }
 
-    if end != nil && !end!.isSameDay(currentTime.now, timezone) {
+    if end != nil && !end!.isSameDay(now, timezone) {
       // that means the sunset is tomorrow, and that there was be another one
       // sometimes this morning
       // so we try to get the sunset of yesterday which should be the one of this morning
-      let yesterday = currentTime.now.inTimeZone(timezone).addingTimeInterval(-24 * 3600)
+      let yesterday = now.inTimeZone(timezone).addingTimeInterval(-24 * 3600)
       let yesterdaySolar = coordinate != nil ? Solar(for: yesterday, coordinate: coordinate!) : nil
-      if yesterdaySolar?.sunset?.isSameDay(currentTime.now, timezone) ?? false {
+      if yesterdaySolar?.sunset?.isSameDay(now, timezone) ?? false {
         preSunset = yesterdaySolar?.sunset
       }
     }
@@ -501,10 +509,10 @@ public struct Line: View {
 
     return LineGeometryReader { p in
       ZStack(alignment: .topLeading) {
-        ParabolaLine(now: self.currentTime.now, timezone: self.timezone, startTime: start, endTime: end, preSunset: preSunset, postSunrise: postSunrise)
+        ParabolaLine(now: self.now, timezone: self.timezone, startTime: start, endTime: end, preSunset: preSunset, postSunrise: postSunrise)
           .stroke(style: StrokeStyle(lineWidth: self.lineWidth ?? defaultLineWidth, lineCap: .round, lineJoin: .round))
-        CurrentTimeCircle(now: self.currentTime.now, timezone: self.timezone, startTime: start, endTime: end, preSunset: preSunset, postSunrise: postSunrise)
-        CurrentTimeText(now: self.currentTime.now, timezone: self.timezone, startTime: start, endTime: end, preSunset: preSunset, postSunrise: postSunrise)
+        CurrentTimeCircle(now: self.now, timezone: self.timezone, startTime: start, endTime: end, preSunset: preSunset, postSunrise: postSunrise)
+        CurrentTimeText(now: self.now, timezone: self.timezone, startTime: start, endTime: end, preSunset: preSunset, postSunrise: postSunrise)
       }
       .frame(width: p.width, height: p.height)
       .gesture(

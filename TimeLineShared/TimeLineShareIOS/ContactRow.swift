@@ -16,14 +16,16 @@ public struct ContactRow: View {
   public var startTime: Date?
   public var endTime: Date?
   public var hideLine: Bool
+  public var time: Date?
 
-  public init(name: String, timezone: TimeZone?, coordinate: CLLocationCoordinate2D?, startTime: Date? = nil, endTime: Date? = nil, hideLine: Bool = false) {
+  public init(name: String, timezone: TimeZone?, coordinate: CLLocationCoordinate2D?, startTime: Date? = nil, endTime: Date? = nil, hideLine: Bool = false, time: Date? = nil) {
     self.name = name
     self.timezone = timezone
     self.coordinate = coordinate
     self.startTime = startTime
     self.endTime = endTime
     self.hideLine = hideLine
+    self.time = time
   }
 
   public var body: some View {
@@ -40,7 +42,7 @@ public struct ContactRow: View {
       Spacer()
 
       if !hideLine {
-        Line(coordinate: coordinate, timezone: timezone, startTime: startTime, endTime: endTime)
+        Line(coordinate: coordinate, timezone: timezone, startTime: startTime, endTime: endTime, time: time)
         .frame(width: 220, height: 80, alignment: .trailing)
         .offset(y: 30)
       }
