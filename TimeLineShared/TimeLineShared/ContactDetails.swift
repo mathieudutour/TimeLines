@@ -27,10 +27,9 @@ public struct TagView: View {
         tag.swiftCircle
           .frame(width: 15, height: 15)
           .padding(.leading, 4)
-        Text(tag.name ?? "").font(.subheadline).foregroundColor(Color.white)
+        Text(tag.name ?? "").font(.subheadline).foregroundColor(Color.primary)
           .padding(.init(top: 2, leading: 0, bottom: 2, trailing: 4))
-      }.background(Color.gray)
-      .cornerRadius(3)
+      }.glassy(cornerRadius: 3)
     }
   }
 }

@@ -113,3 +113,36 @@ public struct App {
     return URL(string: "https://github.com/mathieudutour/TimeLines/issues/new")!.addingDictionaryAsQuery(query)
   }()
 }
+
+public extension View {
+  /// A "glassy" background for floating controls: Liquid Glass on OS 26+,
+  /// a translucent material on iOS 15/macOS 12+, and a translucent color on
+  /// older systems.
+  @ViewBuilder func glassy(cornerRadius: CGFloat = 10) -> some View {
+    // the compiler check keeps the project building with pre-26 SDKs, which
+    // don't have the glassEffect symbols at all
+    #if compiler(>=6.2)
+    if #available(iOS 26.0, macOS 26.0, *) {
+      self.glassEffect(.regular, in: RoundedRectangle(cornerRadius: cornerRadius))
+    } else {
+      materialGlassy(cornerRadius: cornerRadius)
+    }
+    #else
+    materialGlassy(cornerRadius: cornerRadius)
+    #endif
+  }
+}
+
+private extension View {
+  @ViewBuilder func materialGlassy(cornerRadius: CGFloat) -> some View {
+    if #available(iOS 15.0, macOS 12.0, *) {
+      self.background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: cornerRadius))
+    } else {
+      #if os(macOS)
+      self.background(Blur(material: .hudWindow)).cornerRadius(cornerRadius)
+      #else
+      self.background(Color(UIColor.systemBackground).opacity(0.85)).cornerRadius(cornerRadius)
+      #endif
+    }
+  }
+}

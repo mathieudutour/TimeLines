@@ -83,13 +83,16 @@ struct ManageContacts: View {
             self.showingEdit = true
           }) {
             Text("Edit")
+              .padding(.init(top: 5, leading: 12, bottom: 5, trailing: 12))
           }
+          .buttonStyle(PlainButtonStyle())
+          .glassy(cornerRadius: 5)
         }
       }
     }
     .edgesIgnoringSafeArea(.top)
     .navigationViewStyle(DoubleColumnNavigationViewStyle())
-    .background(Blur().edgesIgnoringSafeArea(.top))
+    .background(Blur(material: .hudWindow).edgesIgnoringSafeArea(.top))
   }
 
   private func deleteContact(at indexSet: IndexSet) {

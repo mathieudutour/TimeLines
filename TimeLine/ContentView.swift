@@ -52,8 +52,7 @@ struct BindedContactRow: View {
         Text("Edit")
       }
       .padding(.init(top: 10, leading: 15, bottom: 10, trailing: 15))
-      .background(Color(UIColor.systemBackground))
-      .cornerRadius(5)
+      .glassy(cornerRadius: 5)
     })
   }
 
@@ -160,13 +159,12 @@ struct ContentView: View, ContactPickerDelegate {
             Text("Edit")
           }
           .padding(.init(top: 10, leading: 15, bottom: 10, trailing: 15))
-          .background(Color(UIColor.systemBackground))
-          .cornerRadius(5)
+          .glassy(cornerRadius: 5)
         }
       } else {
         VStack {
           Text("Get started by adding a new contact")
-          addNewContact.padding(.trailing, 20).foregroundColor(Color.accentColor).border(Color.accentColor)
+          addNewContact.padding(.trailing, 20).foregroundColor(Color.accentColor).glassy()
         }
       }
     }.sheet(isPresented: self.$routeState.isShowingSheetFromList) {

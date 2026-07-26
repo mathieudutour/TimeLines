@@ -182,6 +182,18 @@ struct TimeLineWidgetEntryView: View {
   }
 }
 
+extension View {
+  // iOS 17 requires widgets to use the containerBackground API when built
+  // with a modern SDK; a material also gives the widget a glassy look
+  @ViewBuilder func widgetContainerBackground() -> some View {
+    if #available(iOSApplicationExtension 17.0, *) {
+      self.containerBackground(.ultraThinMaterial, for: .widget)
+    } else {
+      self
+    }
+  }
+}
+
 @main
 struct TimeLineWidget: Widget {
   let kind: String = "TimeLineWidget"
@@ -189,6 +201,7 @@ struct TimeLineWidget: Widget {
   var body: some WidgetConfiguration {
     StaticConfiguration(kind: kind, provider: FavoriteContactsProvider()) { entry in
       TimeLineWidgetEntryView(entry: entry)
+        .widgetContainerBackground()
     }
     .configurationDisplayName("Time Lines")
     .description("See the time lines of your favorite contacts.")
